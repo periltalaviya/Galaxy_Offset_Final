@@ -1,0 +1,161 @@
+{% extends 'admin1/layout/master.html' %}
+{% block title %}Gallary{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+
+            {% if gallary_show %}
+            <h1>
+                <center>Gallary</center>
+            </h1>
+            <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
+                Image
+            </button>
+            <div class="modal fade" id="modal-primary">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add Gallary</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body mt-2">
+                            <form action="{% url 'admin-gallary'%}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <label>Image:</label>
+                                <input type="file" name="img_path" class="form-control w-50"><br>
+                                <br>
+                                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+            <br>
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="card mt-2 border border-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title ">Gallary</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <table class="table table-bordered border border-info">
+                                <thead>
+                                <tr>
+                                    <th>Image Id</th>
+                                    <th>Image</th>
+                                    <th>Upload Date</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody class="justify-content-center">
+                                {% for x in gallary_show %}
+
+                                <tr>
+                                    <td>{{x.img_id}}</td>
+                                    <td><img src="{{x.img_path.url}}" alt="{{x.img_path}}" height="100" width="100">
+                                    </td>
+                                    <td>{{x.upload_date}}</td>
+                                    <td><a href="/admin1/gallary_edit/{{x.img_id}} "
+                                           class="btn btn-outline-primary mt-2"><i
+                                            class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="/admin1/gallary_delete/{{x.img_id}}"
+                                           class="btn btn-outline-danger mt-2"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></a>
+                                        <a href="/admin1/gallary_show1/{{x.img_id}}"
+                                           class="btn btn-outline-warning mt-2"><i
+                                                class="fa fa-eye" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix ">
+                            <ul class="pagination pagination-sm m-0 justify-content-center">
+                                {% if gallary_show.has_previous %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{gallary_show.has_previous_page_number}}">
+                                    Previous </a>
+                                </li>
+                                {% endif%}
+                                {% for x in gallary_show.paginator.page_range %}
+
+                                {% if gallary_show.number == x %}
+                                <li class="page-item active"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% else%}
+                                <li class="page-item"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if gallary_show.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{gallary_show.has_next_page_number}}"> Next </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            {% endif %}
+
+            {% if gallary_edit %}
+            {% for x in gallary_edit %}
+            <form action="/admin1/gallary_edit/{{x.img_id}}" method="POST">
+                {% csrf_token %}
+                <label>Image :</label>
+                <input type="text" name="img_path" value="{{x.img_path}}" class="form-control w-50"><br>
+
+                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+            </form>
+            {% endfor %}
+
+            {% elif gallary_show1 %}
+
+            {% for x in gallary_show1 %}
+            <table class="table table-bordered">
+                <center><h1> Image Details</h1></center>
+                <tr>
+                    <th>Id :</th>
+                    <td>{{x.img_id}}</td>
+                </tr>
+                <tr>
+                    <th>Image Upload Date</th>
+                    <td>{{x.upload_date}}</td>
+                </tr>
+            </table>
+            <h3>Image</h3>
+            <table class="card mt-2 border border-secondary">
+                <tr>
+                    <td class="d-flex justify-content-center"><img class="border border-secondary mx-4 my-2"
+                                                                   src="{{x.img_path.url}}" alt="{{x.img_path}}"
+                                                                   style="height: auto; width:500px;"/></td>
+                </tr>
+
+            </table>
+            {% endfor %}
+
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

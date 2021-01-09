@@ -1,0 +1,127 @@
+{% extends 'admin1/layout/master.html' %}
+{% block title %}Size{% endblock %}
+{% block main %}
+<h1>
+    <center>Size</center>
+</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+
+            {% if size_show %}
+
+            <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
+                Size
+            </button>
+            <div class="modal fade" id="modal-primary">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add Product Size</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body mt-2">
+                            <form action="{% url 'admin-product-size'%}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <label>Product Size:</label>
+                                <input type="text" name="prod_size" class="form-control w-50"><br>
+                                <br>
+                                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="card mt-2 border border-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title ">Size Table</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <table class="table table-bordered border border-info">
+                                <thead>
+                                <tr>
+                                    <th>Size Id</th>
+                                    <th>Product Size</th>
+                                </tr>
+                                </thead>
+                                <tbody class="justify-content-center">
+                                {% for x in size_show %}
+
+                                <tr>
+                                    <td>{{x.size_id}}</td>
+                                    <td>{{x.prod_size}}</td>
+                                    <td><a href="/admin1/size_edit/{{x.size_id}} "
+                                           class="btn btn-outline-primary mt-2"><i
+                                            class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="/admin1/size_delete/{{x.size_id}}"
+                                           class="btn btn-outline-danger mt-2"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix ">
+                            <ul class="pagination pagination-sm m-0 justify-content-center">
+                                {% if size_show.has_previous %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{size_show.has_previous_page_number}}">
+                                    Previous </a>
+                                </li>
+                                {% endif%}
+                                {% for x in size_show.paginator.page_range %}
+
+                                {% if size_show.number == x %}
+                                <li class="page-item active"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% else%}
+                                <li class="page-item"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if size_show.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{size_show.has_next_page_number}}"> Next </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            {% endif %}
+            {% if size_edit %}
+            {% for x in size_edit %}
+            <form action="admin1/size_data_update/{{x.size_id}}" method="POST">
+                {% csrf_token %}
+                <label>Size Name:</label>
+                <input type="text" name="prod_size" value="{{x.prod_size}}" class="form-control w-50"><br>
+
+                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+            </form>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

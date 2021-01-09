@@ -1,0 +1,85 @@
+{% extends 'admin1/layout/master.html' %}
+{% block title %}Feedback{% endblock %}
+{% block main %}
+<h1>
+    <center>Feedback</center>
+</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="card mt-2 border border-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title ">Feedback Table</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <table class="table table-bordered border border-info">
+                                <thead>
+                                <tr>
+                                    <th>Feedback Id</th>
+                                    <th>User ID</th>
+                                    <th>Feedback</th>
+                                    <th>FeedBack Date</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody class="justify-content-center">
+                                {% for x in Feedback_show %}
+
+                                <tr>
+                                    <td>{{x.feedback_id}}</td>
+                                    <td>{{x.user_id}}</td>
+                                    <td>{{x.feedback_desc}}</td>
+                                    <td>{{x.feedback_date}}</td>
+                                    <td>
+                                        <a href="/admin1/feedback_delete/{{x.feedback_id}}"
+                                           class="btn btn-outline-danger mt-2"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix ">
+                            <ul class="pagination pagination-sm m-0 justify-content-center">
+                                {% if feedback_show.has_previous %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{feedback_show.has_previous_page_number}}">
+                                    Previous </a>
+                                </li>
+                                {% endif%}
+                                {% for x in feedback_show.paginator.page_range %}
+
+                                {% if size_show.number == x %}
+                                <li class="page-item active"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% else%}
+                                <li class="page-item"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if size_show.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{feedback_show.has_next_page_number}}"> Next </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

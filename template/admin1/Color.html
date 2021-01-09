@@ -1,0 +1,125 @@
+{% extends 'admin1/layout/master.html' %}
+{% block title %}Color{% endblock %}
+{% block main %}
+<h1>
+    <center>Color</center>
+</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+
+            <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
+                Color Options
+            </button>
+            <div class="modal fade" id="modal-primary">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add Color Options</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body mt-2">
+                            <form action="{% url 'admin-color-options'%}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <label>Color Option :</label>
+                                <input type="text" name="prod_color" class="form-control w-50"><br>
+                                <br>
+                                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+            <br>
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="card mt-2 border border-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title ">Product Color Table</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <table class="table table-bordered border border-info">
+                                <thead>
+                                <tr>
+                                    <th>Color Id</th>
+                                    <th>Product Color Option</th>
+                                </tr>
+                                </thead>
+                                <tbody class="justify-content-center">
+                                {% for x in color_show %}
+
+                                <tr>
+                                    <td>{{x.color_id}}</td>
+                                    <td>{{x.prod_color}}</td>
+                                    <td><a href="/admin1/color_edit/{{x.color_id}} "
+                                           class="btn btn-outline-primary mt-2"><i
+                                            class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="/admin1/color_delete/{{x.color_id}}"
+                                           class="btn btn-outline-danger mt-2"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix ">
+                            <ul class="pagination pagination-sm m-0 justify-content-center">
+                                {% if color_show.has_previous %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{color_show.has_previous_page_number}}">
+                                    Previous </a>
+                                </li>
+                                {% endif%}
+                                {% for x in color_show.paginator.page_range %}
+
+                                {% if color_show.number == x %}
+                                <li class="page-item active"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% else%}
+                                <li class="page-item"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if color_show.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{color_show.has_next_page_number}}"> Next </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            {% if color_edit %}
+            {% for x in color_edit %}
+            <form action="admin1/color_data_update/{{x.color_id}}" method="POST">
+                {% csrf_token %}
+                <label>Size Name:</label>
+                <input type="text" name="prod_color" value="{{x.prod_color}}" class="form-control w-50"><br>
+
+                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+            </form>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

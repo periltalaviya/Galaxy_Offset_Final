@@ -1,0 +1,179 @@
+{% extends 'admin1/layout/master.html' %}
+{% block title %}Product{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+
+            {% if product_edit %}
+            {% for y in product_edit %}
+            <form action="/admin1/product_edit/{{y.prod_ID}}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Product Name:</label>
+                <input type="text" name="p_name" value="{{y.prod_Name}}" class="form-control w-50"><br>
+                <label>Product Price:</label>
+                <input type="number" name="p_price" value="{{y.prod_Price}}" class="form-control w-50"><br>
+                <label>Product Description:</label>
+                <input type="text" name="p_desc" value="{{y.prod_Desc}}" class="form-control w-50"><br>
+                <label>Product Image:</label>
+                <input type="file" name="p_image" value="{{y.prod_img}}" class="form-control w-50">
+                <br>
+                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+            {% endfor %}
+
+            {% elif product_show1 %}
+
+            {% for x in product_show1 %}
+            <table class="table table-bordered">
+                <center><h1> Product Details</h1></center>
+                <tr>
+                    <th>Id :</th>
+                    <td>{{x.prod_ID}}</td>
+                </tr>
+                <tr>
+                    <th>Product Name</th>
+                    <td>{{x.prod_Name}}</td>
+                </tr>
+                <tr>
+                    <th>product price</th>
+                    <td>{{x.prod_Price}}</td>
+                </tr>
+                <tr>
+                    <th>Product desc</th>
+                    <td>{{x.prod_Desc}}</td>
+                </tr>
+                <tr>
+                    <th>Product image</th>
+                    <td><img src="{{x.prod_img.url}}" alt="{{x.p_image}}" height="100" width="100"></td>
+                </tr>
+
+            </table>
+            {% endfor %}
+
+
+            {% else %}
+            <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
+                product
+            </button>
+            <div class="modal fade" id="modal-primary">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add Product</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body mt-2">
+                            <form action="/admin1/product/" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <label>Product Name:</label>
+                                <input type="text" name="p_name" class="form-control w-50"><br>
+                                <label>Product Price:</label>
+                                <input type="number" name="p_price" class="form-control w-50"><br>
+                                <label>Product Description:</label>
+                                <input type="text" name="p_desc" class="form-control w-50"><br>
+                                <label>Product Image:</label>
+                                <input type="file" name="p_image" class="form-control w-50"><br>
+                                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+            <br>
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="card mt-2 border border-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title ">Product Table</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <table class="table table-bordered border border-info">
+                                <thead>
+                                <tr>
+                                    <th>Product Id</th>
+                                    <th>Product Name</th>
+                                    <th>Product Price</th>
+                                    <th>Product Discription</th>
+                                    <th>Product Image</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody class="justify-content-center">
+                                {% for x in product_show %}
+
+                                <tr>
+                                    <td>{{x.prod_ID}}</td>
+                                    <td>{{x.prod_Name}}</td>
+                                    <td>{{x.prod_Price}}</td>
+                                    <td>{{x.prod_Desc}}</td>
+                                    <td><img src="{{x.prod_img.url}}" alt="{{x.prod_img}}" height="100" width="100">
+                                    </td>
+                                    <td><a href="/admin1/product_edit/{{x.prod_ID}} "
+                                           class="btn btn-outline-primary mt-2"><i
+                                            class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="/admin1/product_delete/{{x.prod_ID}}"
+                                           class="btn btn-outline-danger mt-2"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></a>
+                                        <a href="/admin1/product_show1/{{x.prod_ID}}"
+                                           class="btn btn-outline-warning mt-2"><i
+                                                class="fa fa-eye" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix ">
+                            <ul class="pagination pagination-sm m-0 justify-content-center">
+                                {% if product_show.has_previous %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{product_show.has_previous_page_number}}"> Previous </a>
+                                </li>
+                                {% endif%}
+                                {% for x in product_show.paginator.page_range %}
+
+                                {% if product_show.number == x %}
+                                <li class="page-item active"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% else%}
+                                <li class="page-item"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if product_show.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{product_show.has_next_page_number}}"> Next </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
