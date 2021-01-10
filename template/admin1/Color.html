@@ -64,10 +64,10 @@
                                 <tr>
                                     <td>{{x.color_id}}</td>
                                     <td>{{x.prod_color}}</td>
-                                    <td><a href="/admin1/color_edit/{{x.color_id}} "
+                                    <td><a href="{% url 'admin-product-color-edit' x.color_id%}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="/admin1/color_delete/{{x.color_id}}"
+                                        <a href="{% url 'admin-product-color-delete' x.color_id%}"
                                            class="btn btn-outline-danger mt-2"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></a>
                                     </td>
@@ -110,7 +110,7 @@
             </div>
             {% if color_edit %}
             {% for x in color_edit %}
-            <form action="admin1/color_data_update/{{x.color_id}}" method="POST">
+            <form action="{% url 'admin-product-color-edit-update' x.color_id %}" method="POST">
                 {% csrf_token %}
                 <label>Size Name:</label>
                 <input type="text" name="prod_color" value="{{x.prod_color}}" class="form-control w-50"><br>

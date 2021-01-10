@@ -69,13 +69,13 @@
                                     <td><img src="{{x.img_path.url}}" alt="{{x.img_path}}" height="100" width="100">
                                     </td>
                                     <td>{{x.upload_date}}</td>
-                                    <td><a href="/admin1/gallary_edit/{{x.img_id}} "
+                                    <td><a href="{% url 'admin-gallary-edit' x.img_id%}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="/admin1/gallary_delete/{{x.img_id}}"
+                                        <a href="{% url 'admin-gallary-delete' x.img_id%}"
                                            class="btn btn-outline-danger mt-2"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></a>
-                                        <a href="/admin1/gallary_show1/{{x.img_id}}"
+                                        <a href="{% url 'admin-gallary-show1' x.img_id%}"
                                            class="btn btn-outline-warning mt-2"><i
                                                 class="fa fa-eye" aria-hidden="true"></i></a>
                                     </td>
@@ -120,10 +120,10 @@
 
             {% if gallary_edit %}
             {% for x in gallary_edit %}
-            <form action="/admin1/gallary_edit/{{x.img_id}}" method="POST">
+            <form action="{% url 'admin-gallary-edit' x.img_id %}" method="POST">
                 {% csrf_token %}
                 <label>Image :</label>
-                <input type="text" name="img_path" value="{{x.img_path}}" class="form-control w-50"><br>
+                <input type="file" name="img_path" class="form-control w-50"><br>
 
                 <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
             </form>

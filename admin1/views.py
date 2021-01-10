@@ -241,9 +241,89 @@ def paperChoice_edit_update(request, id):
 
 
 def paperChoice_delete(id):
-    paperChoice_delete = PaperChoice.objects.filter(paper_id=id)
+    paperChoice_delete = ShrinkWrapping.objects.filter(paper_id=id)
     paperChoice_delete.delete()
     return redirect('/admin1/paperChoice')
+
+
+def shrinkWrapping(request):
+    if request.method == 'POST':
+        shrinkWrapping_store = request.POST['shrink_options']
+        shrinkWrapping_update = ShrinkWrapping(shrink_options=shrinkWrapping_store)
+        shrinkWrapping_update.save()
+        return redirect('/admin1/shrinkWrapping')
+    else:
+        shrinkWrapping_show = ShrinkWrapping.objects.all()
+        # start paginator logic
+        paginator = Paginator(shrinkWrapping_show, 3)
+        page = request.GET.get('page')
+        try:
+            shrinkWrapping_show = paginator.page(page)
+        except PageNotAnInteger:
+            shrinkWrapping_show = paginator.page(1)
+        except EmptyPage:
+            shrinkWrapping_show = paginator.page(paginator.num_pages)
+        # end paginator logic
+        return render(request, 'admin1/shrinkWrapping.html', {'shrinkWrapping_show': shrinkWrapping_show})
+
+
+def shrinkWrapping_edit(request, id):
+    shrinkWrapping_edit = ShrinkWrapping.objects.filter(shrink_wrapping_id=id)
+    return render(request, 'admin1/shrinkWrapping.html', {'shrinkWrapping_edit': shrinkWrapping_edit})
+
+
+def shrinkWrapping_edit_update(request, id):
+    if request.method == 'POST':
+        shrinkWrapping_store = request.POST['shrink_options']
+        shrinkWrapping_update = ShrinkWrapping(shrink_wrapping_id=id, shrink_options=shrinkWrapping_store)
+        shrinkWrapping_update.save()
+        return redirect('/admin1/shrinkWrapping')
+
+
+def shrinkWrapping_delete(id):
+    shrinkWrapping_delete = ShrinkWrapping.objects.filter(shrink_wrapping_id=id)
+    shrinkWrapping_delete.delete()
+    return redirect('/admin1/shrinkWrapping')
+
+
+def aqutousCoating(request):
+    if request.method == 'POST':
+        aqutousCoating_store = request.POST['aqutous_coating_type']
+        aqutousCoating_update = AqutousCoating(aqutous_coating=aqutousCoating_store)
+        aqutousCoating_update.save()
+        return redirect('/admin1/aqutousCoating')
+    else:
+        aqutousCoating_show = AqutousCoating.objects.all()
+        # start paginator logic
+        paginator = Paginator(aqutousCoating_show, 3)
+        page = request.GET.get('page')
+        try:
+            aqutousCoating_show = paginator.page(page)
+        except PageNotAnInteger:
+            aqutousCoating_show = paginator.page(1)
+        except EmptyPage:
+            aqutousCoating_show = paginator.page(paginator.num_pages)
+        # end paginator logic
+        return render(request, 'admin1/aqutousCoating.html', {'shrinkWrapping_show': aqutousCoating_show})
+
+
+def aqutousCoating_edit(request, id):
+    aqutousCoating_edit = AqutousCoating.objects.filter(aqutous_coating_id=id)
+    return render(request, 'admin1/aqutousCoating.html', {'aqutousCoating_edit': aqutousCoating_edit})
+
+
+def aqutousCoating_edit_update(request, id):
+    if request.method == 'POST':
+        aqutousCoating_store = request.POST['shrink_options']
+        aqutousCoating_update = AqutousCoating(aqutous_coating_id=id, aqutous_coating_type=aqutousCoating_store)
+        aqutousCoating_update.save()
+        return redirect('/admin1/aqutousCoating')
+
+
+def aqutousCoating_delete(id):
+    aqutousCoating_delete = AqutousCoating.objects.filter(aqutous_coating_id=id)
+    aqutousCoating_delete.delete()
+    return redirect('/admin1/aqutousCoating')
 
 
 def feedback(request):

@@ -66,13 +66,13 @@
                                     <td>{{x.temp_id}}</td>
                                     <td><img src="{{x.temp_img.url}}" alt="{{x.temp_img}}" height="100" width="100">
                                     </td>
-                                    <td><a href="/admin1/templateImage_edit/{{x.temp_id}} "
+                                    <td><a href="{% url 'admin-template-image-edit' x.temp_id%}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="/admin1/templateImage_delete/{{x.temp_id}}"
+                                        <a href="{% url 'admin-template-image-delete' x.temp_id%}"
                                            class="btn btn-outline-danger mt-2"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></a>
-                                        <a href="/admin1/templateImage_show1/{{x.temp_id}}"
+                                        <a href="{% url 'admin-template-image-show1' x.temp_id%}"
                                            class="btn btn-outline-warning mt-2"><i
                                                 class="fa fa-eye" aria-hidden="true"></i></a>
                                     </td>
@@ -118,7 +118,7 @@
 
             {% if templateImage_edit %}
             {% for x in templateImage_edit %}
-            <form action="/admin1/templateImage_edit/{{x.img_id}}" method="POST">
+            <form action="{% url 'admin-template-image-edit' x.img_id %}" method="POST">
                 {% csrf_token %}
                 <label>Template Image :</label>
                 <input type="text" name="temp_img" value="{{x.temp_img}}" class="form-control w-50"><br>

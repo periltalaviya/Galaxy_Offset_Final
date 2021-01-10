@@ -43,4 +43,16 @@ urlpatterns = [
     path('paperChoice_delete/<int:id>', views.paperChoice_delete, name="admin-paper-choice-delete"),
     path('paperChoice_edit/<int:id>', views.paperChoice_edit, name="admin-paper-choice-edit"),
     path('paperChoice_data_update/<int:id>', views.paperChoice_edit_update, name="admin-paper-choice-edit-update"),
+
+    path('shrinkWrapping/', views.shrinkWrapping, name="admin-shrink-wrapping"),
+    path('shrinkWrapping_delete/<int:id>', views.shrinkWrapping_delete, name="admin-shrink-wrapping-delete"),
+    path('shrinkWrapping_edit/<int:id>', views.shrinkWrapping_edit, name="admin-shrink-wrapping-edit"),
+    path('shrinkWrapping_data_update/<int:id>', views.shrinkWrapping_edit_update, name="admin-shrink-wrapping-edit-update"),
+
+    path('aqutousCoating/', views.aqutousCoating, name="admin-aqutous-coating"),
+    path('aqutousCoating_delete/<int:id>', views.aqutousCoating_delete, name="admin-aqutous-coating-delete"),
+    path('aqutousCoating_edit/<int:id>', views.aqutousCoating_edit, name="admin-aqutous-coating-edit"),
+    path('aqutousCoating_data_update/<int:id>', views.aqutousCoating_edit_update,
+         name="admin-aqutous-coating-edit-update"),
+
 ]

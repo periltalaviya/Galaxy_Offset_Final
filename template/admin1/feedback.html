@@ -37,7 +37,7 @@
                                     <td>{{x.feedback_desc}}</td>
                                     <td>{{x.feedback_date}}</td>
                                     <td>
-                                        <a href="/admin1/feedback_delete/{{x.feedback_id}}"
+                                        <a href="{% url 'admin-feedback-delete' x.feedback_id%}"
                                            class="btn btn-outline-danger mt-2"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></a>
                                     </td>

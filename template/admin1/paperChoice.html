@@ -64,10 +64,10 @@
                                 <tr>
                                     <td>{{x.paper_id}}</td>
                                     <td>{{x.paper_choices_name}}</td>
-                                    <td><a href="/admin1/paperChoice_edit/{{x.paper_id}} "
+                                    <td><a href="{% url 'admin-paper-choice-edit' x.paper_id%}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="/admin1/paperChoice_delete/{{x.paper_id}}"
+                                        <a href="{% url 'admin-paper-choice-delete' x.paper_id%}"
                                            class="btn btn-outline-danger mt-2"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></a>
                                     </td>
@@ -84,7 +84,7 @@
                             <ul class="pagination pagination-sm m-0 justify-content-center">
                                 {% if paperChoice_show.has_previous %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{paperChoice.has_previous_page_number}}">
+                                                         href="?page={{paperChoice_show.has_previous_page_number}}">
                                     Previous </a>
                                 </li>
                                 {% endif%}
@@ -110,7 +110,7 @@
             </div>
             {% if paperChoice_edit %}
             {% for x in paperChoice_edit %}
-            <form action="admin1/paperChoice_data_update/{{x.paper_id}}" method="POST">
+            <form action="{% url 'admin-paper-choice-edit-update' x.paper_id %}" method="POST">
                 {% csrf_token %}
                 <label>Size Name:</label>
                 <input type="text" name="paper_choices_name" value="{{x.paper_choices_name}}" class="form-control w-50"><br>
