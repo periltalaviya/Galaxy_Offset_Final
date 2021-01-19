@@ -56,6 +56,7 @@
                                 <tr>
                                     <th>Folding Option Id</th>
                                     <th>Folding Option</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody class="justify-content-center">
@@ -84,7 +85,7 @@
                             <ul class="pagination pagination-sm m-0 justify-content-center">
                                 {% if foldingOption_show.has_previous %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{foldingOption_show.has_previous_page_number}}">
+                                                         href="?page={{foldingOption_show.previous_page_number}}">
                                     Previous </a>
                                 </li>
                                 {% endif%}
@@ -99,7 +100,7 @@
 
                                 {% if foldingOption_show.has_next %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{foldingOption_show.has_next_page_number}}">
+                                                         href="?page={{foldingOption_show.next_page_number}}">
                                     Next </a>
                                 </li>
                                 {% endif %}

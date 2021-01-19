@@ -56,6 +56,7 @@
                                 <tr>
                                     <th>Color Id</th>
                                     <th>Product Color Option</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody class="justify-content-center">
@@ -64,6 +65,7 @@
                                 <tr>
                                     <td>{{x.color_id}}</td>
                                     <td>{{x.prod_color}}</td>
+
                                     <td><a href="{% url 'admin-product-color-edit' x.color_id%}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
@@ -84,7 +86,7 @@
                             <ul class="pagination pagination-sm m-0 justify-content-center">
                                 {% if color_show.has_previous %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{color_show.has_previous_page_number}}">
+                                                         href="?page={{color_show.previous_page_number}}">
                                     Previous </a>
                                 </li>
                                 {% endif%}
@@ -99,7 +101,7 @@
 
                                 {% if color_show.has_next %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{color_show.has_next_page_number}}"> Next </a>
+                                                         href="?page={{color_show.next_page_number}}"> Next </a>
                                 </li>
                                 {% endif %}
                             </ul>

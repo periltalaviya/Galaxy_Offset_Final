@@ -149,7 +149,7 @@
                             <ul class="pagination pagination-sm m-0 justify-content-center">
                                 {% if product_show.has_previous %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{product_show.has_previous_page_number}}"> Previous </a>
+                                                         href="?page={{product_show.previous_page_number}}"> Previous </a>
                                 </li>
                                 {% endif%}
                                 {% for x in product_show.paginator.page_range %}
@@ -163,7 +163,7 @@
 
                                 {% if product_show.has_next %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{product_show.has_next_page_number}}"> Next </a>
+                                                         href="?page={{product_show.next_page_number}}"> Next </a>
                                 </li>
                                 {% endif %}
                             </ul>

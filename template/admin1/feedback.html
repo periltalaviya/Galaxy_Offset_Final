@@ -54,7 +54,7 @@
                             <ul class="pagination pagination-sm m-0 justify-content-center">
                                 {% if feedback_show.has_previous %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{feedback_show.has_previous_page_number}}">
+                                                         href="?page={{feedback_show.previous_page_number}}">
                                     Previous </a>
                                 </li>
                                 {% endif%}
@@ -69,7 +69,7 @@
 
                                 {% if size_show.has_next %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{feedback_show.has_next_page_number}}"> Next </a>
+                                                         href="?page={{feedback_show.next_page_number}}"> Next </a>
                                 </li>
                                 {% endif %}
                             </ul>

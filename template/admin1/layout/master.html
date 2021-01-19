@@ -29,7 +29,7 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <script src="https://use.fontawesome.com/474c0a0c36.js"></script>
-
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
     <title></title>
 
 </head>
@@ -45,7 +45,7 @@
                                                                                      aria-hidden="true"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
+                <a href="{% url 'admin-home'%}" class="nav-link">Home</a>
             </li>
         </ul>
 
@@ -135,8 +135,8 @@
     <aside class="main-sidebar sidebar-light-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{% url 'admin-home' %}" class="brand-link">
-            <img src="{% static 'img/welcome1.jpg' %}" alt="Galaxy Offset Logo"
-                 class="brand-image img-circle elevation-3"
+            <img src="{% static 'images/galaxyOffsetLogo.png' %}" alt="Galaxy Offset Logo"
+                 class="img-responsive elevation-3"
                  style="opacity: .8">
             <span class="brand-text font-weight-light">Galaxy Offset</span>
         </a>
@@ -204,7 +204,7 @@
 
                                 </p>
                             </a>
-                            <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <ul class="collapse list-unstyled scroll" id="pageSubmenu">
                                 <div style="overflow-y : scroll; height:200px; width:230px;">
                                     <li>
                                         <a class="nav-link" href="{%url 'admin-product-size' %}">Size</a>
@@ -225,16 +225,16 @@
                                         <a class="nav-link" href="{%url 'admin-aqutous-coating' %}">Aqutous Coating</a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="#">Folding Options</a>
+                                        <a class="nav-link" href="{%url 'admin-folding-option' %}">Folding Options</a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="#">No Of Months</a>
+                                        <a class="nav-link" href="{%url 'admin-no-of-months' %}">No Of Months</a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="#">Hole Drilling</a>
+                                        <a class="nav-link" href="{%url 'admin-hole-drilling' %}">Hole Drilling</a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="#">Binding Method</a>
+                                        <a class="nav-link" href="{%url 'admin-binding-method' %}">Binding Method</a>
                                     </li>
                                 </div>
                             </ul>
@@ -250,9 +250,10 @@
                                 </p>
                             </a>
                             <ul class="collapse list-unstyled" id="pageSubmenu2">
-                                <div style="overflow-y : scroll; overflow-x : scroll; overflow : auto; height:200px; width:230px;">
+                                <div id="scroll" class="scroll1">
                                     <li>
-                                        <a class="nav-link" href="#">Product and Size Mapping</a>
+                                        <a class="nav-link" href="{%url 'admin-size-product-map' %}">Product and Size
+                                            Mapping</a>
                                     </li>
                                     <li>
                                         <a class="nav-link" href="#">Product and Image Template Mapping</a>
@@ -336,7 +337,7 @@
 
     <!-- /.content-wrapper -->
     <footer class="main-footer navbar-footer">
-        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+        <strong>Copyright &copy; 2014-2019.</strong>
         All rights reserved.
         <div class="float-right d-none d-sm-inline-block">
             <b>Version</b> 3.0.5
@@ -358,6 +359,7 @@
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
+
 
 
 

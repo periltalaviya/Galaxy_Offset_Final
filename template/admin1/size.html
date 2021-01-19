@@ -57,6 +57,7 @@
                                 <tr>
                                     <th>Size Id</th>
                                     <th>Product Size</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody class="justify-content-center">
@@ -85,7 +86,7 @@
                             <ul class="pagination pagination-sm m-0 justify-content-center">
                                 {% if size_show.has_previous %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{size_show.has_previous_page_number}}">
+                                                         href="?page={{size_show.previous_page_number}}">
                                     Previous </a>
                                 </li>
                                 {% endif%}
@@ -100,7 +101,7 @@
 
                                 {% if size_show.has_next %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{size_show.has_next_page_number}}"> Next </a>
+                                                         href="?page={{size_show.next_page_number}}"> Next </a>
                                 </li>
                                 {% endif %}
                             </ul>

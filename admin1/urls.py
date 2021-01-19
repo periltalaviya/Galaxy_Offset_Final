@@ -29,6 +29,12 @@ urlpatterns = [
     path('size_edit/<int:id>', views.size_edit, name="admin-product-size-edit"),
     path('size_data_update/<int:id>', views.size_edit_update, name="admin-product-size-edit-update"),
 
+    path('sizeProductMap/', views.sizeProductMap, name="admin-size-product-map"),
+    path('sizeProductMap_delete/<int:id>', views.sizeProductMap_delete, name="admin-size-product-map-delete"),
+    path('sizeProductMap_edit/<int:id>', views.sizeProductMap_edit, name="admin-size-product-map-edit"),
+    path('sizeProductMap_data_update/<int:id>', views.sizeProductMap_edit_update,
+         name="admin-size-product-map-edit-update"),
+
     path('productColor/', views.color, name="admin-color-options"),
     path('color_delete/<int:id>', views.color_delete, name="admin-product-color-delete"),
     path('color_edit/<int:id>', views.color_edit, name="admin-product-color-edit"),
@@ -47,12 +53,37 @@ urlpatterns = [
     path('shrinkWrapping/', views.shrinkWrapping, name="admin-shrink-wrapping"),
     path('shrinkWrapping_delete/<int:id>', views.shrinkWrapping_delete, name="admin-shrink-wrapping-delete"),
     path('shrinkWrapping_edit/<int:id>', views.shrinkWrapping_edit, name="admin-shrink-wrapping-edit"),
-    path('shrinkWrapping_data_update/<int:id>', views.shrinkWrapping_edit_update, name="admin-shrink-wrapping-edit-update"),
+    path('shrinkWrapping_data_update/<int:id>', views.shrinkWrapping_edit_update,
+         name="admin-shrink-wrapping-edit-update"),
+
+    path('foldingOption/', views.foldingOption, name="admin-folding-option"),
+    path('foldingOption_delete/<int:id>', views.foldingOption_delete, name="admin-folding-option-delete"),
+    path('foldingOption_edit/<int:id>', views.foldingOption_edit, name="admin-folding-option-edit"),
+    path('foldingOption_data_update/<int:id>', views.foldingOption_edit_update,
+         name="admin-folding-option-edit-update"),
 
     path('aqutousCoating/', views.aqutousCoating, name="admin-aqutous-coating"),
     path('aqutousCoating_delete/<int:id>', views.aqutousCoating_delete, name="admin-aqutous-coating-delete"),
     path('aqutousCoating_edit/<int:id>', views.aqutousCoating_edit, name="admin-aqutous-coating-edit"),
     path('aqutousCoating_data_update/<int:id>', views.aqutousCoating_edit_update,
          name="admin-aqutous-coating-edit-update"),
+
+    path('noOfMonths/', views.noOfMonths, name="admin-no-of-months"),
+    path('noOfMonths_delete/<int:id>', views.noOfMonths_delete, name="admin-no-of-months-delete"),
+    path('noOfMonths_edit/<int:id>', views.noOfMonths_edit, name="admin-no-of-months-edit"),
+    path('noOfMonths_data_update/<int:id>', views.noOfMonths_edit_update,
+         name="admin-no-of-months-edit-update"),
+
+    path('holeDrilling/', views.holeDrilling, name="admin-hole-drilling"),
+    path('holeDrilling_delete/<int:id>', views.holeDrilling_delete, name="admin-hole-drilling-delete"),
+    path('holeDrilling_edit/<int:id>', views.holeDrilling_edit, name="admin-hole-drilling-edit"),
+    path('holeDrilling_data_update/<int:id>', views.holeDrilling_edit_update,
+         name="admin-hole-drilling-edit-update"),
+
+    path('bindingMethod/', views.bindingMethod, name="admin-binding-method"),
+    path('bindingMethod_delete/<int:id>', views.bindingMethod_delete, name="admin-binding-method-delete"),
+    path('bindingMethod_edit/<int:id>', views.bindingMethod_edit, name="admin-binding-method-edit"),
+    path('bindingMethod_data_update/<int:id>', views.bindingMethod_edit_update,
+         name="admin-binding-method-edit-update"),
 
 ]
