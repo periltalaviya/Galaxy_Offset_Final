@@ -28,10 +28,10 @@
                                 <label>Product Size:</label>
                                 <input type="text" name="prod_size" class="form-control w-50"><br>
                                 <br>
-                                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+                                <input type="Submit"  name="Submit" value="Submit" class="btn btn-success w-50 my-2"><br>
 
                                 <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close
                                     </button>
                                 </div>
                             </form>
@@ -111,6 +111,7 @@
                 </div>
             </div>
             {% endif %}
+
             {% if size_edit %}
             {% for x in size_edit %}
             <form action="{% url 'admin-product-size-edit-update' x.size_id %}" method="POST">

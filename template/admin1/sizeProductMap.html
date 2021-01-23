@@ -8,6 +8,7 @@
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
+            {% if sizeProductMap_show %}
             <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
                 Size Product Mapping
             </button>
@@ -23,7 +24,22 @@
                             <form action="{% url 'admin-size-product-map'%}" method="POST"
                                   enctype="multipart/form-data">
                                 {% csrf_token %}
-                                {{form.as_p}}
+                                <table border="1" class="table table-bordered border border-info">
+                                    <tr>
+                                        <th>
+                                            {{form.size_id.label_tag}}
+                                        </th>
+                                        <td>{{form.size_id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            {{form.prod_id.label_tag}}
+                                        </th>
+                                        <td>
+                                            {{form.prod_id}}
+                                        </td>
+                                    </tr>
+                                </table>
                                 <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
                                 <div class="modal-footer justify-content-between">
                                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
@@ -62,7 +78,7 @@
                                     <td>{{x.size_p_map_id}}</td>
                                     <td>{{x.prod_id}}</td>
                                     <td>{{x.size_id}}</td>
-                                    <td><a href="#"
+                                    <td><a href="{% url 'admin-size-product-map-edit' x.size_p_map_id %}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         <a href="{% url 'admin-size-product-map-delete' x.size_p_map_id %}"
@@ -107,6 +123,35 @@
                     <!-- /.card -->
                 </div>
             </div>
+            {% endif %}
+
+            {% if instance %}
+            <form action="" method="POST"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                 <table border="1" class="table table-bordered border border-info">
+                                    <tr>
+                                        <th>
+                                            {{form.size_id.label_tag}}
+                                        </th>
+                                        <td>{{form.size_id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            {{form.prod_id.label_tag}}
+                                        </th>
+                                        <td>
+                                            {{form.prod_id}}
+                                        </td>
+                                    </tr>
+                                </table>
+                    <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
+                    </button>
+                </div>
+            </form>
+            {% endif %}
         </div>
     </div>
 </div>

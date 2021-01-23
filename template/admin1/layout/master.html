@@ -135,10 +135,10 @@
     <aside class="main-sidebar sidebar-light-primary elevation-4">
         <!-- Brand Logo -->
         <a href="{% url 'admin-home' %}" class="brand-link">
-            <img src="{% static 'images/galaxyOffsetLogo.png' %}" alt="Galaxy Offset Logo"
-                 class="img-responsive elevation-3"
-                 style="opacity: .8">
-            <span class="brand-text font-weight-light">Galaxy Offset</span>
+            <img id="brandLogoImage" src="{% static 'images/Logo1.jpg' %}" alt="Galaxy Offset Logo"
+                 class="elevation-3"
+                 style="width:100px;height:auto">
+            <span class="brand-text font-weight-light" id="brandLogoText">Galaxy Offset</span>
         </a>
 
         <!-- Sidebar -->
@@ -359,6 +359,14 @@
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
+
+  $("document").ready(function(){
+    $("#brandLogoImage").hide();
+    $(".fa-bars").click(function(){
+    $("#brandLogoText").hide();
+    $("#brandLogoImage").show();
+    });
+    });
 
 
 

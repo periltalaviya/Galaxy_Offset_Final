@@ -32,8 +32,6 @@ urlpatterns = [
     path('sizeProductMap/', views.sizeProductMap, name="admin-size-product-map"),
     path('sizeProductMap_delete/<int:id>', views.sizeProductMap_delete, name="admin-size-product-map-delete"),
     path('sizeProductMap_edit/<int:id>', views.sizeProductMap_edit, name="admin-size-product-map-edit"),
-    path('sizeProductMap_data_update/<int:id>', views.sizeProductMap_edit_update,
-         name="admin-size-product-map-edit-update"),
 
     path('productColor/', views.color, name="admin-color-options"),
     path('color_delete/<int:id>', views.color_delete, name="admin-product-color-delete"),

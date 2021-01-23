@@ -149,6 +149,20 @@ def sizeProductMap_delete(request, id):
     return redirect('/admin1/productSizeMap')
 
 
+def sizeProductMap_edit(request, id):
+    instance = SizeProductMapping.objects.get(size_p_map_id=id)
+    form = SizeProductMapForm(instance= instance)
+    if request.method == 'POST':
+        form = SizeProductMapForm(request.POST, instance= instance)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin1/sizeProductMap')
+    else:
+        form = SizeProductMapForm(instance=instance)
+
+    return render(request, 'admin1/sizeProductMap.html', {'form': form, 'instance': instance})
+
+
 def templateImage(request):
     if request.method == 'POST':
         temp_img = request.FILES['temp_img']
