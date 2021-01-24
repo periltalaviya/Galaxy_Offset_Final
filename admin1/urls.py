@@ -38,6 +38,10 @@ urlpatterns = [
     path('color_edit/<int:id>', views.color_edit, name="admin-product-color-edit"),
     path('color_data_update/<int:id>', views.color_edit_update, name="admin-product-color-edit-update"),
 
+    path('colorProductMap/', views.colorProductMap, name="admin-color-product-map"),
+    path('colorProductMap_delete/<int:id>', views.colorProductMap_delete, name="admin-color-product-map-delete"),
+    path('colorProductMap_edit/<int:id>', views.colorProductMap_edit, name="admin-color-product-map-edit"),
+
     path('templateImage/', views.templateImage, name="admin-template-image"),
     path('templateImage_show1/<int:id>', views.templateImage_show1, name="admin-template-image-show1"),
     path('templateImage_delete/<int:id>', views.templateImage_delete, name="admin-template-image-delete"),
@@ -47,6 +51,10 @@ urlpatterns = [
     path('paperChoice_delete/<int:id>', views.paperChoice_delete, name="admin-paper-choice-delete"),
     path('paperChoice_edit/<int:id>', views.paperChoice_edit, name="admin-paper-choice-edit"),
     path('paperChoice_data_update/<int:id>', views.paperChoice_edit_update, name="admin-paper-choice-edit-update"),
+
+    path('paperProductMap/', views.paperProductMap, name="admin-paper-product-map"),
+    path('paperProductMap_delete/<int:id>', views.paperProductMap_delete, name="admin-paper-product-map-delete"),
+    path('paperProductMap_edit/<int:id>', views.paperProductMap_edit, name="admin-paper-product-map-edit"),
 
     path('shrinkWrapping/', views.shrinkWrapping, name="admin-shrink-wrapping"),
     path('shrinkWrapping_delete/<int:id>', views.shrinkWrapping_delete, name="admin-shrink-wrapping-delete"),

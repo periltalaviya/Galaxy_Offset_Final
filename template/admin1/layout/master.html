@@ -11,7 +11,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+<!--    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">-->
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet" href="{% static 'css/tempusdominus-bootstrap-4.min.css' %}">
     <!-- iCheck -->
@@ -25,7 +25,7 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{% static 'css/daterangepicker.css' %}">
     <!-- summernote -->
-    <link rel="stylesheet" href="{% static 'css/summernote-bs4.css' %}">
+<!--    <link rel="stylesheet" href="{% static 'css/summernote-bs4.css' %}">-->
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <script src="https://use.fontawesome.com/474c0a0c36.js"></script>
@@ -259,10 +259,12 @@
                                         <a class="nav-link" href="#">Product and Image Template Mapping</a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="#">Product and Color Mapping</a>
+                                        <a class="nav-link" href="{%url 'admin-color-product-map' %}">Product and Color
+                                            Mapping</a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="#">Product and Paper Choice Mapping</a>
+                                        <a class="nav-link" href="{%url 'admin-paper-product-map' %}">Product and Paper
+                                            Choice Mapping</a>
                                     </li>
                                     <li>
                                         <a class="nav-link" href="#">Product and Shrink Wrapping Mapping</a>
@@ -359,14 +361,33 @@
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
-
-  $("document").ready(function(){
+    var labelShow = 1;
+  $("document").ready(function()
+  {
     $("#brandLogoImage").hide();
-    $(".fa-bars").click(function(){
-    $("#brandLogoText").hide();
-    $("#brandLogoImage").show();
+    $(".fa-bars").click(function()
+    {
+        //alert(lableShow);
+        setTimeout(function()
+        {
+            if(lableShow)
+            {
+                console.log('in');
+                $("#brandLogoText").hide();
+                $("#brandLogoImage").show();
+                lableShow = 0;
+            }
+            else
+            {
+                $("#brandLogoText").show();
+                $("#brandLogoImage").hide();
+                lableShow = 1;
+            }
+        }, 100);
     });
-    });
+  });
+
+
 
 
 
@@ -399,8 +420,8 @@
 <!-- AdminLTE App -->
 <script src="{% static 'js/adminlte.js' %}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{% static 'js/pages/dashboard.js' %}"></script>
-<!-- AdminLTE for demo purposes -->
+<!--<script src="{% static 'js/pages/dashboard.js' %}"></script>-->
+-<!-- AdminLTE for demo purposes -->
 <script src="{% static 'js/demo.js' %} "></script>
 </body>
 </html>

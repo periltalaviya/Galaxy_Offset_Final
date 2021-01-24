@@ -2,7 +2,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 
 from user.models import *
-from .forms import SizeProductMapForm
+from .forms import SizeProductMapForm, ColorProductMapForm, PaperProductMapForm
 
 
 # Create your views here.
@@ -146,14 +146,14 @@ def sizeProductMap(request):
 def sizeProductMap_delete(request, id):
     sizeProductMap_delete = SizeProductMapping.objects.filter(size_p_map_id=id)
     sizeProductMap_delete.delete()
-    return redirect('/admin1/productSizeMap')
+    return redirect('/admin1/sizeProductMap')
 
 
 def sizeProductMap_edit(request, id):
     instance = SizeProductMapping.objects.get(size_p_map_id=id)
-    form = SizeProductMapForm(instance= instance)
+    form = SizeProductMapForm(instance=instance)
     if request.method == 'POST':
-        form = SizeProductMapForm(request.POST, instance= instance)
+        form = SizeProductMapForm(request.POST, instance=instance)
         if form.is_valid():
             form.save()
             return redirect('/admin1/sizeProductMap')
@@ -248,6 +248,48 @@ def color_delete(request, id):
     return redirect('/admin1/productColor')
 
 
+def colorProductMap(request):
+    form = ColorProductMapForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+        return redirect("/admin1/colorProductMap/")
+    else:
+        colorProductMap_show = ColorProductMapping.objects.all()
+        # start paginator logic
+        paginator = Paginator(colorProductMap_show, 3)
+        page = request.GET.get('page')
+        try:
+            colorProductMap_show = paginator.page(page)
+        except PageNotAnInteger:
+            colorProductMap_show = paginator.page(1)
+        except EmptyPage:
+            colorProductMap_show = paginator.page(paginator.num_pages)
+        # end paginator logic
+        return render(request, 'admin1/colorProductMap.html',
+                      {'colorProductMap_show': colorProductMap_show, 'form': form})
+
+
+def colorProductMap_delete(request, id):
+    colorProductMap_delete = ColorProductMapping.objects.filter(color_p_map_id=id)
+    colorProductMap_delete.delete()
+    return redirect('/admin1/colorProductMap')
+
+
+def colorProductMap_edit(request, id):
+    instance = ColorProductMapping.objects.get(color_p_map_id=id)
+    form = ColorProductMapForm(instance=instance)
+    if request.method == 'POST':
+        form = ColorProductMapForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin1/colorProductMap')
+    else:
+        form = ColorProductMapForm(instance=instance)
+
+    return render(request, 'admin1/colorProductMap.html', {'form': form, 'instance': instance})
+
+
 def paperChoice(request):
     if request.method == 'POST':
         paperChoice_store = request.POST['paper_choices_name']
@@ -286,6 +328,48 @@ def paperChoice_delete(request, id):
     paperChoice_delete = PaperChoice.objects.filter(paper_id=id)
     paperChoice_delete.delete()
     return redirect('/admin1/paperChoice')
+
+
+def paperProductMap(request):
+    form = PaperProductMapForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+        return redirect("/admin1/paperProductMap/")
+    else:
+        paperProductMap_show = PaperChoiceProductMapping.objects.all()
+        # start paginator logic
+        paginator = Paginator(paperProductMap_show, 3)
+        page = request.GET.get('page')
+        try:
+            paperProductMap_show = paginator.page(page)
+        except PageNotAnInteger:
+            paperProductMap_show = paginator.page(1)
+        except EmptyPage:
+            paperProductMap_show = paginator.page(paginator.num_pages)
+        # end paginator logic
+        return render(request, 'admin1/paperChoiceProductMap.html',
+                      {'paperProductMap_show': paperProductMap_show, 'form': form})
+
+
+def paperProductMap_delete(request, id):
+    paperProductMap_delete = PaperChoiceProductMapping.objects.filter(paper_p_map_id=id)
+    paperProductMap_delete.delete()
+    return redirect('/admin1/paperProductMap')
+
+
+def paperProductMap_edit(request, id):
+    instance = ColorProductMapping.objects.get(paper_p_map_id=id)
+    form = PaperProductMapForm(instance=instance)
+    if request.method == 'POST':
+        form = PaperProductMapForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin1/paperProductMap')
+    else:
+        form = PaperProductMapForm(instance=instance)
+
+    return render(request, 'admin1/paperChoiceProductMap.html', {'form': form, 'instance': instance})
 
 
 def shrinkWrapping(request):
