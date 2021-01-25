@@ -62,6 +62,12 @@ urlpatterns = [
     path('shrinkWrapping_data_update/<int:id>', views.shrinkWrapping_edit_update,
          name="admin-shrink-wrapping-edit-update"),
 
+    path('shrinkWrappingProductMap/', views.shrinkWrappingProductMap, name="admin-shrink-wrapping-product-map"),
+    path('shrinkWrappingProductMap_delete/<int:id>', views.shrinkWrappingProductMap_delete,
+         name="admin-shrink-wrapping-product-map-delete"),
+    path('shrinkWrappingProductMap_edit/<int:id>', views.shrinkWrappingProductMap_edit,
+         name="admin-shrink-wrapping-product-map-edit"),
+
     path('foldingOption/', views.foldingOption, name="admin-folding-option"),
     path('foldingOption_delete/<int:id>', views.foldingOption_delete, name="admin-folding-option-delete"),
     path('foldingOption_edit/<int:id>', views.foldingOption_edit, name="admin-folding-option-edit"),
@@ -73,6 +79,12 @@ urlpatterns = [
     path('aqutousCoating_edit/<int:id>', views.aqutousCoating_edit, name="admin-aqutous-coating-edit"),
     path('aqutousCoating_data_update/<int:id>', views.aqutousCoating_edit_update,
          name="admin-aqutous-coating-edit-update"),
+
+    path('aqutousCoatingProductMap/', views.aqutousCoatingProductMap, name="admin-aqutous-coating-product-map"),
+    path('aqutousCoatingProductMap_delete/<int:id>', views.aqutousCoatingProductMap_delete,
+         name="admin-aqutous-coating-product-map-delete"),
+    path('aqutousCoatingProductMap_edit/<int:id>', views.aqutousCoatingProductMap_edit,
+         name="admin-aqutous-coating-product-map-edit"),
 
     path('noOfMonths/', views.noOfMonths, name="admin-no-of-months"),
     path('noOfMonths_delete/<int:id>', views.noOfMonths_delete, name="admin-no-of-months-delete"),

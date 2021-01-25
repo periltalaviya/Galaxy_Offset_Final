@@ -19,10 +19,10 @@
                 <label>Product Image:</label>
                 <input type="file" name="p_image" value="{{y.prod_img}}" class="form-control w-50">
                 <br>
-                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
-
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                <div class="modal-footer justify-content-right">
+                    <input type="Submit" name="Submit" value="Submit" class="btn btn-outline-success">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close
+                    </button>
                 </div>
             </form>
             {% endfor %}
@@ -80,10 +80,9 @@
                                 <input type="text" name="p_desc" class="form-control w-50"><br>
                                 <label>Product Image:</label>
                                 <input type="file" name="p_image" class="form-control w-50"><br>
-                                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
-
-                                <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
+                                <div class="modal-footer justify-content-right">
+                                    <input type="Submit" name="Submit" value="Submit" class="btn btn-outline-success">
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close
                                     </button>
                                 </div>
                             </form>
@@ -111,7 +110,7 @@
                                     <th>Product Id</th>
                                     <th>Product Name</th>
                                     <th>Product Price</th>
-                                    <th>Product Discription</th>
+                                    <th>Product Description</th>
                                     <th>Product Image</th>
                                     <th>Action</th>
                                 </tr>
@@ -149,7 +148,8 @@
                             <ul class="pagination pagination-sm m-0 justify-content-center">
                                 {% if product_show.has_previous %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{product_show.previous_page_number}}"> Previous </a>
+                                                         href="?page={{product_show.previous_page_number}}">
+                                    Previous </a>
                                 </li>
                                 {% endif%}
                                 {% for x in product_show.paginator.page_range %}

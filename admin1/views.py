@@ -2,7 +2,8 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 
 from user.models import *
-from .forms import SizeProductMapForm, ColorProductMapForm, PaperProductMapForm
+from .forms import SizeProductMapForm, ColorProductMapForm, PaperProductMapForm, ShrinkWrappingProductMapForm, \
+    AqutousCoatingProductMapForm
 
 
 # Create your views here.
@@ -412,6 +413,48 @@ def shrinkWrapping_delete(request, id):
     return redirect('/admin1/shrinkWrapping')
 
 
+def shrinkWrappingProductMap(request):
+    form = ShrinkWrappingProductMapForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+        return redirect("/admin1/shrinkWrappingProductMap/")
+    else:
+        shrinkWrappingProductMap_show = ShrinkWrappingProductMapping.objects.all()
+        # start paginator logic
+        paginator = Paginator(shrinkWrappingProductMap_show, 3)
+        page = request.GET.get('page')
+        try:
+            shrinkWrappingProductMap_show = paginator.page(page)
+        except PageNotAnInteger:
+            shrinkWrappingProductMap_show = paginator.page(1)
+        except EmptyPage:
+            shrinkWrappingProductMap_show = paginator.page(paginator.num_pages)
+        # end paginator logic
+        return render(request, 'admin1/shrinkWrappingProductMap.html',
+                      {'shrinkWrappingProductMap_show': shrinkWrappingProductMap_show, 'form': form})
+
+
+def shrinkWrappingProductMap_delete(request, id):
+    shrinkWrappingProductMap_delete = ShrinkWrappingProductMapping.objects.filter(shrink_wrap_p_map_id=id)
+    shrinkWrappingProductMap_delete.delete()
+    return redirect('/admin1/shrinkWrappingProductMap')
+
+
+def shrinkWrappingProductMap_edit(request, id):
+    instance = ShrinkWrappingProductMapping.objects.get(shrink_wrap_p_map_id=id)
+    form = ShrinkWrappingProductMapForm(instance=instance)
+    if request.method == 'POST':
+        form = ShrinkWrappingProductMapForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin1/shrinkWrappingProductMap')
+    else:
+        form = ShrinkWrappingProductMapForm(instance=instance)
+
+    return render(request, 'admin1/shrinkWrappingProductMap.html', {'form': form, 'instance': instance})
+
+
 def aqutousCoating(request):
     if request.method == 'POST':
         aqutousCoating_store = request.POST['aqutous_coating_type']
@@ -450,6 +493,48 @@ def aqutousCoating_delete(request, id):
     aqutousCoating_delete = AqutousCoating.objects.filter(aqutous_coating_id=id)
     aqutousCoating_delete.delete()
     return redirect('/admin1/aqutousCoating')
+
+
+def aqutousCoatingProductMap(request):
+    form = AqutousCoatingProductMapForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+        return redirect("/admin1/aqutousCoatingProductMap/")
+    else:
+        aqutousCoatingProductMap_show = AqutousCoatingProductMapping.objects.all()
+        # start paginator logic
+        paginator = Paginator(aqutousCoatingProductMap_show, 3)
+        page = request.GET.get('page')
+        try:
+            aqutousCoatingProductMap_show = paginator.page(page)
+        except PageNotAnInteger:
+            aqutousCoatingProductMap_show = paginator.page(1)
+        except EmptyPage:
+            aqutousCoatingProductMap_show = paginator.page(paginator.num_pages)
+        # end paginator logic
+        return render(request, 'admin1/aqutousCoatingProductMap.html',
+                      {'aqutousCoatingProductMap_show': aqutousCoatingProductMap_show, 'form': form})
+
+
+def aqutousCoatingProductMap_delete(request, id):
+    aqutousCoatingProductMap_delete = AqutousCoatingProductMapping.objects.filter(aCoat_p_map_id=id)
+    aqutousCoatingProductMap_delete.delete()
+    return redirect('/admin1/aqutousCoatingProductMap')
+
+
+def aqutousCoatingProductMap_edit(request, id):
+    instance = AqutousCoatingProductMapping.objects.get(aCoat_p_map_id=id)
+    form = AqutousCoatingProductMapForm(instance=instance)
+    if request.method == 'POST':
+        form = AqutousCoatingProductMapForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin1/aqutousCoatingProductMap')
+    else:
+        form = AqutousCoatingProductMapForm(instance=instance)
+
+    return render(request, 'admin1/aqutousCoatingProductMap.html', {'form': form, 'instance': instance})
 
 
 def foldingOption(request):

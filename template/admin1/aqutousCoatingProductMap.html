@@ -1,35 +1,35 @@
 {% extends 'admin1/layout/master.html' %}
-{% block title %}Size Product Map{% endblock %}
+{% block title %}Aqutous Coating Product Map{% endblock %}
 {% block main %}
 <h1>
-    <center>Size Product Map</center>
+    <center>Aqutous Coating Product Map</center>
 </h1>
 <div class="container">
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
-            {% if sizeProductMap_show %}
+
             <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
-                Size Product Mapping
+                Aqutous Coating Product Mapping
             </button>
             <div class="modal fade" id="modal-primary">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Add Size Product Mapping</h4>
+                            <h4 class="modal-title">Add Aqutous Coating Product Mapping</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body mt-2">
-                            <form action="{% url 'admin-size-product-map'%}" method="POST"
+                            <form action="{% url 'admin-aqutous-coating-product-map'%}" method="POST"
                                   enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <table border="1" class="table table-bordered border border-info">
                                     <tr>
                                         <th>
-                                            {{form.size_id.label_tag}}
+                                            {{form.aqutous_coating_id.label_tag}}
                                         </th>
-                                        <td>{{form.size_id}}</td>
+                                        <td>{{form.aqutous_coating_id}}</td>
                                     </tr>
                                     <tr>
                                         <th>
@@ -40,9 +40,9 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <div class="modal-footer justify-content-right">
-                                    <input type="Submit" name="Submit" value="Submit" class="btn btn-outline-success">
-                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close
+                                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
                                     </button>
                                 </div>
                             </form>
@@ -58,7 +58,7 @@
                 <div class="row">
                     <div class="card mt-2 border border-secondary">
                         <div class="card-header">
-                            <h3 class="card-title ">Size Product Map Table</h3>
+                            <h3 class="card-title ">Aqutous Coating Product Map Table</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -66,22 +66,22 @@
                             <table class="table table-bordered border border-info">
                                 <thead>
                                 <tr>
-                                    <th>Size Product Mapping Id</th>
+                                    <th>Aqutous Coating Product Mapping Id</th>
                                     <th>Product ID</th>
-                                    <th>Size ID</th>
+                                    <th>Aqutous Coating ID</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody class="justify-content-center">
-                                {% for x in sizeProductMap_show %}
+                                {% for x in aqutousCoatingProductMap_show %}
                                 <tr>
-                                    <td>{{x.size_p_map_id}}</td>
+                                    <td>{{x.aCoat_p_map_id}}</td>
                                     <td>{{x.prod_id}}</td>
-                                    <td>{{x.size_id}}</td>
-                                    <td><a href="{% url 'admin-size-product-map-edit' x.size_p_map_id %}"
+                                    <td>{{x.aqutous_coating_id}}</td>
+                                    <td><a href="{% url 'admin-aqutous-coating-product-map-edit' x.aCoat_p_map_id %}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="{% url 'admin-size-product-map-delete' x.size_p_map_id %}"
+                                        <a href="{% url 'admin-aqutous-coating-product-map-delete' x.aCoat_p_map_id %}"
                                            class="btn btn-outline-danger mt-2"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></a>
                                     </td>
@@ -96,24 +96,24 @@
                         <!-- /.card-body -->
                         <div class="card-footer clearfix ">
                             <ul class="pagination pagination-sm m-0 justify-content-center">
-                                {% if sizeProductMap_show.has_previous %}
+                                {% if aqutousCoatingProductMap_show.has_previous %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{sizeProductMap_show.previous_page_number}}">
+                                                         href="?page={{aqutousCoatingProductMap_show.previous_page_number}}">
                                     Previous </a>
                                 </li>
                                 {% endif%}
-                                {% for x in sizeProductMap_show.paginator.page_range %}
+                                {% for x in aqutousCoatingProductMap_show.paginator.page_range %}
 
-                                {% if sizeProductMap_show.number == x %}
+                                {% if aqutousCoatingProductMap_show.number == x %}
                                 <li class="page-item active"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
                                 {% else%}
                                 <li class="page-item"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
                                 {% endif %}
                                 {% endfor %}
 
-                                {% if sizeProductMap_show.has_next %}
+                                {% if aqutousCoatingProductMap_show.has_next %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?page={{sizeProductMap_show.next_page_number}}">
+                                                         href="?page={{aqutousCoatingProductMap_show.next_page_number}}">
                                     Next </a>
                                 </li>
                                 {% endif %}
@@ -123,19 +123,19 @@
                     <!-- /.card -->
                 </div>
             </div>
-            {% endif %}
+
 
             {% if instance %}
-            {% for x in instance %}
-            <form action="{% url 'admin-size-product-map-edit' x.size_p_map_id %}" method="POST"
+                        {% for x in instance %}
+            <form action="{% url 'admin-aqutous-coating-product-map-edit' x.aCoat_p_map_id %}" method="POST"
                   enctype="multipart/form-data">
                 {% csrf_token %}
                  <table border="1" class="table table-bordered border border-info">
                                     <tr>
                                         <th>
-                                            {{form.size_id.label_tag}}
+                                            {{form.aCoat_id.label_tag}}
                                         </th>
-                                        <td>{{form.size_id}}</td>
+                                        <td>{{form.aqutous_coating_id}}</td>
                                     </tr>
                                     <tr>
                                         <th>
