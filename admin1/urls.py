@@ -74,6 +74,12 @@ urlpatterns = [
     path('foldingOption_data_update/<int:id>', views.foldingOption_edit_update,
          name="admin-folding-option-edit-update"),
 
+    path('foldingOptionProductMap/', views.foldingOptionProductMap, name="admin-folding-option-product-map"),
+    path('foldingOptionProductMap_delete/<int:id>', views.foldingOptionProductMap_delete,
+         name="admin-folding-option-product-map-delete"),
+    path('foldingOptionProductMap_edit/<int:id>', views.foldingOptionProductMap_edit,
+         name="admin-folding-option-product-map-edit"),
+
     path('aqutousCoating/', views.aqutousCoating, name="admin-aqutous-coating"),
     path('aqutousCoating_delete/<int:id>', views.aqutousCoating_delete, name="admin-aqutous-coating-delete"),
     path('aqutousCoating_edit/<int:id>', views.aqutousCoating_edit, name="admin-aqutous-coating-edit"),
@@ -91,6 +97,12 @@ urlpatterns = [
     path('noOfMonths_edit/<int:id>', views.noOfMonths_edit, name="admin-no-of-months-edit"),
     path('noOfMonths_data_update/<int:id>', views.noOfMonths_edit_update,
          name="admin-no-of-months-edit-update"),
+
+    path('noOfMonthsProductMap/', views.noOfMonthsProductMap, name="admin-no-of-months-product-map"),
+    path('noOfMonthsProductMap_delete/<int:id>', views.noOfMonthsProductMap_delete,
+         name="admin-no-of-months-product-map-delete"),
+    path('noOfMonthsProductMap_edit/<int:id>', views.noOfMonthsProductMap_edit,
+         name="admin-no-of-months-product-map-edit"),
 
     path('holeDrilling/', views.holeDrilling, name="admin-hole-drilling"),
     path('holeDrilling_delete/<int:id>', views.holeDrilling_delete, name="admin-hole-drilling-delete"),

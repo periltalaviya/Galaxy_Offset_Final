@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 
 from user.models import *
 from .forms import SizeProductMapForm, ColorProductMapForm, PaperProductMapForm, ShrinkWrappingProductMapForm, \
-    AqutousCoatingProductMapForm
+    AqutousCoatingProductMapForm, FoldingOptionProductMapForm, NoOfMonthsProductMapForm
 
 
 # Create your views here.
@@ -577,6 +577,48 @@ def foldingOption_delete(request, id):
     return redirect('/admin1/foldingOption')
 
 
+def foldingOptionProductMap(request):
+    form = FoldingOptionProductMapForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+        return redirect("/admin1/foldingOptionProductMap/")
+    else:
+        foldingOptionProductMap_show = FoldingOptionsProductMapping.objects.all()
+        # start paginator logic
+        paginator = Paginator(foldingOptionProductMap_show, 3)
+        page = request.GET.get('page')
+        try:
+            foldingOptionProductMap_show = paginator.page(page)
+        except PageNotAnInteger:
+            foldingOptionProductMap_show = paginator.page(1)
+        except EmptyPage:
+            foldingOptionProductMap_show = paginator.page(paginator.num_pages)
+        # end paginator logic
+        return render(request, 'admin1/foldingOptionProductMap.html',
+                      {'foldingOptionProductMap_show': foldingOptionProductMap_show, 'form': form})
+
+
+def foldingOptionProductMap_delete(request, id):
+    foldingOptionProductMap_delete = FoldingOptionsProductMapping.objects.filter(folding_optiom_p_map_id=id)
+    foldingOptionProductMap_delete.delete()
+    return redirect('/admin1/foldingOptionProductMap')
+
+
+def foldingOptionProductMap_edit(request, id):
+    instance = FoldingOptionsProductMapping.objects.get(folding_optiom_p_map_id=id)
+    form = FoldingOptionProductMapForm(instance=instance)
+    if request.method == 'POST':
+        form = FoldingOptionProductMapForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin1/foldingOptionProductMap')
+    else:
+        form = FoldingOptionProductMapForm(instance=instance)
+
+    return render(request, 'admin1/foldingOptionProductMap.html', {'form': form, 'instance': instance})
+
+
 def noOfMonths(request):
     if request.method == 'POST':
         noOfMonths_store = request.POST['months']
@@ -615,6 +657,48 @@ def noOfMonths_delete(request, id):
     noOfMonths_delete = NoOfMonths.objects.filter(no_of_months_id=id)
     noOfMonths_delete.delete()
     return redirect('/admin1/noOfMonths')
+
+
+def noOfMonthsProductMap(request):
+    form = NoOfMonthsProductMapForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+        return redirect("/admin1/noOfMonthsProductMap/")
+    else:
+        noOfMonthsProductMap_show = NoOfMonthsProductMapping.objects.all()
+        # start paginator logic
+        paginator = Paginator(noOfMonthsProductMap_show, 3)
+        page = request.GET.get('page')
+        try:
+            noOfMonthsProductMap_show = paginator.page(page)
+        except PageNotAnInteger:
+            noOfMonthsProductMap_show = paginator.page(1)
+        except EmptyPage:
+            noOfMonthsProductMap_show = paginator.page(paginator.num_pages)
+        # end paginator logic
+        return render(request, 'admin1/noOfMonthsProductMap.html',
+                      {'noOfMonthsProductMap_show': noOfMonthsProductMap_show, 'form': form})
+
+
+def noOfMonthsProductMap_delete(request, id):
+    noOfMonthsProductMap_delete = NoOfMonthsProductMapping.objects.filter(no_of_months_p_map_id=id)
+    noOfMonthsProductMap_delete.delete()
+    return redirect('/admin1/noOfMonthsProductMap')
+
+
+def noOfMonthsProductMap_edit(request, id):
+    instance = NoOfMonthsProductMapping.objects.get(no_of_months_p_map_id=id)
+    form = NoOfMonthsProductMapForm(instance=instance)
+    if request.method == 'POST':
+        form = NoOfMonthsProductMapForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin1/noOfMonthsProductMap')
+    else:
+        form = NoOfMonthsProductMapForm(instance=instance)
+
+    return render(request, 'admin1/noOfMonthsProductMap.html', {'form': form, 'instance': instance})
 
 
 def holeDrilling(request):
