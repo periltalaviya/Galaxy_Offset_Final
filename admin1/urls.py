@@ -47,6 +47,12 @@ urlpatterns = [
     path('templateImage_delete/<int:id>', views.templateImage_delete, name="admin-template-image-delete"),
     path('templateImage_edit/<int:id>', views.templateImage_edit, name="admin-template-image-edit"),
 
+    path('imageTempProductMap/', views.imageTempProductMap, name="admin-image-template-product-map"),
+    path('imageTempProductMap_delete/<int:id>', views.imageTempProductMap_delete,
+         name="admin-image-template-product-map-delete"),
+    path('imageTempProductMap_edit/<int:id>', views.imageTempProductMap_edit,
+         name="admin-image-template-product-map-edit"),
+
     path('paperChoice/', views.paperChoice, name="admin-paper-choice"),
     path('paperChoice_delete/<int:id>', views.paperChoice_delete, name="admin-paper-choice-delete"),
     path('paperChoice_edit/<int:id>', views.paperChoice_edit, name="admin-paper-choice-edit"),
@@ -110,10 +116,22 @@ urlpatterns = [
     path('holeDrilling_data_update/<int:id>', views.holeDrilling_edit_update,
          name="admin-hole-drilling-edit-update"),
 
+    path('holeDrillingProductMap/', views.holeDrillingProductMap, name="admin-hole-drilling-product-map"),
+    path('holeDrillingProductMap_delete/<int:id>', views.holeDrillingProductMap_delete,
+         name="admin-hole-drilling-product-map-delete"),
+    path('holeDrillingProductMap_edit/<int:id>', views.holeDrillingProductMap_edit,
+         name="admin-hole-drilling-product-map-edit"),
+
     path('bindingMethod/', views.bindingMethod, name="admin-binding-method"),
     path('bindingMethod_delete/<int:id>', views.bindingMethod_delete, name="admin-binding-method-delete"),
     path('bindingMethod_edit/<int:id>', views.bindingMethod_edit, name="admin-binding-method-edit"),
     path('bindingMethod_data_update/<int:id>', views.bindingMethod_edit_update,
          name="admin-binding-method-edit-update"),
+
+    path('bindingMethodProductMap/', views.bindingMethodProductMap, name="admin-binding-method-product-map"),
+    path('bindingMethodProductMap_delete/<int:id>', views.bindingMethodProductMap_delete,
+         name="admin-binding-method-product-map-delete"),
+    path('bindingMethodProductMap_edit/<int:id>', views.bindingMethodProductMap_edit,
+         name="admin-binding-method-product-map-edit"),
 
 ]

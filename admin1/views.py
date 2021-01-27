@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect
 
 from user.models import *
 from .forms import SizeProductMapForm, ColorProductMapForm, PaperProductMapForm, ShrinkWrappingProductMapForm, \
-    AqutousCoatingProductMapForm, FoldingOptionProductMapForm, NoOfMonthsProductMapForm
+    AqutousCoatingProductMapForm, FoldingOptionProductMapForm, NoOfMonthsProductMapForm, HoleDrillingProductMapForm, \
+    ImageTempProductMapForm
 
 
 # Create your views here.
@@ -207,6 +208,48 @@ def templateImage_delete(request, id):
     templateImage_delete = ImageTemplate.objects.filter(temp_id=id)
     templateImage_delete.delete()
     return redirect('/admin1/templateImage')
+
+
+def imageTempProductMap(request):
+    form = ImageTempProductMapForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+        return redirect("/admin1/imageTempProductMap/")
+    else:
+        imageTempProductMap_show = ImageTemplateProductMapping.objects.all()
+        # start paginator logic
+        paginator = Paginator(imageTempProductMap_show, 3)
+        page = request.GET.get('page')
+        try:
+            imageTempProductMap_show = paginator.page(page)
+        except PageNotAnInteger:
+            imageTempProductMap_show = paginator.page(1)
+        except EmptyPage:
+            imageTempProductMap_show = paginator.page(paginator.num_pages)
+        # end paginator logic
+        return render(request, 'admin1/imageTempProductMap.html',
+                      {'imageTempProductMap_show': imageTempProductMap_show, 'form': form})
+
+
+def imageTempProductMap_delete(request, id):
+    imageTempProductMap_delete = ImageTemplateProductMapping.objects.filter(imageTemp_p_map_id=id)
+    imageTempProductMap_delete.delete()
+    return redirect('/admin1/imageTempProductMap')
+
+
+def imageTempProductMap_edit(request, id):
+    instance = ImageTemplateProductMapping.objects.get(imageTemp_p_map_id=id)
+    form = ImageTempProductMapForm(instance=instance)
+    if request.method == 'POST':
+        form = ImageTempProductMapForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin1/imageTempProductMap')
+    else:
+        form = ImageTempProductMapForm(instance=instance)
+
+    return render(request, 'admin1/imageTempProductMap.html', {'form': form, 'instance': instance})
 
 
 def color(request):
@@ -741,6 +784,48 @@ def holeDrilling_delete(request, id):
     return redirect('/admin1/holeDrilling')
 
 
+def holeDrillingProductMap(request):
+    form = HoleDrillingProductMapForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+        return redirect("/admin1/holeDrillingProductMap/")
+    else:
+        holeDrillingProductMap_show = HoleDrillingProductMapping.objects.all()
+        # start paginator logic
+        paginator = Paginator(holeDrillingProductMap_show, 3)
+        page = request.GET.get('page')
+        try:
+            holeDrillingProductMap_show = paginator.page(page)
+        except PageNotAnInteger:
+            holeDrillingProductMap_show = paginator.page(1)
+        except EmptyPage:
+            holeDrillingProductMap_show = paginator.page(paginator.num_pages)
+        # end paginator logic
+        return render(request, 'admin1/holeDrillingProductMap.html',
+                      {'holeDrillingProductMap_show': holeDrillingProductMap_show, 'form': form})
+
+
+def holeDrillingProductMap_delete(request, id):
+    holeDrillingProductMap_delete = HoleDrillingProductMapping.objects.filter(hole_drill_p_map_id=id)
+    holeDrillingProductMap_delete.delete()
+    return redirect('/admin1/holeDrillingProductMap')
+
+
+def holeDrillingProductMap_edit(request, id):
+    instance = HoleDrillingProductMapping.objects.get(hole_drill_p_map_id=id)
+    form = HoleDrillingProductMapForm(instance=instance)
+    if request.method == 'POST':
+        form = HoleDrillingProductMapForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin1/holeDrillingProductMap')
+    else:
+        form = HoleDrillingProductMapForm(instance=instance)
+
+    return render(request, 'admin1/holeDrillingProductMap.html', {'form': form, 'instance': instance})
+
+
 def bindingMethod(request):
     if request.method == 'POST':
         bindingMethod_store = request.POST['binding_methods']
@@ -779,6 +864,48 @@ def bindingMethod_delete(request, id):
     bindingMethod_delete = BindingMethod.objects.filter(binding_method_id=id)
     bindingMethod_delete.delete()
     return redirect('/admin1/bindingMethod')
+
+
+def bindingMethodProductMap(request):
+    form = BindingMethodProductMapForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+        return redirect("/admin1/bindingMethodProductMap/")
+    else:
+        bindingMethodProductMap_show = BindingMethodProductMapping.objects.all()
+        # start paginator logic
+        paginator = Paginator(bindingMethodProductMap_show, 3)
+        page = request.GET.get('page')
+        try:
+            bindingMethodProductMap_show = paginator.page(page)
+        except PageNotAnInteger:
+            bindingMethodProductMap_show = paginator.page(1)
+        except EmptyPage:
+            bindingMethodProductMap_show = paginator.page(paginator.num_pages)
+        # end paginator logic
+        return render(request, 'admin1/bindingMethodProductMap.html',
+                      {'bindingMethodProductMap_show': bindingMethodProductMap_show, 'form': form})
+
+
+def bindingMethodProductMap_delete(request, id):
+    bindingMethodProductMap_delete = BindingMEthodProductMapping.objects.filter(binding_methods_p_map_id=id)
+    bindingMethodProductMap_delete.delete()
+    return redirect('/admin1/bindingMethodProductMap')
+
+
+def bindingMethodProductMap_edit(request, id):
+    instance = bindingMethodProductMapping.objects.get(binding_methods_p_map_id=id)
+    form = BindingMethodProductMapForm(instance=instance)
+    if request.method == 'POST':
+        form = BindingMethodProductMapForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin1/bindingMethodProductMap')
+    else:
+        form = BindingMethodProductMapForm(instance=instance)
+
+    return render(request, 'admin1/bindingMethodProductMap.html', {'form': form, 'instance': instance})
 
 
 def feedback(request):

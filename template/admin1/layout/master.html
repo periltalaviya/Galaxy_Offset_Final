@@ -9,15 +9,15 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
-    <!--    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">-->
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
     <!-- Ionicons -->
-    <!--    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">-->
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet" href="{% static 'css/tempusdominus-bootstrap-4.min.css' %}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{% static 'css/icheck-bootstrap.min.css' %}">
     <!-- JQVMap -->
-    <!--    <link rel="stylesheet" href="{% static 'css/jqvmap.min.css' %}">-->
+    <link rel="stylesheet" href="{% static 'css/jqvmap.min.css' %}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{% static 'css/adminlte.css' %}">
     <!-- overlayScrollbars -->
@@ -25,7 +25,7 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{% static 'css/daterangepicker.css' %}">
     <!-- summernote -->
-    <!--    <link rel="stylesheet" href="{% static 'css/summernote-bs4.css' %}">-->
+    <link rel="stylesheet" href="{% static 'css/summernote-bs4.css' %}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <script src="https://use.fontawesome.com/474c0a0c36.js"></script>
@@ -256,7 +256,8 @@
                                             Mapping</a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="#">Product and Image Template Mapping</a>
+                                        <a class="nav-link" href="{% url 'admin-image-template-product-map' %}">Product
+                                            and Image Template Mapping</a>
                                     </li>
                                     <li>
                                         <a class="nav-link" href="{% url 'admin-color-product-map' %}">Product and Color
@@ -283,10 +284,12 @@
                                             and No Of Months Mapping</a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="#">Product and Hole Drilling Mapping</a>
+                                        <a class="nav-link" href="{% url 'admin-hole-drilling-product-map' %}">Product
+                                            and Hole Drilling Mapping</a>
                                     </li>
                                     <li>
-                                        <a class="nav-link" href="#">Product and Binding Method Mapping</a>
+                                        <a class="nav-link" href="{% url 'admin-binding-method-product-map' %}">Product
+                                            and Binding Method Mapping</a>
                                     </li>
                                 </div>
                             </ul>
@@ -398,6 +401,7 @@
 
 
 
+
 </script>
 <!-- Bootstrap 4 -->
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
@@ -424,7 +428,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{% static 'js/pages/dashboard.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
-<!--<script src="{% static 'js/demo.js' %} "></script>-->
+<script src="{% static 'js/demo.js' %} "></script>
 </body>
 </html>
 {% endblock %}

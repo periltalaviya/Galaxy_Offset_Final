@@ -1,7 +1,8 @@
 from django import forms
 
 from user.models import SizeProductMapping, ColorProductMapping, PaperChoiceProductMapping, \
-    ShrinkWrappingProductMapping, AqutousCoatingProductMapping, FoldingOptionsProductMapping, NoOfMonthsProductMapping
+    ShrinkWrappingProductMapping, AqutousCoatingProductMapping, FoldingOptionsProductMapping, NoOfMonthsProductMapping, \
+    HoleDrillingProductMapping, BindingMethodProductMapping, ImageTemplateProductMapping
 
 
 class SizeProductMapForm(forms.ModelForm):
@@ -9,6 +10,10 @@ class SizeProductMapForm(forms.ModelForm):
         model = SizeProductMapping
         fields = ['size_id', 'prod_id']
 
+class ImageTempProductMapForm(forms.ModelForm):
+    class Meta:
+        model = ImageTemplateProductMapping
+        fields = ['temp_id', 'prod_id']
 
 class ColorProductMapForm(forms.ModelForm):
     class Meta:
@@ -44,3 +49,14 @@ class NoOfMonthsProductMapForm(forms.ModelForm):
     class Meta:
         model = NoOfMonthsProductMapping
         fields = ['no_of_months_id', 'prod_id']
+
+
+class HoleDrillingProductMapForm(forms.ModelForm):
+    class Meta:
+        model = HoleDrillingProductMapping
+        fields = ['hole_drilling_id', 'prod_id']
+
+class BindingMethodProductMapForm(forms.ModelForm):
+    class Meta:
+        model = BindingMethodProductMapping
+        fields = ['binding_method_id', 'prod_id']
