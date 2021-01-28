@@ -69,7 +69,7 @@
                                     <th>Image Template Product Mapping Id</th>
                                     <th>Product ID</th>
                                     <th>Image Template ID</th>
-                                    <th>Image </th>
+                                    <th>Image</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -79,7 +79,8 @@
                                     <td>{{x.imageTemp_p_map_id}}</td>
                                     <td>{{x.prod_id}}</td>
                                     <td>{{x.temp_id}}</td>
-                                    <td><img src="{{x.temp_id.temp_img.url}}" alt="{{x.temp_id}}" height=100 width=150></td>
+                                    <td><img src="{{x.temp_id.temp_img.url}}" alt="{{x.temp_id}}" height=100 width=150>
+                                    </td>
                                     <td><a href="{% url 'admin-image-template-product-map-edit' x.imageTemp_p_map_id %}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
@@ -128,27 +129,27 @@
 
 
             {% if instance %}
-                        {% for x in instance %}
+            {% for x in instance %}
             <form action="{% url 'admin-image-template-product-map-edit' x.imageTemp_p_map_id %}" method="POST"
                   enctype="multipart/form-data">
                 {% csrf_token %}
-                 <table border="1" class="table table-bordered border border-info">
-                                    <tr>
-                                        <th>
-                                            {{form.temp_id.label_tag}}
-                                        </th>
-                                        <td>{{form.temp_id}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            {{form.prod_id.label_tag}}
-                                        </th>
-                                        <td>
-                                            {{form.prod_id}}
-                                        </td>
-                                    </tr>
-                                </table>
-                    <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+                <table border="1" class="table table-bordered border border-info">
+                    <tr>
+                        <th>
+                            {{form.temp_id.label_tag}}
+                        </th>
+                        <td>{{form.temp_id}}</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{form.prod_id.label_tag}}
+                        </th>
+                        <td>
+                            {{form.prod_id}}
+                        </td>
+                    </tr>
+                </table>
+                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
                     </button>
