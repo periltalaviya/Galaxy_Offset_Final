@@ -10,7 +10,11 @@ urlpatterns = [
     path('gallary_delete/<int:id>', views.gallary_delete, name="admin-gallary-delete"),
     path('gallary_edit/<int:id>', views.gallary_edit, name="admin-gallary-edit"),
 
-    path('adduser/', views.addUser, name="admin-add-user"),
+    path('addUser/', views.addUser, name="admin-add-user"),
+    path('addUser_delete/<int:id>', views.addUser_delete, name="admin-add-user-delete"),
+    path('addUser_edit/<int:id>', views.addUser_edit, name="admin-add-user-edit"),
+    path('addUser_show1/<int:id>', views.addUser_show1, name="admin-add-user-show1"),
+
     path('order/', views.order, name="admin-order"),
     path('payment/', views.payment, name="admin-payment"),
 

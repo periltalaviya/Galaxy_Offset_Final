@@ -1,10 +1,12 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 from user.models import *
 from .forms import SizeProductMapForm, ColorProductMapForm, PaperProductMapForm, ShrinkWrappingProductMapForm, \
     AqutousCoatingProductMapForm, FoldingOptionProductMapForm, NoOfMonthsProductMapForm, HoleDrillingProductMapForm, \
-    ImageTempProductMapForm
+    ImageTempProductMapForm, CreateUserForm, EditUserProfile
 
 
 # Create your views here.
@@ -69,7 +71,53 @@ def product_delete(request, id):
 
 
 def addUser(request):
-    return render(request, 'admin1/adduser.html')
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+
+            return redirect('/admin1/addUser')
+
+    addUser_show = User.objects.all()
+    # start paginator logic
+    paginator = Paginator(addUser_show, 3)
+    page = request.GET.get('page')
+    try:
+        addUser_show = paginator.page(page)
+    except PageNotAnInteger:
+        addUser_show = paginator.page(1)
+    except EmptyPage:
+        addUser_show = paginator.page(paginator.num_pages)
+    # end paginator logic
+    return render(request, 'admin1/addUser.html',
+                  {'addUser_show': addUser_show, "form": form})
+
+
+def addUser_show1(request, id):
+    addUSer_show1 = User.objects.filter(user_id=id)
+    return render(request, 'admin1/addUser.html', {'addUser_show1': addUSer_show1})
+
+
+def addUser_delete(request, id):
+    addUser_delete = User.objects.filter(user_id=id)
+    addUser_delete.delete()
+    return redirect('/admin1/addUser')
+
+
+def addUser_edit(request, id):
+    instance = User.objects.get(user_id=id)
+    print(instance.username)
+    form = EditUserProfile()
+    if request.method == 'POST':
+        form = EditUserProfile(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin1/addUser')
+    else:
+        form = EditUserProfile(instance=instance)
+
+    return render(request, 'admin1/addUser.html', {'form': form, 'instance': instance})
 
 
 def order(request):

@@ -1,8 +1,10 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.core import validators
 
 from user.models import SizeProductMapping, ColorProductMapping, PaperChoiceProductMapping, \
     ShrinkWrappingProductMapping, AqutousCoatingProductMapping, FoldingOptionsProductMapping, NoOfMonthsProductMapping, \
-    HoleDrillingProductMapping, BindingMethodProductMapping, ImageTemplateProductMapping
+    HoleDrillingProductMapping, BindingMethodProductMapping, ImageTemplateProductMapping, User
 
 
 class SizeProductMapForm(forms.ModelForm):
@@ -60,3 +62,16 @@ class BindingMethodProductMapForm(forms.ModelForm):
     class Meta:
         model = BindingMethodProductMapping
         fields = ['binding_method_id', 'prod_id']
+
+
+class CreateUserForm(UserCreationForm):
+    class Meta:
+        model = User
+
+        fields = ['username', 'first_name', 'last_name', 'avatar', 'email', 'password1', 'password2', 'gender', 'role']
+
+
+class EditUserProfile(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'avatar', 'gender', 'role')

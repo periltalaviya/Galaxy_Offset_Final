@@ -1,5 +1,175 @@
 {% extends 'admin1/layout/master.html' %}
 {% block title %}Add User{% endblock %}
 {% block main %}
- <h1><center>Add User</center> </h1>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+
+
+            {% if addUser_show1 %}
+
+            {% for x in addUser_show1 %}
+            <table class="table table-bordered">
+                <center><h1> User Details</h1></center>
+                <tr>
+                    <th>Id :</th>
+                    <td>{{x.user_id}}</td>
+                </tr>
+                <tr>
+                    <th>User Name</th>
+                    <td>{{x.username}}</td>
+                </tr>
+                <tr>
+                    <th>User First Name</th>
+                    <td>{{x.first_name}}</td>
+                </tr>
+                <tr>
+                    <th>User Last Name</th>
+                    <td>{{x.last_name}}</td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td>{{x.get_gender_display}}</td>
+                </tr>
+                <tr>
+                    <th>Role</th>
+                    <td>{{x.role}}</td>
+                </tr>
+                <tr>
+                    <th>Avatar</th>
+                    <td><img src="{{x.avatar.url}}" alt="{{x.avatar}}" height="100" width="100"></td>
+                </tr>
+            </table>
+            {% endfor %}
+            {% endif %}
+
+            {% if addUser_show %}
+            <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
+                User
+            </button>
+            <div class="modal fade" id="modal-primary">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add User</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body mt-2">
+                            <form action="{% url 'admin-add-user'%}" method="POST"
+                                  enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <table border="1" class="table table-bordered border border-info">
+                                    {{form.as_p}}
+                                    {{form.errors}}
+                                    <div class="modal-footer justify-content-right">
+                                        <input type="Submit" name="Submit" value="Submit"
+                                               class="btn btn-outline-success">
+                                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close
+                                        </button>
+                                    </div>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <!-- /.modal -->
+
+            <br>
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="card mt-2 border border-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title ">Product Table</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <table class="table table-bordered border border-info">
+                                <thead>
+                                <tr>
+                                    <th>User Id</th>
+                                    <th>User Name</th>
+                                    <th>User Avatar</th>
+                                    <th>Role</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody class="justify-content-center">
+                                {% for x in addUser_show %}
+
+                                <tr>
+                                    <td>{{x.user_id}}</td>
+                                    <td>{{x.username}}</td>
+                                    <td><img src="{{x.avatar.url}}" alt="{{x.avatar}}" height="100" width="100">
+                                    </td>
+                                    <td>{{x.role}}</td>
+                                    <td><a href="{% url 'admin-add-user-edit' x.user_id %}"
+                                           class="btn btn-outline-primary mt-2"><i
+                                            class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="{% url 'admin-add-user-delete' x.user_id %}"
+                                           class="btn btn-outline-danger mt-2"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></a>
+                                        <a href="{% url 'admin-add-user-show1' x.user_id %}"
+                                           class="btn btn-outline-warning mt-2"><i
+                                                class="fa fa-eye" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix ">
+                            <ul class="pagination pagination-sm m-0 justify-content-center">
+                                {% if addUser_show.has_previous %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{product_show.previous_page_number}}">
+                                    Previous </a>
+                                </li>
+                                {% endif%}
+                                {% for x in addUser_show.paginator.page_range %}
+
+                                {% if addUser_show.number == x %}
+                                <li class="page-item active"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% else%}
+                                <li class="page-item"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if addUser_show.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{addUser_show.next_page_number}}"> Next </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+            {% endif %}
+
+            {% if instance %}
+
+            <form action="{% url 'admin-add-user-edit' instance.user_id %}" method="POST">
+                {% csrf_token %}
+                <table>
+                    {{form.as_p}}
+                </table>
+                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+            </form>
+
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}
