@@ -1,10 +1,10 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.core import validators
+from django.contrib.auth.forms import UserCreationForm
+
 
 from user.models import SizeProductMapping, ColorProductMapping, PaperChoiceProductMapping, \
     ShrinkWrappingProductMapping, AqutousCoatingProductMapping, FoldingOptionsProductMapping, NoOfMonthsProductMapping, \
-    HoleDrillingProductMapping, BindingMethodProductMapping, ImageTemplateProductMapping, User
+    HoleDrillingProductMapping, BindingMethodProductMapping, ImageTemplateProductMapping, User, Order
 
 
 class SizeProductMapForm(forms.ModelForm):
@@ -75,3 +75,9 @@ class EditUserProfile(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'avatar', 'gender', 'role')
+
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = '__all__'

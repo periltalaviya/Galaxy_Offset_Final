@@ -16,6 +16,9 @@ urlpatterns = [
     path('addUser_show1/<int:id>', views.addUser_show1, name="admin-add-user-show1"),
 
     path('order/', views.order, name="admin-order"),
+    path('order_delete/<int:id>', views.order_delete, name="admin-order-delete"),
+    path('order_edit/<int:id>', views.order_edit, name="admin-order-edit"),
+
     path('payment/', views.payment, name="admin-payment"),
 
     path('feedback/', views.feedback, name="admin-feedback"),

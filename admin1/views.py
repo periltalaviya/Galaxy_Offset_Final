@@ -1,12 +1,11 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.decorators import login_required
 
 from user.models import *
 from .forms import SizeProductMapForm, ColorProductMapForm, PaperProductMapForm, ShrinkWrappingProductMapForm, \
     AqutousCoatingProductMapForm, FoldingOptionProductMapForm, NoOfMonthsProductMapForm, HoleDrillingProductMapForm, \
-    ImageTempProductMapForm, CreateUserForm, EditUserProfile
+    ImageTempProductMapForm, CreateUserForm, EditUserProfile, OrderForm, BindingMethodProductMapForm
 
 
 # Create your views here.
@@ -16,6 +15,7 @@ def index(request):
     return render(request, 'admin1/dashboard.html')
 
 
+@login_required
 def product(request):
     if request.method == 'POST':
         product_name = request.POST['p_name']
@@ -120,12 +120,62 @@ def addUser_edit(request, id):
     return render(request, 'admin1/addUser.html', {'form': form, 'instance': instance})
 
 
+# def order(request):
+#     return render(request, 'admin1/order.html')
 def order(request):
-    return render(request, 'admin1/order.html')
+    form = OrderForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+        return redirect("/admin1/order/")
+    else:
+        order_show = Order.objects.all()
+        # start paginator logic
+        paginator = Paginator(order_show, 3)
+        page = request.GET.get('page')
+        try:
+            order_show = paginator.page(page)
+        except PageNotAnInteger:
+            order_show = paginator.page(1)
+        except EmptyPage:
+            order_show = paginator.page(paginator.num_pages)
+        # end paginator logic
+        return render(request, 'admin1/order.html', {'order_show': order_show, 'form': form})
+
+
+def order_delete(request, id):
+    order_delete = Order.objects.filter(order_id=id)
+    order_delete.delete()
+    return redirect('/admin1/order')
+
+
+def order_edit(request, id):
+    instance = Order.objects.get(order_id=id)
+    form = OrderForm(instance=instance)
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin1/order')
+    else:
+        form = Order(instance=instance)
+
+    return render(request, 'admin1/order.html', {'form': form, 'instance': instance})
 
 
 def payment(request):
-    return render(request, 'admin1/Payment.html')
+    payment_show = Payment.objects.all()
+    # start paginator logic
+    paginator = Paginator(payment_show, 3)
+    page = request.GET.get('page')
+    try:
+        payment_show = paginator.page(page)
+    except PageNotAnInteger:
+        payment_show = paginator.page(1)
+    except EmptyPage:
+        payment_show = paginator.page(paginator.num_pages)
+    # end paginator logic
+    return render(request, 'admin1/payment.html', {'payment_show': payment_show})
 
 
 def viewProfile(request):
@@ -937,13 +987,13 @@ def bindingMethodProductMap(request):
 
 
 def bindingMethodProductMap_delete(request, id):
-    bindingMethodProductMap_delete = BindingMEthodProductMapping.objects.filter(binding_methods_p_map_id=id)
+    bindingMethodProductMap_delete = BindingMethodProductMapping.objects.filter(binding_methods_p_map_id=id)
     bindingMethodProductMap_delete.delete()
     return redirect('/admin1/bindingMethodProductMap')
 
 
 def bindingMethodProductMap_edit(request, id):
-    instance = bindingMethodProductMapping.objects.get(binding_methods_p_map_id=id)
+    instance = BindingMethodProductMapping.objects.get(binding_methods_p_map_id=id)
     form = BindingMethodProductMapForm(instance=instance)
     if request.method == 'POST':
         form = BindingMethodProductMapForm(request.POST, instance=instance)

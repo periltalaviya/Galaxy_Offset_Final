@@ -1,5 +1,195 @@
 {% extends 'admin1/layout/master.html' %}
-{% block title %}Order{% endblock %}
+{% block title %}Add Order{% endblock %}
 {% block main %}
- <h1><center>Order</center> </h1>
+<h1>
+    <center>Order</center>
+</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+
+
+            {% if order_show1 %}
+
+            {% for x in order_show1 %}
+            <table class="table table-bordered">
+                <center><h1> Order Details</h1></center>
+                <tr>
+                    <th>Order Id :</th>
+                    <td>{{x.order_id}}</td>
+                </tr>
+                <tr>
+                    <th>User Id :</th>
+                    <td>{{x.user_id}}</td>
+                </tr>
+                <tr>
+                    <th>Product id</th>
+                    <td>{{x.prod_id}}</td>
+                </tr>
+                <tr>
+                    <th>Quantity</th>
+                    <td>{{x.quantity}}</td>
+                </tr>
+                <tr>
+                    <th>Order Date</th>
+                    <td>{{x.order_date}}</td>
+                </tr>
+                <tr>
+                    <th>Order Job Title</th>
+                    <td>{{x.order_job_title}}</td>
+                </tr>
+                <tr>
+                    <th>Order Description</th>
+                    <td>{{x.order_desc}}</td>
+                </tr>
+                <tr>
+                    <th>Order Address</th>
+                    <td>{{x.address}}</td>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <td>{{x.state}}</td>
+                </tr>
+                <tr>
+                    <th>City</th>
+                    <td>{{x.city}}</td>
+                </tr>
+                <tr>
+                    <th>Postal Code</th>
+                    <td>{{x.postal_code}}</td>
+                </tr>
+
+
+            </table>
+            {% endfor %}
+            {% endif %}
+
+
+            <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
+                Order
+            </button>
+            <div class="modal fade" id="modal-primary">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add Order</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body mt-2">
+                            <form action="{% url 'admin-add-user'%}" method="POST"
+                                  enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <table border="1" class="table table-bordered border border-info">
+                                    {{form.as_p}}
+                                    {{form.errors}}
+                                    <div class="modal-footer justify-content-right">
+                                        <input type="Submit" name="Submit" value="Submit"
+                                               class="btn btn-outline-success">
+                                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close
+                                        </button>
+                                    </div>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+
+            <!-- /.modal -->
+
+            <br>
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="card mt-2 border border-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title ">Order Table</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <table class="table table-bordered border border-info">
+                                <thead>
+                                <tr>
+                                    <th>Order Id</th>
+                                    <th>Product</th>
+                                    <th>Order Price</th>
+                                    <th>Quantity</th>
+                                    <th>Address</th>
+                                </tr>
+                                </thead>
+                                <tbody class="justify-content-center">
+                                {% for x in order_show %}
+
+                                <tr>
+                                    <td>{{x.order_id}}</td>
+                                    <td>{{x.prod_id.prod_name}}</td>
+                                    <td>{{x.order_price}}</td>
+                                    <td>{{x.quantity}}</td>
+                                    <td><a href="{%url 'admin-order' x.order_id%}"
+                                           class="btn btn-outline-primary mt-2"><i
+                                            class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="{%url 'admin-order-edit' x.order_id%}"
+                                           class="btn btn-outline-danger mt-2"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></a>
+                                        <a href="{%url 'admin-order-delete' x.order_id%}"
+                                           class="btn btn-outline-warning mt-2"><i
+                                                class="fa fa-eye" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix ">
+                            <ul class="pagination pagination-sm m-0 justify-content-center">
+                                {% if order_show.has_previous %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{order_show.previous_page_number}}">
+                                    Previous </a>
+                                </li>
+                                {% endif%}
+                                {% for x in order_show.paginator.page_range %}
+
+                                {% if order_show.number == x %}
+                                <li class="page-item active"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% else%}
+                                <li class="page-item"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if order_show.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{order_show.next_page_number}}"> Next </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+
+
+            {% if instance %}
+
+            <form action="#" method="POST">
+                {% csrf_token %}
+                <table>
+                    {{form.as_p}}
+                </table>
+                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+            </form>
+
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}

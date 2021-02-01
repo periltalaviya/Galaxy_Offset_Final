@@ -21,6 +21,7 @@ class User(AbstractUser):
         return "{}".format(self.user_id)
 
 
+
 class Product(models.Model):
     prod_ID = models.AutoField("Product ID", primary_key=True)
     prod_Name = models.CharField("Product Name", max_length=30, null=False)
@@ -65,6 +66,7 @@ class Order(models.Model):
     state = models.CharField("Customer State", max_length=30, null=False)
     city = models.CharField("Customer City", max_length=30, null=False)
     postal_code = models.IntegerField("Area Pin Code", null=False)
+    order_price = models.DecimalField(max_digits=8, decimal_places=2, default=0000.00)
 
 
 class FeedBack(models.Model):
@@ -240,3 +242,14 @@ class BindingMethodProductMapping(models.Model):
     binding_method_id = models.ForeignKey(BindingMethod, null=False, on_delete=models.CASCADE,
                                           verbose_name="Binding Methods ID")
     prod_id = models.ForeignKey(Product, null=False, on_delete=models.CASCADE, verbose_name="Product Id")
+
+
+class Payment(models.Model):
+    Pay_Status = (
+        ("P", 'Paid'),
+        ("U", 'Unpaid'),
+    )
+    pay_id = models.IntegerField("Payment ID", primary_key=True, auto_created=True)
+    pay_date = models.DateField("Payment Date", auto_now_add=True, null=False)
+    pay_status = models.CharField("Payment Status", choices=Pay_Status, max_length = 20 ,default="U")
+    order_id = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name="Order Id")
