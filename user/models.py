@@ -21,7 +21,6 @@ class User(AbstractUser):
         return "{}".format(self.user_id)
 
 
-
 class Product(models.Model):
     prod_ID = models.AutoField("Product ID", primary_key=True)
     prod_Name = models.CharField("Product Name", max_length=30, null=False)
@@ -251,5 +250,5 @@ class Payment(models.Model):
     )
     pay_id = models.IntegerField("Payment ID", primary_key=True, auto_created=True)
     pay_date = models.DateField("Payment Date", auto_now_add=True, null=False)
-    pay_status = models.CharField("Payment Status", choices=Pay_Status, max_length = 20 ,default="U")
+    pay_status = models.CharField("Payment Status", choices=Pay_Status, max_length=20, default="U")
     order_id = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name="Order Id")

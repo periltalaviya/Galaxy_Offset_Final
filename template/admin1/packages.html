@@ -1,0 +1,191 @@
+{% extends 'admin1/layout/master.html' %}
+{% block title %}Packages {% endblock %}
+{% block main %}
+<h1>
+    <center>
+        Packages
+    </center>
+</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-10">
+
+            <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
+                Packages
+            </button>
+            <div class="modal fade" id="modal-primary">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add Packages</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body mt-2">
+                            <form action="{% url 'admin-packages'%}" method="POST"
+                                  enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <table border="1" class="table table-bordered border border-info">
+                                    <tr>
+                                        <th>
+                                            {{form.package_Name.label_tag}}
+                                        </th>
+                                        <td>{{form.package_Name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            {{form.attribute_values.label_tag}}
+                                        </th>
+                                        <td>{{form.attribute_values}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            {{form.package_Price.label_tag}}
+                                        </th>
+                                        <td>{{form.package_Price}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            {{form.prod_ID.label_tag}}
+                                        </th>
+                                        <td>
+                                            {{form.prod_ID}}
+                                        </td>
+                                    </tr>
+                                </table>
+                                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="card mt-2 border border-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title ">Packages Table</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+                            <table class="table table-bordered border border-info">
+                                <thead>
+                                <tr>
+                                    <th>Package Id</th>
+                                    <th>Package Name</th>
+                                    <th>Attribute Values</th>
+                                    <th>Package Price</th>
+                                    <th>Product ID</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody class="justify-content-center">
+                                {% for x in holeDrillingProductMap_show %}
+                                <tr>
+                                    <td>{{x.package_ID}}</td>
+                                    <td>{{x.package_Name}}</td>
+                                    <td>{{x.attribute_values}}</td>
+                                    <td>{{x.package_Price}}</td>
+                                    <td>{{x.prod_id}}</td>
+                                    <td>
+                                        <a href="{% url 'admin-packages-edit' x.binding_methods_p_map_id %}"
+                                           class="btn btn-outline-primary mt-2"><i
+                                                class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        <a href="{% url 'admin-packages-delete' x.binding_methods_p_map_id %}"
+                                           class="btn btn-outline-danger mt-2"><i
+                                                class="fa fa-trash" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix ">
+                            <ul class="pagination pagination-sm m-0 justify-content-center">
+                                {% if packages_show.has_previous %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{packages_show.previous_page_number}}">
+                                    Previous </a>
+                                </li>
+                                {% endif%}
+                                {% for x in packages_show.paginator.page_range %}
+
+                                {% if packages_show.number == x %}
+                                <li class="page-item active"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% else%}
+                                <li class="page-item"><a class="page-link" href="?page={{x}}">{{x}}</a></li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if packages_show.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?page={{packages_show.next_page_number}}">
+                                    Next </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+
+
+            {% if instance %}
+            {% for x in instance %}
+            <form action="{% url 'admin-packages-edit' x.packages_id %}" method="POST"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                <table border="1" class="table table-bordered border border-info">
+                    <tr>
+                        <th>
+                            {{form.package_Name.label_tag}}
+                        </th>
+                        <td>{{form.package_Name}}</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{form.attribute_values.label_tag}}
+                        </th>
+                        <td>{{form.attribute_values}}</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{form.package_Price.label_tag}}
+                        </th>
+                        <td>{{form.package_Price}}</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{form.prod_ID.label_tag}}
+                        </th>
+                        <td>
+                            {{form.prod_ID}}
+                        </td>
+                    </tr>
+                </table>
+                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
+                    </button>
+                </div>
+            </form>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

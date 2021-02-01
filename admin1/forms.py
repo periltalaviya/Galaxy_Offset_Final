@@ -1,10 +1,11 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-
-from user.models import SizeProductMapping, ColorProductMapping, PaperChoiceProductMapping, \
-    ShrinkWrappingProductMapping, AqutousCoatingProductMapping, FoldingOptionsProductMapping, NoOfMonthsProductMapping, \
-    HoleDrillingProductMapping, BindingMethodProductMapping, ImageTemplateProductMapping, User, Order
+from user.models import (SizeProductMapping, ColorProductMapping, PaperChoiceProductMapping,
+                         ShrinkWrappingProductMapping, AqutousCoatingProductMapping, FoldingOptionsProductMapping,
+                         NoOfMonthsProductMapping,
+                         HoleDrillingProductMapping, BindingMethodProductMapping, ImageTemplateProductMapping, User,
+                         Order, Packages)
 
 
 class SizeProductMapForm(forms.ModelForm):
@@ -12,10 +13,12 @@ class SizeProductMapForm(forms.ModelForm):
         model = SizeProductMapping
         fields = ['size_id', 'prod_id']
 
+
 class ImageTempProductMapForm(forms.ModelForm):
     class Meta:
         model = ImageTemplateProductMapping
         fields = ['temp_id', 'prod_id']
+
 
 class ColorProductMapForm(forms.ModelForm):
     class Meta:
@@ -58,6 +61,7 @@ class HoleDrillingProductMapForm(forms.ModelForm):
         model = HoleDrillingProductMapping
         fields = ['hole_drilling_id', 'prod_id']
 
+
 class BindingMethodProductMapForm(forms.ModelForm):
     class Meta:
         model = BindingMethodProductMapping
@@ -81,3 +85,9 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = '__all__'
+
+
+class PackagesForm(forms.ModelForm):
+    class Meta:
+        model = Packages
+        fields = ['package_Name', 'attribute_values', 'package_Price', 'prod_ID']

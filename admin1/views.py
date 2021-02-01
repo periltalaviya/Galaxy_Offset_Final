@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from user.models import *
 from .forms import SizeProductMapForm, ColorProductMapForm, PaperProductMapForm, ShrinkWrappingProductMapForm, \
     AqutousCoatingProductMapForm, FoldingOptionProductMapForm, NoOfMonthsProductMapForm, HoleDrillingProductMapForm, \
-    ImageTempProductMapForm, CreateUserForm, EditUserProfile, OrderForm, BindingMethodProductMapForm
+    ImageTempProductMapForm, CreateUserForm, EditUserProfile, OrderForm, BindingMethodProductMapForm, PackagesForm
 
 
 # Create your views here.
@@ -1070,3 +1070,46 @@ def gallary_delete(request, id):
     gallary_delete = Gallary.objects.filter(img_id=id)
     gallary_delete.delete()
     return redirect('/admin1/gallary')
+
+
+def packages(request):
+    form = PackagesForm(request.POST, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+        return redirect("/admin1/Packages/")
+    else:
+        packages_show = Packages.objects.all()
+        # start paginator logic
+        paginator = Paginator(packages_show, 3)
+        page = request.GET.get('page')
+        try:
+            packages_show = paginator.page(page)
+        except PageNotAnInteger:
+            packages_show = paginator.page(1)
+        except EmptyPage:
+            packages_show = paginator.page(paginator.num_pages)
+        # end paginator logic
+        return render(request, 'admin1/packages.html',
+                      {'packages_show': packages_show, 'form': form})
+
+
+def packages_delete(request, id):
+    packages_delete = Packages.objects.filter(package_ID=id)
+    packages_delete.delete()
+    return redirect('/admin1/packages')
+
+
+def packages_edit(request, id):
+    instance = packages.    objects.get(package_ID=id)
+    form = Packages(instance=instance)
+    if request.method == 'POST':
+        form = PackagesForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin1/packages')
+    else:
+        form = PackagesForm(instance=instance)
+
+    return render(request, 'admin1/packages.html', {'form': form, 'instance': instance})
+
