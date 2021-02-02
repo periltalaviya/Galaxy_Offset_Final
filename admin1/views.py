@@ -178,8 +178,8 @@ def payment(request):
     return render(request, 'admin1/payment.html', {'payment_show': payment_show})
 
 
-def viewProfile(request):
-    return render(request, 'admin1/viewProfile.html')
+def profile(request):
+    return render(request, 'admin1/profile.html')
 
 
 def size(request):

@@ -27,7 +27,7 @@ urlpatterns = [
     path('feedback/', views.feedback, name="admin-feedback"),
     path('feedback_delete/<int:id>', views.feedback, name="admin-feedback-delete"),
 
-    path('viewprofile/', views.viewProfile, name="admin-view-profile"),
+    path('profile/', views.profile, name="admin-profile"),
 
     path('product/', views.product, name="admin-product"),
     path('product_edit/<int:id>', views.product_edit, name="admin-product-edit"),
