@@ -5,6 +5,9 @@ from admin1 import views
 urlpatterns = [
     path('', views.index, name="admin-home"),
 
+    path('login/', views.loginPage, name="admin-login"),
+    path('logout/', views.logoutUser, name="admin-logout"),
+
     path('gallary/', views.gallary, name="admin-gallary"),
     path('gallary_show1/<int:id>', views.gallary_show1, name="admin-gallary-show1"),
     path('gallary_delete/<int:id>', views.gallary_delete, name="admin-gallary-delete"),
@@ -27,7 +30,9 @@ urlpatterns = [
     path('feedback/', views.feedback, name="admin-feedback"),
     path('feedback_delete/<int:id>', views.feedback, name="admin-feedback-delete"),
 
-    path('profile/', views.profile, name="admin-profile"),
+    path('viewProfile/', views.viewProfile, name="admin-view-profile"),
+    path('editProfile/', views.editProfile, name="admin-edit-profile"),
+    path('changePassword/', views.changePassword, name='admin-change-password'),
 
     path('product/', views.product, name="admin-product"),
     path('product_edit/<int:id>', views.product_edit, name="admin-product-edit"),

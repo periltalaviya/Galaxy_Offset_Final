@@ -1,11 +1,26 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.core import validators
 
 from user.models import (SizeProductMapping, ColorProductMapping, PaperChoiceProductMapping,
                          ShrinkWrappingProductMapping, AqutousCoatingProductMapping, FoldingOptionsProductMapping,
                          NoOfMonthsProductMapping,
                          HoleDrillingProductMapping, BindingMethodProductMapping, ImageTemplateProductMapping, User,
                          Order, Packages)
+
+
+class EditProfile(UserChangeForm):
+    first_name = forms.CharField(widget=forms.TextInput({'placeholder': 'First Name'}), required=True)
+    last_name = forms.CharField(widget=forms.TextInput({'placeholder': 'Last Name'}), required=True)
+    email = forms.EmailField(widget=forms.TextInput({'placeholder': 'Email'}), required=True,
+                             validators=[validators.validate_email])
+    avatar = forms.ImageField(required=False, validators=[validators.validate_image_file_extension])
+    username = forms.CharField(widget=forms.TextInput({'placeholder': 'User Name', 'value': ' '}), required=True)
+
+    class Meta:
+        model = User
+
+        fields = ['username', 'first_name', 'last_name', 'email', 'avatar', 'gender']
 
 
 class SizeProductMapForm(forms.ModelForm):

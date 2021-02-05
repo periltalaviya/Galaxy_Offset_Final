@@ -1,21 +1,37 @@
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash, logout, authenticate, login
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.forms import PasswordChangeForm
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 
 from user.models import *
-from .forms import SizeProductMapForm, ColorProductMapForm, PaperProductMapForm, ShrinkWrappingProductMapForm, \
-    AqutousCoatingProductMapForm, FoldingOptionProductMapForm, NoOfMonthsProductMapForm, HoleDrillingProductMapForm, \
-    ImageTempProductMapForm, CreateUserForm, EditUserProfile, OrderForm, BindingMethodProductMapForm, PackagesForm
+from .forms import (SizeProductMapForm, ColorProductMapForm, PaperProductMapForm, ShrinkWrappingProductMapForm,
+                    AqutousCoatingProductMapForm, FoldingOptionProductMapForm, NoOfMonthsProductMapForm,
+                    HoleDrillingProductMapForm,
+                    ImageTempProductMapForm, CreateUserForm, EditUserProfile, OrderForm, BindingMethodProductMapForm,
+                    PackagesForm, EditProfile)
 
 
 # Create your views here.
 
+def check_role_admin_or_designer(user):
+    if user.is_authenticated and (user.role == 'Admin' or user.role == 'Designer'):
+        return True
+
+
+def check_role_admin(user):
+    if user.is_authenticated and (user.role == 'Admin' or user.is_superuser):
+        return True
+
 
 def index(request):
+    print(request.user.role)
     return render(request, 'admin1/dashboard.html')
 
 
 @login_required
+@user_passes_test(check_role_admin_or_designer)
 def product(request):
     if request.method == 'POST':
         product_name = request.POST['p_name']
@@ -176,10 +192,6 @@ def payment(request):
         payment_show = paginator.page(paginator.num_pages)
     # end paginator logic
     return render(request, 'admin1/payment.html', {'payment_show': payment_show})
-
-
-def profile(request):
-    return render(request, 'admin1/profile.html')
 
 
 def size(request):
@@ -1113,3 +1125,70 @@ def packages_edit(request, id):
 
     return render(request, 'admin1/packages.html', {'form': form, 'instance': instance})
 
+
+def viewProfile(request):
+    return render(request, "admin1/viewProfile.html")
+
+
+def editProfile(request):
+    if request.user.is_authenticated:
+        form = EditProfile(request.POST, request.FILES, instance=request.user)
+        if request.method == 'POST':
+            form = EditProfile(request.POST, request.FILES, instance=request.user)
+            if form.is_valid():
+                form.save()
+                return redirect('admin-view-profile')
+
+        context = {'form': form}
+        return render(request, 'admin1/editProfile.html', context)
+
+    else:
+        return redirect('login')
+
+
+def changePassword(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = PasswordChangeForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  # Important!
+                return redirect('admin-view-profile')
+            else:
+                messages.error(request, 'Please correct the error below.')
+        else:
+            form = PasswordChangeForm(request.user)
+        return render(request, 'admin1/changePassword.html', {
+            'form': form
+        })
+    else:
+        return redirect('admin-home')
+
+
+def loginPage(request):
+    if request.user.is_authenticated and request.user.role == 'Customer':
+        return redirect('user-home')
+    if request.user.is_authenticated and (
+            request.user.role == 'Admin' or request.user.role == 'Designer' or request.user.is_superuser):
+        return redirect('admin-home')
+    else:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect('admin1-home')
+            else:
+                messages.error(request, 'Username or Password is incorrect')
+                return redirect('login')
+
+        context = {}
+        return render(request, 'admin1/login.html', context)
+
+
+def logoutUser(request):
+    logout(request)
+    return redirect('admin-login')
