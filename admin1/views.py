@@ -26,7 +26,6 @@ def check_role_admin(user):
 
 
 def index(request):
-    print(request.user.role)
     return render(request, 'admin1/dashboard.html')
 
 
@@ -1178,12 +1177,18 @@ def loginPage(request):
 
             user = authenticate(request, username=username, password=password)
 
-            if user is not None:
+            if user is not None and user.role == 'Customer':
+                print(user.role)
                 login(request, user)
-                return redirect('admin1-home')
+                return redirect('user-home')
+            elif user is not None and (
+                    user.role == 'Admin' or user.role == 'Designer' or user.is_superuser):
+                print(user.role)
+                login(request, user)
+                return redirect('admin-home')
             else:
                 messages.error(request, 'Username or Password is incorrect')
-                return redirect('login')
+                return redirect('admin-login')
 
         context = {}
         return render(request, 'admin1/login.html', context)
