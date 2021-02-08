@@ -181,6 +181,7 @@
                                 </p>
                             </a>
                         </li>
+                        {% if request.user.role == "Admin" %}
                         <li class="nav-item has-treeview dropdown">
                             <a href="{%url 'admin-add-user'%}" class="nav-link">
                                 <i class="fa fa-user-plus" aria-hidden="true"></i>
@@ -191,7 +192,8 @@
                                 </p>
                             </a>
                         </li>
-
+                        {% endif %}
+                        {% if request.user.role == "Admin" %}
                         <li class="nav-item has-treeview">
                             <a href="{%url 'admin-product'%}" class="nav-link">
                                 <i class="fa fa-dropbox" aria-hidden="true"></i>
@@ -202,7 +204,7 @@
                                 </p>
                             </a>
                         </li>
-
+                        {% endif %}
                         <li class="nav-item has-treeview dropdown">
                             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
                                class="nav-link dropdown-toggle">
@@ -214,36 +216,56 @@
                             </a>
                             <ul class="collapse list-unstyled scroll" id="pageSubmenu">
                                 <div style="overflow-y : scroll; height:200px; width:230px;">
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{%url 'admin-product-size' %}">Size</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" or request.user.role == "Designer" %}
                                     <li>
                                         <a class="nav-link" href="{%url 'admin-template-image' %}">Image Template</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{%url 'admin-color-options' %}">Color</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{%url 'admin-paper-choice' %}">Paper Choice</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{%url 'admin-shrink-wrapping' %}">Shrink Wrapping</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{%url 'admin-aqutous-coating' %}">Aqutous Coating</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{%url 'admin-folding-option' %}">Folding Options</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{%url 'admin-no-of-months' %}">No Of Months</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{%url 'admin-hole-drilling' %}">Hole Drilling</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{%url 'admin-binding-method' %}">Binding Method</a>
                                     </li>
+                                    {% endif %}
                                 </div>
                             </ul>
                         </li>
@@ -259,50 +281,70 @@
                             </a>
                             <ul class="collapse list-unstyled" id="pageSubmenu2">
                                 <div id="scroll" class="scroll1">
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{% url 'admin-size-product-map' %}">Product and Size
                                             Mapping</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" or request.user.role == "Designer" %}
                                     <li>
                                         <a class="nav-link" href="{% url 'admin-image-template-product-map' %}">Product
                                             and Image Template Mapping</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{% url 'admin-color-product-map' %}">Product and Color
                                             Mapping</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{% url 'admin-paper-product-map' %}">Product and Paper
                                             Choice Mapping</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{% url 'admin-shrink-wrapping-product-map' %}">Product
                                             and Shrink Wrapping Mapping</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{% url 'admin-aqutous-coating-product-map' %}">Product
                                             and Aqutous Coating Mapping</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{% url 'admin-folding-option-product-map' %}">Product
                                             and Folding Options Mapping</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{% url 'admin-no-of-months-product-map' %}">Product
                                             and No Of Months Mapping</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{% url 'admin-hole-drilling-product-map' %}">Product
                                             and Hole Drilling Mapping</a>
                                     </li>
+                                    {% endif %}
+                                    {% if request.user.role == "Admin" %}
                                     <li>
                                         <a class="nav-link" href="{% url 'admin-binding-method-product-map' %}">Product
                                             and Binding Method Mapping</a>
                                     </li>
+                                    {% endif %}
                                 </div>
                             </ul>
                         </li>
-
+                        {% if request.user.role == "Admin" %}
                         <li class="nav-item has-treeview">
                             <a href="{% url 'admin-gallary' %}" class="nav-link">
                                 <i class="fa fa-picture-o" aria-hidden="true"></i>
@@ -312,6 +354,8 @@
                                 </p>
                             </a>
                         </li>
+                        {% endif %}
+                        {% if request.user.role == "Admin" %}
                         <li class="nav-item has-treeview">
                             <a href="{% url 'admin-packages' %}" class="nav-link">
                                 <i class="fas fa-box" aria-hidden="true"></i>
@@ -321,7 +365,8 @@
                                 </p>
                             </a>
                         </li>
-
+                        {% endif %}
+                        {% if request.user.role == "Admin" %}
                         <li class="nav-item has-treeview">
                             <a href="{% url 'admin-order' %}" class="nav-link">
                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -332,6 +377,8 @@
                                 </p>
                             </a>
                         </li>
+                        {% endif %}
+                        {% if request.user.role == "Admin" %}
                         <li class="nav-item has-treeview">
                             <a href="{% url 'admin-payment' %}" class="nav-link">
                                 <i class="fa fa-money" aria-hidden="true"></i>
@@ -340,6 +387,8 @@
                                 </p>
                             </a>
                         </li>
+                        {% endif %}
+                        {% if request.user.role == "Admin" %}
                         <li class="nav-item has-treeview">
                             <a href="{% url 'admin-feedback' %}" class="nav-link">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -349,6 +398,7 @@
                                 </p>
                             </a>
                         </li>
+                        {% endif %}
                     </ul>
                 </nav>
             </div>
