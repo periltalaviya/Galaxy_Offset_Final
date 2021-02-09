@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
     {% load static %}
@@ -11,43 +11,71 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-    <title>{% block title %}{% endblock%}</title>
+    <title>{% block title%} {% endblock %} | Galaxy Offset</title>
     <style>
-        #header{
-	background-image: url("/static/images/ap.jpeg");
-	background-size: cover;
-	height: 500px;
-	background-position: center;
-    }
-    .a1{
-    border: 1px solid #3498db;
-    background: none;
-    padding: 10px 20px;
-    font-size: 20px;
-    cursor: pointer;
-    margin: 10px;
-    transition: 0.8s;
-    position: relative;
-    overflow: hidden;
-}
-.a1:hover{
-    color: #fff;
-}
+{% block css %} {% endblock %}
     </style>
 </head>
+{% block header %} {% endblock %}
 <body>
-<header id="header">
-    <div class="container h-100">
-        <div class="align-items-center d-flex justify-content-center h-100 ml-auto">
-            <div></div>
-            <h1 class="row">Galaxy Offset</h1>
-            <di
-        </div>
+<nav class="navbar navbar-expand-lg navbar-light py-2" role="navigation">
+    <a class="navbar-brand" href="#" id="Home">Galaxy Offset</a>
+    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            class="navbar-toggler"
+            data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'user-home' %}" data-toggle="#Home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a aria-disabled="true" class="nav-link" href="{% url 'user-product' %}" tabindex="-1">Product
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a aria-disabled="true" class="nav-link" href="{% url 'user-about-us' %}" tabindex="-1">About
+                    Us</a>
+            </li>
+            <li class="nav-item active">
+                <a aria-disabled="true" class="nav-link" href="{% url 'user-packages' %}"
+                   tabindex="-1">Packages</a>
+            </li>
+        </ul>
+        <form class="form-inline mr-2">
+            {% if user.is_authenticated %}
+            <ul class="nav-item dropdown active my-0 mr-2">
+                <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle btn"
+                   data-toggle="dropdown" id="profileDropdown">
+                    <img class="border border-secondary rounded-circle my-2 mx-3" height="35"
+                         src="{{request.user.avatar.url}}"
+                         width="35"/>
+                    My Account
+                </a>
+                <div aria-labelledby="navbarDropdown"
+                     class="dropdown-menu mdb-select md-form colorful-select-secondary">
+                    <a class="dropdown-item" href="#">View Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Edit Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Change Password</a>
+                </div>
+            </ul>
+
+            <a class="btn btn-outline-secondary my-2 my-sm-0" href="#" type="button">Sign Out</a>
+            {% else %}
+            <a class="btn btn-outline-secondary my-2 mx-2 my-sm-0" href="{% url 'user-login' %}" type="button"> Sign
+                In</a>
+            <a class="btn btn-outline-secondary my-2 mx-2 my-sm-0" href="{% url 'user-register' %}" type="button">Sign Up</a>
+            {% endif %}
+        </form>
     </div>
-</header>
+</nav>
 {% block main %}
 {% endblock %}
 </body>
