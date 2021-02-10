@@ -40,6 +40,7 @@ urlpatterns = [
     path('packages/', views.packages, name="admin-packages"),
     path('packages_delete/<int:id>', views.packages_delete, name="admin-packages-delete"),
     path('packages_edit/<int:id>', views.packages_edit, name="admin-packages-edit"),
+
     path('feedback/', views.feedback, name="admin-feedback"),
     path('feedback_delete/<int:id>', views.feedback, name="admin-feedback-delete"),
 

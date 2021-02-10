@@ -1,13 +1,82 @@
 {% extends 'user/layout/userMaster.html' %}
 {% block title %}Product{% endblock %}
+
+
 {% block css %}
+.img1
+{
+max-width: 50%;
+max-height: 50%;
+adding-top:10px;
+}
+.table td {
+text-align: center;
+}
+.alignc{
+text-align: left;
+}
 {% endblock %}
+
+
 {% block header %}
 {% endblock %}
 {% block main %}
-<div class="d-flex justify-content-center container">
-    <h1>
-        Product
-    </h1>
+
+<div class="container">
+    {% if product_list %}
+    <div>
+        <table class="table col-12 mx-auto">
+            <tr>
+                {% for product in product_list %}
+                <td class="align-middle">
+                    <img src="{{ product.prod_img.url }}" height="200" width="200">
+                    <div class="card-body">
+                        <h4 class="alignc">{{ product.prod_Name }}</h4>
+                        <h6 class="alignc">{{ product.prod_Price }} Rs. / Piece
+                            <a href="{% url 'user-product-show1' product.prod_ID %}"
+                               class="btn btn-outline-primary mt-2"><i
+                                    aria-hidden="true">See More</i></a>
+                        </h6>
+                    </div>
+                </td>
+                {% if not forloop.last and forloop.counter == 3 or forloop.counter == 6 %}
+            </tr>
+
+            {% endif %}
+            {% endfor %}
+        </table>
+        <div class="d-flex justify-content-center">
+            <button type="submit" value="Submit" class="btn btn-outline-success my-2">Place Order</button>
+        </div>
+    </div>
+    {% endif %}
+    {% if product_detail %}
+    {% for data in product_detail%}
+    <div class="card my-2 mx-0 auto">
+        <div class="mx-4 my-2">
+            <h1>{{ data.prod_Name }}</h1>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <img class="border border-secondary my-4 mx-4" height="200"
+                     src="{{data.prod_img.url}}"
+                     width="200"/>
+            </div>
+            <div class="col-8 my-4">
+                <p> {{data.prod_Desc}}</p>
+            </div>
+            <div class="dropdown-divider"></div>
+        </div>
+    </div>
+    {% endfor %}
+    <div>
+        {% for image in ImageTemplateProductsList %}
+        <img class="border border-secondary rounded my-2 mx-3" height="250"
+             src="{{image.url}}"
+             width="400"/><br>
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
+
 {% endblock %}

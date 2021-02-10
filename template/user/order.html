@@ -6,8 +6,224 @@
 {% endblock %}
 {% block main %}
 <div class="d-flex justify-content-center container">
-    <h1>
-        Order
-    </h1>
+    <div class="row">
+    <div class="row rounded mx-auto d-block">
+        <button class="btn btn-secondary my-2">Custom</button>
+        <button class="btn btn-secondary my-2">Package</button>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="card mx-2 my-2 border border-secondary">
+                <div class="mx-2 mt-4">
+                    {% for product in products %}
+                    <a id="{{ product.prod_ID }}" class="dropdown-item" href="{% url 'product' product.prod_ID%}">
+                        <h5>{{ product.prod_ID }}. {{ product.prod_Name }}</h5></a>
+                    <div class="dropdown-divider"></div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="card mx-2 my-2 border border-secondary">
+                <div class="row my-2">
+
+                    <div class="col-4 ml-4 mt-2">
+                        <label class="form-control-label font-weight-bold card-header"
+                               style="background-color:#e3e4e6"><h5>Quantity : </h5></label>
+                    </div>
+                    <div class="col-5 mr-4 mt-2">
+                        <input type="number"> {{s}}
+                        <br>
+                    </div>
+
+                    {% if sizesList %}
+                    <div class="col-4 ml-4 mt-2">
+                        <label class="form-control-label font-weight-bold card-header"
+                               style="background-color:#e3e4e6"><h5>Sizes : </h5></label>
+                    </div>
+                    <div class="col-5 mr-4 mt-2">
+                        {% for s in sizesList %}
+                        <input type="radio" name="sizes"> {{s}}
+                        <br>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if ColorsList %}
+                    <div class="col-4 ml-4 mt-2">
+                        <label class="form-control-label font-weight-bold card-header"
+                               style="background-color:#e3e4e6"><h5>Colors : </h5></label>
+                    </div>
+                    <div class="col-5 mr-4 mt-2">
+                        {% for s in ColorsList %}
+                        <input type="radio" name="colorsList"> {{s}}
+                        <br>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if PaperChoiceProductsList %}
+                    <div class="col-4 ml-4 mt-2">
+                        <label class="form-control-label font-weight-bold card-header"
+                               style="background-color:#e3e4e6"><h5>Paper Choices : </h5></label>
+                    </div>
+                    <div class="col-5 mr-4 mt-2">
+                        {% for s in PaperChoiceProductsList %}
+                        <input type="radio" name="PaperChoiceProductsList"> {{s}}
+                        <br>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if AqutousCoatingProductList %}
+                    <div class="col-4 ml-4 mt-2">
+                        <label class="form-control-label font-weight-bold card-header"
+                               style="background-color:#e3e4e6"><h5>Aqutous Coating : </h5></label>
+                    </div>
+                    <div class="col-5 mr-4 mt-2">
+                        {% for s in AqutousCoatingProductList %}
+                        <input type="radio" name="AqutousCoatingProductList"> {{s}}
+                        <br>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if FoldingOptionsProductsList %}
+                    <div class="col-4 ml-4 mt-2">
+                        <label class="form-control-label font-weight-bold card-header"
+                               style="background-color:#e3e4e6"><h5>Folding Options : </h5></label>
+                    </div>
+                    <div class="col-5 mr-4 mt-2">
+                        {% for s in FoldingOptionsProductsList %}
+                        <input type="radio" name="FoldingOptionsProductsList"> {{s}}
+                        <br>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if NoOfMonthsProductsList %}
+                    <div class="col-4 ml-4 mt-2">
+                        <label class="form-control-label font-weight-bold card-header"
+                               style="background-color:#e3e4e6"><h5>No Of Months : </h5></label>
+                    </div>
+                    <div class="col-5 mr-4 mt-2">
+                        {% for s in NoOfMonthsProductsList %}
+                        <input type="radio" name="NoOfMonthsProductsList"> {{s}}
+                        <br>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if BindingMethodProductsList %}
+                    <div class="col-4 ml-4 mt-2">
+                        <label class="form-control-label font-weight-bold card-header"
+                               style="background-color:#e3e4e6"><h5>Binding Method : </h5></label>
+                    </div>
+                    <div class="col-5 mr-4 mt-2">
+                        {% for s in BindingMethodProductsList %}
+                        <input type="radio" name="BindingMethodProductsList"> {{s}}
+                        <br>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if HoleDrillingProductsList %}
+                    <div class="col-4 ml-4 mt-2">
+                        <label class="form-control-label font-weight-bold card-header"
+                               style="background-color:#e3e4e6"><h5>Hole Drilling : </h5></label>
+                    </div>
+                    <div class="col-5 mr-4 mt-2">
+                        {% for s in HoleDrillingProductsList %}
+                        <input type="radio" name="HoleDrillingProductsList"> {{s}}
+                        <br>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    {% if ShrinkWrappingProductsList %}
+                    <div class="col-4 ml-4 mt-2">
+                        <label class="form-control-label font-weight-bold card-header"
+                               style="background-color:#e3e4e6"><h5>Paper Choices : </h5></label>
+                    </div>
+                    <div class="col-5 mr-4 mt-2">
+                        {% for s in ShrinkWrappingProductsList %}
+                        <input type="radio" name="ShrinkWrappingProductsList"> {{s}}
+                        <br>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="col-4 ml-4 mt-2">
+                        <label class="form-control-label font-weight-bold card-header"
+                               style="background-color:#e3e4e6"><h5>Job Title : </h5></label>
+                    </div>
+                    <div class="col-5 mr-4 mt-2 col-xs-12">
+                        <input type="text" placeholder="Name of the Company or Shop" size="42">
+                        <br>
+                    </div>
+
+                    <div class="col-4 ml-4 mt-2">
+                        <label class="form-control-label font-weight-bold card-header"
+                               style="background-color:#e3e4e6"><h5>Order Description : </h5></label>
+                    </div>
+                    <div class="col-5 mr-4 mt-2">
+                        <textarea rows="5" cols="45"
+                                  placeholder="Enter all the details about product ...">
+                        </textarea>
+                        <br>
+                    </div>
+
+                    <div class="col-4 ml-4 mt-2">
+                        <label class="form-control-label font-weight-bold card-header"
+                               style="background-color:#e3e4e6"><h5>Image Template : </h5></label>
+                    </div>
+                    <div class="col-5 mr-4 mt-2">
+                        <input id="Upload" type="radio" name="ImageSelection" value="Upload"/> Upload an Image
+                        <input type="file" name="file" class='btn btn-outline-secondary type'>
+                        <br>
+                        <input id="Select" type="radio" name="ImageSelection" value="Select"/> Select From Templates
+                        <!-- Button trigger modal -->
+                        <input type="button" name="url" style='display: none;' class='btn btn-outline-secondary type'
+                               value="Choose Template" data-toggle="modal" data-target="#exampleModalLong">
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Select Template</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="d-flex-row justify-content-center modal-body" style="background:red;">
+                                        <div>
+                                            {% for s in ImageTemplateProductsList %}
+                                            <img class="border border-secondary rounded my-2 mx-3" height="250"
+                                                 src="{{s.url}}"
+                                                 width="400"/><br>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary">Select</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row rounded mx-auto d-block">
+        <button class="btn btn-success my-2">Place Order</button>
+    </div>
+</div>
 </div>
 {% endblock %}
