@@ -117,10 +117,10 @@
 
             {% if templateImage_edit %}
             {% for x in templateImage_edit %}
-            <form action="{% url 'admin-template-image-edit' x.img_id %}" method="POST">
+            <form action="{% url 'admin-template-image-edit' x.temp_id %}" method="POST">
                 {% csrf_token %}
                 <label>Template Image :</label>
-                <input type="text" name="temp_img" value="{{x.temp_img}}" class="form-control w-50"><br>
+                <input type="file" name="temp_img" value="{{x.temp_img}}" class="form-control w-50 my-2"><br>
 
                 <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
             </form>

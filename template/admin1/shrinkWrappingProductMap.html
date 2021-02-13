@@ -127,8 +127,8 @@
 
 
             {% if instance %}
-                        {% for x in instance %}
-            <form action="{% url 'admin-shrink-wrapping-product-map-edit' x.shrink_wrap_p_map_id %}" method="POST"
+
+            <form action="{% url 'admin-shrink-wrapping-product-map-edit' instance.shrink_wrap_p_map_id %}" method="POST"
                   enctype="multipart/form-data">
                 {% csrf_token %}
                  <table border="1" class="table table-bordered border border-info">
@@ -153,7 +153,7 @@
                     </button>
                 </div>
             </form>
-            {% endfor %}
+
             {% endif %}
         </div>
     </div>

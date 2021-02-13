@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
-
+            {% if paperChoice_show %}
             <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
                 Paper Choices
             </button>
@@ -108,6 +108,7 @@
                     <!-- /.card -->
                 </div>
             </div>
+            {% endif %}
             {% if paperChoice_edit %}
             {% for x in paperChoice_edit %}
             <form action="{% url 'admin-paper-choice-edit-update' x.paper_id %}" method="POST">

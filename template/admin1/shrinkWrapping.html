@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
-
+            {% if shrinkWrapping_show %}
             <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
                 Shrink Wrapping Options
             </button>
@@ -108,9 +108,10 @@
                     <!-- /.card -->
                 </div>
             </div>
+            {% endif %}
             {% if shrinkWrapping_edit %}
             {% for x in shrinkWrapping_edit %}
-            <form action="admin1/shrinkWrapping_data_update/{{x.shrink_wrapping_id}}" method="POST">
+            <form action="{% url 'admin-shrink-wrapping-edit-update' x.shrink_wrapping_id %}" method="POST">
                 {% csrf_token %}
                 <label>Shrink Wrapping Option:</label>
                 <input type="text" name="shrink_options" value="{{x.shrink_options}}" class="form-control w-50"><br>

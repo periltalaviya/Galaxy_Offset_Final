@@ -126,7 +126,7 @@
 
 
             {% if instance %}
-                        {% for x in instance %}
+
             <form action="{% url 'admin-folding-option-product-map-edit' x.aCoat_p_map_id %}" method="POST"
                   enctype="multipart/form-data">
                 {% csrf_token %}
@@ -152,7 +152,7 @@
                     </button>
                 </div>
             </form>
-            {% endfor %}
+
             {% endif %}
         </div>
     </div>

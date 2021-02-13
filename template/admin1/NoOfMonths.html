@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
-
+            {% if noOfMonths_show %}
             <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
                 Number Of Months
             </button>
@@ -64,10 +64,10 @@
                                 <tr>
                                     <td>{{x.no_of_months_id}}</td>
                                     <td>{{x.months}}</td>
-                                    <td><a href="{% url 'admin-no-of-months' x.paper_id%}"
+                                    <td><a href="{% url 'admin-no-of-months-edit' x.no_of_months_id%}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="{% url 'admin-no-of-months-delete' x.paper_id%}"
+                                        <a href="{% url 'admin-no-of-months-delete' x.no_of_months_id%}"
                                            class="btn btn-outline-danger mt-2"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></a>
                                     </td>
@@ -109,6 +109,7 @@
                     <!-- /.card -->
                 </div>
             </div>
+            {% endif %}
             {% if noOfMonths_edit %}
             {% for x in noOfMonths_edit %}
             <form action="{% url 'admin-no-of-months-edit-update' x.no_of_months_id %}" method="POST">

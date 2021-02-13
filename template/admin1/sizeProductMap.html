@@ -126,33 +126,31 @@
             {% endif %}
 
             {% if instance %}
-            {% for x in instance %}
-            <form action="{% url 'admin-size-product-map-edit' x.size_p_map_id %}" method="POST"
+            <form action="{% url 'admin-size-product-map-edit' instance.size_p_map_id %}" method="POST"
                   enctype="multipart/form-data">
                 {% csrf_token %}
-                 <table border="1" class="table table-bordered border border-info">
-                                    <tr>
-                                        <th>
-                                            {{form.size_id.label_tag}}
-                                        </th>
-                                        <td>{{form.size_id}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            {{form.prod_id.label_tag}}
-                                        </th>
-                                        <td>
-                                            {{form.prod_id}}
-                                        </td>
-                                    </tr>
-                                </table>
-                    <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+                <table border="1" class="table table-bordered border border-info">
+                    <tr>
+                        <th>
+                            {{form.size_id.label_tag}}
+                        </th>
+                        <td>{{form.size_id}}</td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{form.prod_id.label_tag}}
+                        </th>
+                        <td>
+                            {{form.prod_id}}
+                        </td>
+                    </tr>
+                </table>
+                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
                     </button>
                 </div>
             </form>
-            {% endfor %}
             {% endif %}
         </div>
     </div>

@@ -11,7 +11,7 @@ from .forms import (SizeProductMapForm, ColorProductMapForm, PaperProductMapForm
                     AqutousCoatingProductMapForm, FoldingOptionProductMapForm, NoOfMonthsProductMapForm,
                     HoleDrillingProductMapForm,
                     ImageTempProductMapForm, CreateUserForm, EditUserProfile, OrderForm, BindingMethodProductMapForm,
-                    PackagesForm, EditProfile)
+                    PackagesForm, EditProfile, HoleDrillingForm)
 
 
 # Create your views here.
@@ -303,6 +303,7 @@ def sizeProductMap_delete(request, id):
 @user_passes_test(check_role_admin)
 def sizeProductMap_edit(request, id):
     instance = SizeProductMapping.objects.get(size_p_map_id=id)
+    print(instance)
     form = SizeProductMapForm(instance=instance)
     if request.method == 'POST':
         form = SizeProductMapForm(request.POST, instance=instance)
@@ -546,8 +547,8 @@ def paperChoice_edit(request, id):
 @user_passes_test(check_role_admin)
 def paperChoice_edit_update(request, id):
     if request.method == 'POST':
-        paperChoice_store = request.POST['paper_choice_name']
-        paperChoice_update = PaperChoice(paper_id=id, paper_choice_name=paperChoice_store)
+        paperChoice_store = request.POST['paper_choices_name']
+        paperChoice_update = PaperChoice(paper_id=id, paper_choices_name=paperChoice_store)
         paperChoice_update.save()
         return redirect('/admin1/paperChoice')
 
@@ -710,7 +711,7 @@ def shrinkWrappingProductMap_edit(request, id):
 def aqutousCoating(request):
     if request.method == 'POST':
         aqutousCoating_store = request.POST['aqutous_coating_type']
-        aqutousCoating_update = AqutousCoating(aqutous_coating=aqutousCoating_store)
+        aqutousCoating_update = AqutousCoating(aqutous_coating_type=aqutousCoating_store)
         aqutousCoating_update.save()
         return redirect('/admin1/aqutousCoating')
     else:
@@ -836,7 +837,7 @@ def foldingOption_edit(request, id):
 def foldingOption_edit_update(request, id):
     if request.method == 'POST':
         foldingOption_store = request.POST['folding_options_type']
-        foldingOption_update = FoldingOptions(folding_options_id=id, folding_option_type=foldingOption_store)
+        foldingOption_update = FoldingOptions(folding_options_id=id, folding_options_type=foldingOption_store)
         foldingOption_update.save()
         return redirect('/admin1/foldingOption')
 
@@ -997,11 +998,11 @@ def noOfMonthsProductMap_edit(request, id):
 @login_required(login_url="admin-login")
 @user_passes_test(check_role_admin)
 def holeDrilling(request):
+    form = HoleDrillingForm(request.POST)
     if request.method == 'POST':
-        holeDrilling_store = request.POST['hole']
-        holeDrilling_update = HoleDrilling(hole=holeDrilling_store)
-        holeDrilling_update.save()
-        return redirect('/admin1/holeDrilling')
+        if form.is_valid():
+            form.save()
+        return redirect("/admin1/holeDrilling/")
     else:
         holeDrilling_show = HoleDrilling.objects.get_queryset().order_by('hole_drilling_id')
         # start paginator logic
@@ -1014,24 +1015,21 @@ def holeDrilling(request):
         except EmptyPage:
             holeDrilling_show = paginator.page(paginator.num_pages)
         # end paginator logic
-        return render(request, 'admin1/holeDrilling.html', {'holeDrilling_show': holeDrilling_show})
+        return render(request, 'admin1/holeDrilling.html', {'form': form, 'holeDrilling_show': holeDrilling_show})
 
 
 @login_required(login_url="admin-login")
 @user_passes_test(check_role_admin)
 def holeDrilling_edit(request, id):
-    holeDrilling_edit = HoleDrilling.objects.filter(hole_drilling_id=id)
-    return render(request, 'admin1/holeDrilling.html', {'holeDrilling_edit': holeDrilling_edit})
-
-
-@login_required(login_url="admin-login")
-@user_passes_test(check_role_admin)
-def holeDrilling_edit_update(request, id):
+    holeDrilling_edit = HoleDrilling.objects.get(hole_drilling_id=id)
     if request.method == 'POST':
-        holeDrilling_store = request.POST['hole']
-        holeDrilling_update = HoleDrilling(hole_drilling_id=id, hole=holeDrilling_store)
-        holeDrilling_update.save()
-        return redirect('/admin1/holeDrilling')
+        form = HoleDrillingForm(request.POST, instance=holeDrilling_edit)
+        if form.is_valid():
+            form.save()
+            return redirect('/admin1/holeDrilling')
+    else:
+        form = HoleDrillingForm(instance=holeDrilling_edit)
+    return render(request, 'admin1/holeDrilling.html', {'form': form, 'holeDrilling_edit': holeDrilling_edit})
 
 
 @login_required(login_url="admin-login")

@@ -6,7 +6,7 @@ from user.models import (SizeProductMapping, ColorProductMapping, PaperChoicePro
                          ShrinkWrappingProductMapping, AqutousCoatingProductMapping, FoldingOptionsProductMapping,
                          NoOfMonthsProductMapping,
                          HoleDrillingProductMapping, BindingMethodProductMapping, ImageTemplateProductMapping, User,
-                         Order, Packages)
+                         Order, Packages, HoleDrilling)
 
 
 class EditProfile(UserChangeForm):
@@ -75,6 +75,12 @@ class HoleDrillingProductMapForm(forms.ModelForm):
     class Meta:
         model = HoleDrillingProductMapping
         fields = ['hole_drilling_id', 'prod_id']
+
+
+class HoleDrillingForm(forms.ModelForm):
+    class Meta:
+        model = HoleDrilling
+        fields = ['hole']
 
 
 class BindingMethodProductMapForm(forms.ModelForm):

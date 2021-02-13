@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
-
+            {% if foldingOption_show %}
             <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
                 Folding Options
             </button>
@@ -64,10 +64,10 @@
                                 <tr>
                                     <td>{{x.folding_options_id}}</td>
                                     <td>{{x.folding_options_type}}</td>
-                                    <td><a href="{% url 'admin-folding-option-edit' x.paper_id%}"
+                                    <td><a href="{% url 'admin-folding-option-edit' x.folding_options_id%}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="{% url 'admin-folding-option-delete' x.paper_id%}"
+                                        <a href="{% url 'admin-folding-option-delete' x.folding_options_id%}"
                                            class="btn btn-outline-danger mt-2"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></a>
                                     </td>
@@ -109,6 +109,7 @@
                     <!-- /.card -->
                 </div>
             </div>
+            {% endif %}
             {% if foldingOption_edit %}
             {% for x in foldingOption_edit %}
             <form action="{% url 'admin-folding-option-edit-update' x.folding_options_id %}" method="POST">

@@ -142,8 +142,6 @@ urlpatterns = [
     path('holeDrilling/', views.holeDrilling, name="admin-hole-drilling"),
     path('holeDrilling_delete/<int:id>', views.holeDrilling_delete, name="admin-hole-drilling-delete"),
     path('holeDrilling_edit/<int:id>', views.holeDrilling_edit, name="admin-hole-drilling-edit"),
-    path('holeDrilling_data_update/<int:id>', views.holeDrilling_edit_update,
-         name="admin-hole-drilling-edit-update"),
 
     path('holeDrillingProductMap/', views.holeDrillingProductMap, name="admin-hole-drilling-product-map"),
     path('holeDrillingProductMap_delete/<int:id>', views.holeDrillingProductMap_delete,

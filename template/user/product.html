@@ -36,6 +36,9 @@ text-align: left;
                             <a href="{% url 'user-product-show1' product.prod_ID %}"
                                class="btn btn-outline-primary mt-2"><i
                                     aria-hidden="true">See More</i></a>
+                            <a href="{% url 'user-order' product.prod_ID %}"
+                               class="btn btn-outline-success mt-2"><i
+                                    aria-hidden="true">Place Order</i></a>
                         </h6>
                     </div>
                 </td>
@@ -45,9 +48,6 @@ text-align: left;
             {% endif %}
             {% endfor %}
         </table>
-        <div class="d-flex justify-content-center">
-            <button type="submit" value="Submit" class="btn btn-outline-success my-2">Place Order</button>
-        </div>
     </div>
     {% endif %}
     {% if product_detail %}

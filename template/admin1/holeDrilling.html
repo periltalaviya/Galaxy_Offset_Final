@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
-
+            {% if holeDrilling_show %}
             <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
                 Hole Drilling Options
             </button>
@@ -24,9 +24,9 @@
                             <form action="{% url 'admin-hole-drilling'%}" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="row">
-                                    <label class="col-3">Hole Drilling :</label>
-                                    <input class="col-3" type="checkbox" name="hole" class="form-control w-50"/>
-                                     <p>Yes / No</p><br>
+                                    <label>{{form.hole.label}} : </label>
+
+                                    <p class="form-control w-50 ml-2 my-auto">{{form.hole}} True / False</p>
                                 </div>
                                 <br>
                                 <div class="modal-footer justify-content-right">
@@ -65,12 +65,12 @@
                                 {% for x in holeDrilling_show %}
 
                                 <tr>
-                                    <td>{{x.hol_drilling_id}}</td>
+                                    <td>{{x.hole_drilling_id}}</td>
                                     <td>{{x.hole}}</td>
-                                    <td><a href="{% url 'admin-hole-drilling' x.paper_id%}"
+                                    <td><a href="{% url 'admin-hole-drilling-edit' x.hole_drilling_id%}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="{% url 'admin-hole-drilling-delete' x.paper_id%}"
+                                        <a href="{% url 'admin-hole-drilling-delete' x.hole_drilling_id%}"
                                            class="btn btn-outline-danger mt-2"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></a>
                                     </td>
@@ -112,16 +112,19 @@
                     <!-- /.card -->
                 </div>
             </div>
+            {% endif %}
             {% if holeDrilling_edit %}
-            {% for x in holeDrilling_edit %}
-            <form action="{% url 'admin-hole-drilling-edit-update' x.hole_drilling_id %}" method="POST">
-                {% csrf_token %}
-                <label>Number Of Months :</label>
-                <input type="text" name="hole" value="{{x.hole}}" class="form-control w-50"><br>
 
-                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+            <form action="{% url 'admin-hole-drilling-edit' holeDrilling_edit.hole_drilling_id %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    {{form.hole.label_tag}}
+                    <p class="form-control w-50 ml-2 my-auto">{{form.hole}} True / False</p>
+                    <br>
+                    <input type="Submit" name="Submit" value="Submit" class="btn btn-success my-2 w-50"><br>
+                </div>
             </form>
-            {% endfor %}
+
             {% endif %}
         </div>
     </div>

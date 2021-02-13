@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
-
+            {% if aqutousCoating_show %}
             <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
                 Aqutous Coating
             </button>
@@ -64,10 +64,10 @@
                                 <tr>
                                     <td>{{x.aqutous_coating_id}}</td>
                                     <td>{{x.aqutous_coating_type}}</td>
-                                    <td><a href="{% url 'admin-aqutous-coating-edit' x.paper_id%}"
+                                    <td><a href="{% url 'admin-aqutous-coating-edit' x.aqutous_coating_id%}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="{% url 'admin-aqutous-coating-delete' x.paper_id%}"
+                                        <a href="{% url 'admin-aqutous-coating-delete' x.aqutous_coating_id%}"
                                            class="btn btn-outline-danger mt-2"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></a>
                                     </td>
@@ -109,9 +109,10 @@
                     <!-- /.card -->
                 </div>
             </div>
+            {% endif %}
             {% if aqutousCoating_edit %}
             {% for x in aqutousCoating_edit %}
-            <form action="{% url 'admin-aqutous-coating-edit-update' x.paper_id %}" method="POST">
+            <form action="{% url 'admin-aqutous-coating-edit-update' x.aqutous_coating_id %}" method="POST">
                 {% csrf_token %}
                 <label>Aqutous Coating Type :</label>
                 <input type="text" name="aqutous_coating_type" value="{{x.aqutous_coating_type}}" class="form-control w-50"><br>

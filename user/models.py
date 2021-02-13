@@ -129,7 +129,7 @@ class ShrinkWrapping(models.Model):
 
 class AqutousCoating(models.Model):
     aqutous_coating_id = models.AutoField("Aqutous Coating ID", primary_key=True, auto_created=True)
-    aqutous_coating_type = models.CharField("Aqutous Coating Type", max_length=30, null=False)
+    aqutous_coating_type = models.CharField("Aqutous Coating Type", max_length=35, null=False)
 
     def __str__(self):
         return "{}-->{}".format(self.aqutous_coating_id,

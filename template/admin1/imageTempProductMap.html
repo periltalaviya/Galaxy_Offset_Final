@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
-
+            {% if imageTempProductMap_show %}
             <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
                 Image Template Product Mapping
             </button>
@@ -127,10 +127,10 @@
                 </div>
             </div>
 
-
+            {% endif %}
             {% if instance %}
-            {% for x in instance %}
-            <form action="{% url 'admin-image-template-product-map-edit' x.imageTemp_p_map_id %}" method="POST"
+
+            <form action="{% url 'admin-image-template-product-map-edit' instance.imageTemp_p_map_id %}" method="POST"
                   enctype="multipart/form-data">
                 {% csrf_token %}
                 <table border="1" class="table table-bordered border border-info">
@@ -138,7 +138,10 @@
                         <th>
                             {{form.temp_id.label_tag}}
                         </th>
-                        <td>{{form.temp_id}}</td>
+                        <td>{{form.temp_id}}
+                            <img class="img-fluid img-thumbnail rounded float-right"
+                                 src="{{instance.temp_id.temp_img.url}}" width="200" height="200">
+                        </td>
                     </tr>
                     <tr>
                         <th>
@@ -149,13 +152,13 @@
                         </td>
                     </tr>
                 </table>
-                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
+                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50 mx-auto my-2"><br>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
                     </button>
                 </div>
             </form>
-            {% endfor %}
+
             {% endif %}
         </div>
     </div>

@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
-
+            {% if bindingMethod_show %}
             <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
                 Binding Method
             </button>
@@ -63,11 +63,11 @@
 
                                 <tr>
                                     <td>{{x.binding_method_id}}</td>
-                                    <td>{{x.binding_method}}</td>
-                                    <td><a href="{% url 'admin-binding-method' x.bindingMethod_id%}"
+                                    <td>{{x.binding_methods}}</td>
+                                    <td><a href="{% url 'admin-binding-method-edit' x.binding_method_id%}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="{% url 'admin-binding-method-delete' x.bindingMethod_id%}"
+                                        <a href="{% url 'admin-binding-method-delete' x.binding_method_id%}"
                                            class="btn btn-outline-danger mt-2"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></a>
                                     </td>
@@ -109,6 +109,7 @@
                     <!-- /.card -->
                 </div>
             </div>
+            {% endif %}
             {% if bindingMethod_edit %}
             {% for x in bindingMethod_edit %}
             <form action="{% url 'admin-binding-method-edit-update' x.binding_method_id %}" method="POST">
