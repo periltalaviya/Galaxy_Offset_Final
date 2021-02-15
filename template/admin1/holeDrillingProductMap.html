@@ -67,8 +67,8 @@
                                 <thead>
                                 <tr>
                                     <th>Hole Drilling Product Mapping Id</th>
-                                    <th>Product ID</th>
-                                    <th>Hole Drilling ID</th>
+                                    <th>Product </th>
+                                    <th>Hole Drilling </th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -76,8 +76,8 @@
                                 {% for x in holeDrillingProductMap_show %}
                                 <tr>
                                     <td>{{x.hole_drill_p_map_id}}</td>
-                                    <td>{{x.prod_id}}</td>
-                                    <td>{{x.hole_drilling_id}}</td>
+                                    <td>{{x.prod_id.prod_Name}}</td>
+                                    <td>{{x.hole_drilling_id.hole}}</td>
                                     <td><a href="{% url 'admin-hole-drilling-product-map-edit' x.hole_drill_p_map_id %}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

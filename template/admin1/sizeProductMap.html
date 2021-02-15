@@ -67,8 +67,8 @@
                                 <thead>
                                 <tr>
                                     <th>Size Product Mapping Id</th>
-                                    <th>Product ID</th>
-                                    <th>Size ID</th>
+                                    <th>Product </th>
+                                    <th>Size </th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -76,8 +76,8 @@
                                 {% for x in sizeProductMap_show %}
                                 <tr>
                                     <td>{{x.size_p_map_id}}</td>
-                                    <td>{{x.prod_id}}</td>
-                                    <td>{{x.size_id}}</td>
+                                    <td>{{x.prod_id.prod_Name}}</td>
+                                    <td>{{x.size_id.prod_size}}</td>
                                     <td><a href="{% url 'admin-size-product-map-edit' x.size_p_map_id %}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

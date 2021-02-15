@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
-
+            {% if paperProductMap_show %}
             <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
                 Paper Choice Product Mapping
             </button>
@@ -67,17 +67,17 @@
                                 <thead>
                                 <tr>
                                     <th>Paper Choice Product Mapping Id</th>
-                                    <th>Product ID</th>
-                                    <th>Paper ID</th>
+                                    <th>Product </th>
+                                    <th>Paper </th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody class="justify-content-center">
-                                {% for x in paperChoiceProductMap_show %}
+                                {% for x in paperProductMap_show %}
                                 <tr>
                                     <td>{{x.paper_p_map_id}}</td>
-                                    <td>{{x.prod_id}}</td>
-                                    <td>{{x.paper_id}}</td>
+                                    <td>{{x.prod_id.prod_Name}}</td>
+                                    <td>{{x.paper_id.paper_choices_name}}</td>
                                     <td><a href="{% url 'admin-paper-product-map-edit' x.paper_p_map_id %}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
@@ -123,7 +123,7 @@
                     <!-- /.card -->
                 </div>
             </div>
-
+            {% endif %}
 
             {% if instance %}
 

@@ -68,8 +68,8 @@
                                 <thead>
                                 <tr>
                                     <th>Shrink Wrapping Product Mapping Id</th>
-                                    <th>Product ID</th>
-                                    <th>Shrink Wrapping ID</th>
+                                    <th>Product </th>
+                                    <th>Shrink Wrapping </th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -77,8 +77,8 @@
                                 {% for x in shrinkWrappingProductMap_show %}
                                 <tr>
                                     <td>{{x.shrink_wrap_p_map_id}}</td>
-                                    <td>{{x.prod_id}}</td>
-                                    <td>{{x.shrink_wrapping_id}}</td>
+                                    <td>{{x.prod_id.prod_Name}}</td>
+                                    <td>{{x.shrink_wrapping_id.shrink_options}}</td>
                                     <td><a href="{% url 'admin-shrink-wrapping-product-map-edit' x.shrink_wrap_p_map_id %}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

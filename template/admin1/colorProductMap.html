@@ -76,8 +76,8 @@
                                 {% for x in colorProductMap_show %}
                                 <tr>
                                     <td>{{x.color_p_map_id}}</td>
-                                    <td>{{x.prod_id}}</td>
-                                    <td>{{x.color_id}}</td>
+                                    <td>{{x.prod_id.prod_Name}}</td>
+                                    <td>{{x.color_id.prod_color}}</td>
                                     <td><a href="{% url 'admin-color-product-map-edit' x.color_p_map_id %}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

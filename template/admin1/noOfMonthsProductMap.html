@@ -67,8 +67,8 @@
                                 <thead>
                                 <tr>
                                     <th>No of Months Product Mapping Id</th>
-                                    <th>Product ID</th>
-                                    <th>No of Months ID</th>
+                                    <th>Product </th>
+                                    <th>No of Months </th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -76,8 +76,8 @@
                                 {% for x in noOfMonthsProductMap_show %}
                                 <tr>
                                     <td>{{x.no_of_months_p_map_id}}</td>
-                                    <td>{{x.prod_id}}</td>
-                                    <td>{{x.no_of_months_id}}</td>
+                                    <td>{{x.prod_id.prod_Name}}</td>
+                                    <td>{{x.no_of_months_id.months}}</td>
                                     <td><a href="{% url 'admin-no-of-months-product-map-edit' x.no_of_months_p_map_id %}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

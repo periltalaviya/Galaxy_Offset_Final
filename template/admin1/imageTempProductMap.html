@@ -29,7 +29,8 @@
                                         <th>
                                             {{form.temp_id.label_tag}}
                                         </th>
-                                        <td>{{form.temp_id}}</td>
+                                        <td>{{form.temp_id}}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>
@@ -77,8 +78,8 @@
                                 {% for x in imageTempProductMap_show %}
                                 <tr>
                                     <td>{{x.imageTemp_p_map_id}}</td>
-                                    <td>{{x.prod_id}}</td>
-                                    <td>{{x.temp_id}}</td>
+                                    <td>{{x.prod_id.prod_Name}}</td>
+                                    <td>{{x.temp_id.temp_img}}</td>
                                     <td><img src="{{x.temp_id.temp_img.url}}" alt="{{x.temp_id}}" height=100 width=150>
                                     </td>
                                     <td><a href="{% url 'admin-image-template-product-map-edit' x.imageTemp_p_map_id %}"

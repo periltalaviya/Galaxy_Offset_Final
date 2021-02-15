@@ -67,8 +67,8 @@
                                 <thead>
                                 <tr>
                                     <th>Folding Option Product Mapping Id</th>
-                                    <th>Product ID</th>
-                                    <th>Folding Option ID</th>
+                                    <th>Product </th>
+                                    <th>Folding Option </th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -76,8 +76,8 @@
                                 {% for x in foldingOptionProductMap_show %}
                                 <tr>
                                     <td>{{x.folding_option_p_map_id}}</td>
-                                    <td>{{x.prod_id}}</td>
-                                    <td>{{x.folding_options_id}}</td>
+                                    <td>{{x.prod_id.prod_Name}}</td>
+                                    <td>{{x.folding_options_id.folding_options_type}}</td>
                                     <td><a href="{% url 'admin-folding-option-product-map-edit' x.folding_option_p_map_id %}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>

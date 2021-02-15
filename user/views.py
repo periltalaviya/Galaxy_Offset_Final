@@ -76,7 +76,7 @@ def order(request, id):
         pass
 
     try:
-        ShrinkWrappingProductsMap = SizeProductMapping.objects.filter(prod_id=id)
+        ShrinkWrappingProductsMap = ShrinkWrappingProductMapping.objects.filter(prod_id=id)
         ShrinkWrappingProductsList = [data.shrink_wrapping_id.shrink_options for data in ShrinkWrappingProductsMap]
     except AttributeError:
         pass

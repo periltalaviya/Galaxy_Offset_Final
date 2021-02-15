@@ -49,19 +49,6 @@ vertical-align: top;
                                            class="form-control-label font-weight-bold card-header col-4 ml-4 my-auto"
                                            style="background-color:#e3e4e6"><h5>Quantity : </h5></label>
                                     <input id="quantity" class="form-control col-5 mx-2 my-auto" type="number">
-                                    <br>
-                                </div>
-                            </div>
-                            <br>
-
-                            <div class="form-group">
-                                <div class="form-group row mx-2">
-                                    <label for="jobTitle"
-                                           class="form-control-label font-weight-bold card-header col-4 ml-4 my-auto"
-                                           style="background-color:#e3e4e6"><h5>Job Title : </h5></label>
-                                    <input id="jobTitle" class="form-control col-5 mx-2 my-auto" type="text"
-                                           placeholder="Name of the Company or Shop">
-                                    <br>
                                 </div>
                             </div>
                             <br>
@@ -77,7 +64,6 @@ vertical-align: top;
                                         <input id="{{s}}" class="mx-2 my-auto" type="radio">
                                         <label for="{{s}}">{{s}}</label><br>
                                         {% endfor %}
-                                        <br>-
                                     </div>
                                 </div>
                             </div>
@@ -95,11 +81,89 @@ vertical-align: top;
                                         <input id="{{c}}" class="mx-2 my-auto" type="radio">
                                         <label for="{{c}}">{{c}}</label><br>
                                         {% endfor %}
-                                        <br>-
                                     </div>
                                 </div>
                             </div>
                             {% endif %}
+                            <br>
+
+                            {% if PaperChoiceProductsList %}
+                            <div class="form-group">
+                                <div class="form-group row mx-2">
+                                    <label for="ColorsList"
+                                           class="form-control-label font-weight-bold card-header col-4 ml-4"
+                                           style="background-color:#e3e4e6"><h5>Paper Choice : </h5></label>
+                                    <div id="PaperChoiceProductsList">
+                                        {% for pc in PaperChoiceProductsList %}
+                                        <input id="{{pc}}" class="mx-2 my-auto" type="radio">
+                                        <label for="{{pc}}">{{pc}}</label><br>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <br>
+
+                            {% if AqutousCoatingProductList %}
+                            <div class="form-group">
+                                <div class="form-group row mx-2">
+                                    <label for="AqutousCoatingProductList"
+                                           class="form-control-label font-weight-bold card-header col-4 ml-4"
+                                           style="background-color:#e3e4e6"><h5>Aqutous Coating: </h5></label>
+                                    <div id="AqutousCoatingProductList">
+                                        {% for ac in PaperChoiceProductsList %}
+                                        <input id="{{ac}}" class="mx-2 my-auto" type="radio">
+                                        <label for="{{ac}}">{{ac}}</label><br>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <br>
+
+                            {% if ShrinkWrappingProductsList %}
+                            <div class="form-group">
+                                <div class="form-group row mx-2">
+                                    <label for="ShrinkWrappingProductsList"
+                                           class="form-control-label font-weight-bold card-header col-4 ml-4"
+                                           style="background-color:#e3e4e6"><h5>Shrink Wrapping : </h5></label>
+                                    <div id="ShrinkWrappingProductsList">
+                                        {% for sw in ShrinkWrappingProductsList %}
+                                        <input id="{{sw}}" class="mx-2 my-auto" type="radio">
+                                        <label for="{{sw}}">{{sw}}</label><br>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <br>
+
+                            {% if FoldingOptionsProductsList %}
+                            <div class="form-group">
+                                <div class="form-group row mx-2">
+                                    <label for="ShrinkWrappingProductsList"
+                                           class="form-control-label font-weight-bold card-header col-4 ml-4"
+                                           style="background-color:#e3e4e6"><h5>Folding Options : </h5></label>
+                                    <div id="FoldingOptionsProductsList">
+                                        {% for fo in FoldingOptionsProductsList %}
+                                        <input id="{{fo}}" class="mx-2 my-auto" type="radio">
+                                        <label for="{{fo}}">{{fo}}</label><br>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <br>
+
+                            <div class="form-group">
+                                <div class="form-group row mx-2">
+                                    <label for="jobTitle"
+                                           class="form-control-label font-weight-bold card-header col-4 ml-4 my-auto"
+                                           style="background-color:#e3e4e6"><h5>Job Title : </h5></label>
+                                    <input id="jobTitle" class="form-control col-5 mx-2 my-auto" type="text"
+                                           placeholder="Name of the Company or Shop">
+                                </div>
+                            </div>
                             <br>
 
                             <div class="form-group">
@@ -111,7 +175,6 @@ vertical-align: top;
                                               class="form-control col-5 mx-2 my-auto"
                                               placeholder="Enter all the details about product ...">
                                             </textarea>
-                                    <br>
                                 </div>
                             </div>
                             <br>

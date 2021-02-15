@@ -17,8 +17,16 @@ class User(AbstractUser):
     gender = models.BooleanField("Gender", choices=GENDER, default=True)
     role = models.CharField("User Type", max_length=10, choices=USER_TYPE, default='Customer')
 
+    @property
+    def get_name(self):
+        return self.first_name + " " + self.last_name
+
+    @property
+    def get_instance(self):
+        return self
+
     def __str__(self):
-        return "{}".format(self.user_id)
+        return self.first_name + " " + self.last_name
 
 
 class Product(models.Model):
