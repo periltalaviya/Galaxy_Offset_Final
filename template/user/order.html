@@ -51,7 +51,6 @@ vertical-align: top;
                                     <input id="quantity" class="form-control col-5 mx-2 my-auto" type="number">
                                 </div>
                             </div>
-                            <br>
 
                             {% if sizesList %}
                             <div class="form-group">
@@ -68,7 +67,6 @@ vertical-align: top;
                                 </div>
                             </div>
                             {% endif %}
-                            <br>
 
                             {% if ColorsList %}
                             <div class="form-group">
@@ -85,7 +83,6 @@ vertical-align: top;
                                 </div>
                             </div>
                             {% endif %}
-                            <br>
 
                             {% if PaperChoiceProductsList %}
                             <div class="form-group">
@@ -102,7 +99,6 @@ vertical-align: top;
                                 </div>
                             </div>
                             {% endif %}
-                            <br>
 
                             {% if AqutousCoatingProductList %}
                             <div class="form-group">
@@ -119,7 +115,6 @@ vertical-align: top;
                                 </div>
                             </div>
                             {% endif %}
-                            <br>
 
                             {% if ShrinkWrappingProductsList %}
                             <div class="form-group">
@@ -136,7 +131,6 @@ vertical-align: top;
                                 </div>
                             </div>
                             {% endif %}
-                            <br>
 
                             {% if FoldingOptionsProductsList %}
                             <div class="form-group">
@@ -153,7 +147,54 @@ vertical-align: top;
                                 </div>
                             </div>
                             {% endif %}
-                            <br>
+
+                            {% if NoOfMonthsProductsList %}
+                            <div class="form-group">
+                                <div class="form-group row mx-2">
+                                    <label for="NoOfMonthsProductsList"
+                                           class="form-control-label font-weight-bold card-header col-4 ml-4"
+                                           style="background-color:#e3e4e6"><h5>No Of Months : </h5></label>
+                                    <div id="NoOfMonthsProductsList">
+                                        {% for NM in NoOfMonthsProductsList %}
+                                        <input id="{{NM}}" class="mx-2 my-auto" type="radio">
+                                        <label for="{{NM}}">{{NM}}</label><br>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% if BindingMethodProductsList %}
+                            <div class="form-group">
+                                <div class="form-group row mx-2">
+                                    <label for="BindingMethodProductsList"
+                                           class="form-control-label font-weight-bold card-header col-4 ml-4"
+                                           style="background-color:#e3e4e6"><h5>Binding Method : </h5></label>
+                                    <div id="BindingMethodProductsList">
+                                        {% for BM in BindingMethodProductsList %}
+                                        <input id="{{BM}}" class="mx-2 my-auto" type="radio">
+                                        <label for="{{BM}}">{{BM}}</label><br>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% if HoleDrillingProductsList %}
+                            <div class="form-group">
+                                <div class="form-group row mx-2">
+                                    <label for="HoleDrillingProductsList"
+                                           class="form-control-label font-weight-bold card-header col-4 ml-4"
+                                           style="background-color:#e3e4e6"><h5>Hole Drilling : </h5></label>
+                                    <div id="HoleDrillingProductsList">
+                                        {% for HD in HoleDrillingProductsList %}
+                                        <input id="{{HD}}" class="mx-2 my-auto" type="radio">
+                                        <label for="{{HD}}">{{HD}}</label><br>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
 
                             <div class="form-group">
                                 <div class="form-group row mx-2">
@@ -164,7 +205,6 @@ vertical-align: top;
                                            placeholder="Name of the Company or Shop">
                                 </div>
                             </div>
-                            <br>
 
                             <div class="form-group">
                                 <div class="form-group row mx-2">
@@ -177,7 +217,6 @@ vertical-align: top;
                                             </textarea>
                                 </div>
                             </div>
-                            <br>
                         </div>
                     </div>
                 </form>

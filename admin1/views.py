@@ -144,7 +144,6 @@ def addUser_delete(request, id):
 def addUser_edit(request, id):
     instance = User.objects.get(user_id=id)
     print(instance.username)
-    form = EditUserProfile()
     if request.method == 'POST':
         form = EditUserProfile(request.POST, instance=instance)
         if form.is_valid():
@@ -191,7 +190,6 @@ def order_delete(request, id):
 @user_passes_test(check_role_admin)
 def order_edit(request, id):
     instance = Order.objects.get(order_id=id)
-    form = OrderForm(instance=instance)
     if request.method == 'POST':
         form = OrderForm(request.POST, instance=instance)
         if form.is_valid():
@@ -303,8 +301,6 @@ def sizeProductMap_delete(request, id):
 @user_passes_test(check_role_admin)
 def sizeProductMap_edit(request, id):
     instance = SizeProductMapping.objects.get(size_p_map_id=id)
-    print(instance)
-    form = SizeProductMapForm(instance=instance)
     if request.method == 'POST':
         form = SizeProductMapForm(request.POST, instance=instance)
         if form.is_valid():
@@ -405,7 +401,6 @@ def imageTempProductMap_delete(request, id):
 @user_passes_test(check_role_admin_or_designer)
 def imageTempProductMap_edit(request, id):
     instance = ImageTemplateProductMapping.objects.get(imageTemp_p_map_id=id)
-    form = ImageTempProductMapForm(instance=instance)
     if request.method == 'POST':
         form = ImageTempProductMapForm(request.POST, instance=instance)
         if form.is_valid():
@@ -501,7 +496,6 @@ def colorProductMap_delete(request, id):
 @user_passes_test(check_role_admin)
 def colorProductMap_edit(request, id):
     instance = ColorProductMapping.objects.get(color_p_map_id=id)
-    form = ColorProductMapForm(instance=instance)
     if request.method == 'POST':
         form = ColorProductMapForm(request.POST, instance=instance)
         if form.is_valid():
@@ -597,7 +591,6 @@ def paperProductMap_delete(request, id):
 @user_passes_test(check_role_admin)
 def paperProductMap_edit(request, id):
     instance = ColorProductMapping.objects.get(paper_p_map_id=id)
-    form = PaperProductMapForm(instance=instance)
     if request.method == 'POST':
         form = PaperProductMapForm(request.POST, instance=instance)
         if form.is_valid():
@@ -694,7 +687,6 @@ def shrinkWrappingProductMap_delete(request, id):
 @user_passes_test(check_role_admin)
 def shrinkWrappingProductMap_edit(request, id):
     instance = ShrinkWrappingProductMapping.objects.get(shrink_wrap_p_map_id=id)
-    form = ShrinkWrappingProductMapForm(instance=instance)
     if request.method == 'POST':
         form = ShrinkWrappingProductMapForm(request.POST, instance=instance)
         if form.is_valid():
@@ -790,7 +782,6 @@ def aqutousCoatingProductMap_delete(request, id):
 @user_passes_test(check_role_admin)
 def aqutousCoatingProductMap_edit(request, id):
     instance = AqutousCoatingProductMapping.objects.get(aCoat_p_map_id=id)
-    form = AqutousCoatingProductMapForm(instance=instance)
     if request.method == 'POST':
         form = AqutousCoatingProductMapForm(request.POST, instance=instance)
         if form.is_valid():
@@ -887,7 +878,6 @@ def foldingOptionProductMap_delete(request, id):
 @user_passes_test(check_role_admin)
 def foldingOptionProductMap_edit(request, id):
     instance = FoldingOptionsProductMapping.objects.get(folding_optiom_p_map_id=id)
-    form = FoldingOptionProductMapForm(instance=instance)
     if request.method == 'POST':
         form = FoldingOptionProductMapForm(request.POST, instance=instance)
         if form.is_valid():
@@ -983,7 +973,6 @@ def noOfMonthsProductMap_delete(request, id):
 @user_passes_test(check_role_admin)
 def noOfMonthsProductMap_edit(request, id):
     instance = NoOfMonthsProductMapping.objects.get(no_of_months_p_map_id=id)
-    form = NoOfMonthsProductMapForm(instance=instance)
     if request.method == 'POST':
         form = NoOfMonthsProductMapForm(request.POST, instance=instance)
         if form.is_valid():
@@ -1076,7 +1065,6 @@ def holeDrillingProductMap_delete(request, id):
 @user_passes_test(check_role_admin)
 def holeDrillingProductMap_edit(request, id):
     instance = HoleDrillingProductMapping.objects.get(hole_drill_p_map_id=id)
-    form = HoleDrillingProductMapForm(instance=instance)
     if request.method == 'POST':
         form = HoleDrillingProductMapForm(request.POST, instance=instance)
         if form.is_valid():
@@ -1173,7 +1161,6 @@ def bindingMethodProductMap_delete(request, id):
 @user_passes_test(check_role_admin)
 def bindingMethodProductMap_edit(request, id):
     instance = BindingMethodProductMapping.objects.get(binding_methods_p_map_id=id)
-    form = BindingMethodProductMapForm(instance=instance)
     if request.method == 'POST':
         form = BindingMethodProductMapForm(request.POST, instance=instance)
         if form.is_valid():
@@ -1299,7 +1286,6 @@ def packages_delete(request, id):
 @user_passes_test(check_role_admin)
 def packages_edit(request, id):
     instance = packages.    objects.get(package_ID=id)
-    form = Packages(instance=instance)
     if request.method == 'POST':
         form = PackagesForm(request.POST, instance=instance)
         if form.is_valid():
