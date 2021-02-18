@@ -15,6 +15,24 @@ label
 vertical-align: top;
 }
 
+.t {
+display: none;
+}
+
+img:hover {
+opacity:0.8;
+cursor: pointer;
+}
+
+img:active {
+opacity:0.5;
+cursor: pointer;
+}
+
+input[type=radio]:checked + label > img {
+border: 20px solid rgb(228, 207, 94);
+}
+
 {% endblock %}
 
 {% block header %}
@@ -40,7 +58,8 @@ vertical-align: top;
                 </div>
             </div>
             <div class="col-8">
-                <form>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="card mx-2 my-2 border border-secondary">
                         <div class="my-2">
                             <div class="form-group">
@@ -48,7 +67,8 @@ vertical-align: top;
                                     <label for="quantity"
                                            class="form-control-label font-weight-bold card-header col-4 ml-4 my-auto"
                                            style="background-color:#e3e4e6"><h5>Quantity : </h5></label>
-                                    <input id="quantity" class="form-control col-5 mx-2 my-auto" type="number">
+                                    <input id="quantity" class="form-control col-5 mx-2 my-auto" type="number"
+                                           name="quantity" required="true" default="0">
                                 </div>
                             </div>
 
@@ -60,7 +80,7 @@ vertical-align: top;
                                            style="background-color:#e3e4e6"><h5>Sizes : </h5></label>
                                     <div id="sizeList">
                                         {% for s in sizesList %}
-                                        <input id="{{s}}" class="mx-2 my-auto" type="radio">
+                                        <input id="{{s}}" class="mx-2 my-auto" type="radio" name="size" value="{{s}}">
                                         <label for="{{s}}">{{s}}</label><br>
                                         {% endfor %}
                                     </div>
@@ -76,7 +96,7 @@ vertical-align: top;
                                            style="background-color:#e3e4e6"><h5>Colors : </h5></label>
                                     <div id="ColorsList">
                                         {% for c in ColorsList %}
-                                        <input id="{{c}}" class="mx-2 my-auto" type="radio">
+                                        <input id="{{c}}" class="mx-2 my-auto" type="radio" name="Color" value="{{c}}">
                                         <label for="{{c}}">{{c}}</label><br>
                                         {% endfor %}
                                     </div>
@@ -92,7 +112,8 @@ vertical-align: top;
                                            style="background-color:#e3e4e6"><h5>Paper Choice : </h5></label>
                                     <div id="PaperChoiceProductsList">
                                         {% for pc in PaperChoiceProductsList %}
-                                        <input id="{{pc}}" class="mx-2 my-auto" type="radio">
+                                        <input id="{{pc}}" class="mx-2 my-auto" type="radio" name="PaperChoice"
+                                               value="{{pc}}">
                                         <label for="{{pc}}">{{pc}}</label><br>
                                         {% endfor %}
                                     </div>
@@ -107,8 +128,9 @@ vertical-align: top;
                                            class="form-control-label font-weight-bold card-header col-4 ml-4"
                                            style="background-color:#e3e4e6"><h5>Aqutous Coating: </h5></label>
                                     <div id="AqutousCoatingProductList">
-                                        {% for ac in PaperChoiceProductsList %}
-                                        <input id="{{ac}}" class="mx-2 my-auto" type="radio">
+                                        {% for ac in AqutousCoatingProductList %}
+                                        <input id="{{ac}}" class="mx-2 my-auto" type="radio" name="AqutousCoating"
+                                               value="{{ac}}">
                                         <label for="{{ac}}">{{ac}}</label><br>
                                         {% endfor %}
                                     </div>
@@ -124,7 +146,8 @@ vertical-align: top;
                                            style="background-color:#e3e4e6"><h5>Shrink Wrapping : </h5></label>
                                     <div id="ShrinkWrappingProductsList">
                                         {% for sw in ShrinkWrappingProductsList %}
-                                        <input id="{{sw}}" class="mx-2 my-auto" type="radio">
+                                        <input id="{{sw}}" class="mx-2 my-auto" type="radio" name="ShrinkWrapping"
+                                               value="{{sw}}">
                                         <label for="{{sw}}">{{sw}}</label><br>
                                         {% endfor %}
                                     </div>
@@ -140,7 +163,8 @@ vertical-align: top;
                                            style="background-color:#e3e4e6"><h5>Folding Options : </h5></label>
                                     <div id="FoldingOptionsProductsList">
                                         {% for fo in FoldingOptionsProductsList %}
-                                        <input id="{{fo}}" class="mx-2 my-auto" type="radio">
+                                        <input id="{{fo}}" class="mx-2 my-auto" type="radio" name="FoldingOptions"
+                                               value="{{fo}}">
                                         <label for="{{fo}}">{{fo}}</label><br>
                                         {% endfor %}
                                     </div>
@@ -156,7 +180,8 @@ vertical-align: top;
                                            style="background-color:#e3e4e6"><h5>No Of Months : </h5></label>
                                     <div id="NoOfMonthsProductsList">
                                         {% for NM in NoOfMonthsProductsList %}
-                                        <input id="{{NM}}" class="mx-2 my-auto" type="radio">
+                                        <input id="{{NM}}" class="mx-2 my-auto" type="radio" name="NoOfMonths"
+                                               value="{{NM}}">
                                         <label for="{{NM}}">{{NM}}</label><br>
                                         {% endfor %}
                                     </div>
@@ -172,7 +197,8 @@ vertical-align: top;
                                            style="background-color:#e3e4e6"><h5>Binding Method : </h5></label>
                                     <div id="BindingMethodProductsList">
                                         {% for BM in BindingMethodProductsList %}
-                                        <input id="{{BM}}" class="mx-2 my-auto" type="radio">
+                                        <input id="{{BM}}" class="mx-2 my-auto" type="radio" name="BindingMethod"
+                                               value="{{BM}}">
                                         <label for="{{BM}}">{{BM}}</label><br>
                                         {% endfor %}
                                     </div>
@@ -188,7 +214,8 @@ vertical-align: top;
                                            style="background-color:#e3e4e6"><h5>Hole Drilling : </h5></label>
                                     <div id="HoleDrillingProductsList">
                                         {% for HD in HoleDrillingProductsList %}
-                                        <input id="{{HD}}" class="mx-2 my-auto" type="radio">
+                                        <input id="{{HD}}" class="mx-2 my-auto" type="radio" name="HoleDrilling"
+                                               value="{{HD}}">
                                         <label for="{{HD}}">{{HD}}</label><br>
                                         {% endfor %}
                                     </div>
@@ -217,15 +244,57 @@ vertical-align: top;
                                             </textarea>
                                 </div>
                             </div>
+
+
+                            <div class="form-group">
+                                <div class="form-group row mx-2">
+                                    <label for="ImageTemplateProductsList"
+                                           class="form-control-label font-weight-bold card-header col-4 ml-4"
+                                           style="background-color:#e3e4e6"><h5>Image Template : </h5></label>
+                                    <div id="ImageTemplateProductsList" class="mx-2">
+                                        <input id="Upload" type="radio" name="ImageSelection" value="Upload"/> Upload an
+                                        Image
+                                        <div class="type">
+                                            <input type="file" name="image" class='btn btn-outline-secondary my-2'>
+                                        </div>
+                                        <br>
+                                        <input type="radio" id="Select" name="ImageSelection" value="Select"/> Select
+                                        From Templates
+                                        <div class="type">
+                                            {% for IT in ImageTemplateProductsList %}
+                                            <input class="t" type="radio" name="image" id="{{IT}}"
+                                                   value="{{IT}}"/>
+                                            <label for="{{IT}}">
+                                                <img src="{{IT.url}}" style="width: 20vw;
+                                                                             height: 20vw;
+                                                                             padding: 2vw;"/>
+                                            </label>
+                                            <br>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
+                    </div>
+                    <div class="row rounded mx-auto d-block d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success my-2">Place Order</button>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="row rounded mx-auto d-block d-flex justify-content-center">
-            <button class="btn btn-success my-2">Place Order</button>
-        </div>
     </div>
 </div>
 
+{% endblock %}
+
+{% block js %}
+$("document").ready(function(){
+$(".type").hide();
+$("input:radio").change(function() {
+$(".type").hide();
+$(this).next("div").show();
+});
+});
 {% endblock %}

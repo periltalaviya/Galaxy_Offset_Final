@@ -54,6 +54,7 @@
                                 <thead>
                                 <tr>
                                     <th>Template Id</th>
+                                    <th>Template Image Name</th>
                                     <th>Template Image</th>
                                     <th>Action</th>
                                 </tr>
@@ -63,6 +64,7 @@
 
                                 <tr>
                                     <td>{{x.temp_id}}</td>
+                                    <td>{{x.temp_img}}</td>
                                     <td><img src="{{x.temp_img.url}}" alt="{{x.temp_img}}" height="100" width="100">
                                     </td>
                                     <td><a href="{% url 'admin-template-image-edit' x.temp_id%}"
@@ -129,11 +131,16 @@
             {% elif templateImage_show1 %}
 
             {% for x in templateImage_show1 %}
+            <center><h1> Image Details</h1></center>
             <table class="table table-bordered">
-                <center><h1> Image Details</h1></center>
+
                 <tr>
-                    <th class="col-3">Template ID :</th>
+                    <th>Template ID :</th>
                     <td>{{x.temp_id}}</td>
+                </tr>
+                <tr>
+                    <th>Template Image Name :</th>
+                    <td>{{x.temp_img}}</td>
                 </tr>
             </table>
             <h3>Image</h3>

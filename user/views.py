@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect
+from django.utils.datastructures import MultiValueDictKeyError
 
 from .forms import CreateUserForm
 from .models import *
@@ -115,6 +116,59 @@ def order(request, id):
                                      ImageTemplateProductsMap]
     except AttributeError:
         pass
+
+    if request.method == 'POST':
+        customer_id = request.user.user_id
+        product_id = id
+        try:
+            quantity = request.POST['quantity']
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            size = request.POST['size']
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            Colour = request.POST['Color']
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            Paper_Choice = request.POST['PaperChoice']
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            Aqutous_Coating = request.POST['AqutousCoating']
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            Shrink_Wrapping = request.POST['ShrinkWrapping']
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            Folding_Options = request.POST['FoldingOptions']
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            No_Of_Months = request.POST['NoOfMonths']
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            Binding_Method = request.POST['BindingMethod']
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            Hole_Drilling = request.POST['HoleDrilling']
+        except MultiValueDictKeyError:
+            pass
 
     context = {'products': products,
                'sizesList': sizesList,

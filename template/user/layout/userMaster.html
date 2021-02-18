@@ -102,11 +102,6 @@
 </script>
 
 <script type="text/javascript">
-$("document").ready(function(){
-$(".type").hide();
-$("input:radio").change(function() {
-    $(".type").hide();
-    $(this).next("input").show();
-});
-});
+{% block js %}
+{% endblock %}
 </script>

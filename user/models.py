@@ -63,7 +63,7 @@ class Order(models.Model):
     order_id = models.AutoField("Order ID", primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False, verbose_name="Customer ID")
     prod_id = models.ForeignKey(Product, on_delete=models.CASCADE, null=False, verbose_name="Product ID")
-    quantity = models.ImageField('Product Quantity', max_length=10, default=500)
+    quantity = models.IntegerField('Product Quantity', default=0)
     attribute_value = models.CharField("Item Details JSON", max_length=2000, null=False)
     order_date = models.DateField("Order Date", auto_now_add=True, null=False)
     order_job_title = models.CharField("Name of Company/Business", max_length=100, null=False)
