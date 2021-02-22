@@ -33,6 +33,14 @@ input[type=radio]:checked + label > img {
 border: 20px solid rgb(228, 207, 94);
 }
 
+#dropdown{
+height: 50px;
+width: 50%;
+font-size: 20px;
+margin-left: 10px;
+margin-top: 3px;
+}
+
 {% endblock %}
 
 {% block header %}
@@ -59,6 +67,7 @@ border: 20px solid rgb(228, 207, 94);
             </div>
             <div class="col-8">
                 <form method="POST" enctype="multipart/form-data">
+                    <input type="hidden" id="templateValue" name="templateValue" value=""/>
                     {% csrf_token %}
                     <div class="card mx-2 my-2 border border-secondary">
                         <div class="my-2">
@@ -67,8 +76,13 @@ border: 20px solid rgb(228, 207, 94);
                                     <label for="quantity"
                                            class="form-control-label font-weight-bold card-header col-4 ml-4 my-auto"
                                            style="background-color:#e3e4e6"><h5>Quantity : </h5></label>
-                                    <input id="quantity" class="form-control col-5 mx-2 my-auto" type="number"
-                                           name="quantity" required="true" default="0">
+                                    <select id="dropdown" name="quantity" class="form-control col-5 mx-2 my-auto">
+                                        {% for i in loop_times %}
+                                        <option id="quantity" value="{{i}}"
+                                        >{{i}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                             </div>
 
@@ -80,7 +94,8 @@ border: 20px solid rgb(228, 207, 94);
                                            style="background-color:#e3e4e6"><h5>Sizes : </h5></label>
                                     <div id="sizeList">
                                         {% for s in sizesList %}
-                                        <input id="{{s}}" class="mx-2 my-auto" type="radio" name="size" value="{{s}}">
+                                        <input id="{{s}}" class="mx-2 my-auto" type="radio" name="size" value="{{s}}"
+                                               required="required">
                                         <label for="{{s}}">{{s}}</label><br>
                                         {% endfor %}
                                     </div>
@@ -96,7 +111,8 @@ border: 20px solid rgb(228, 207, 94);
                                            style="background-color:#e3e4e6"><h5>Colors : </h5></label>
                                     <div id="ColorsList">
                                         {% for c in ColorsList %}
-                                        <input id="{{c}}" class="mx-2 my-auto" type="radio" name="Color" value="{{c}}">
+                                        <input id="{{c}}" class="mx-2 my-auto" type="radio" name="Color" value="{{c}}"
+                                               required="required">
                                         <label for="{{c}}">{{c}}</label><br>
                                         {% endfor %}
                                     </div>
@@ -113,6 +129,7 @@ border: 20px solid rgb(228, 207, 94);
                                     <div id="PaperChoiceProductsList">
                                         {% for pc in PaperChoiceProductsList %}
                                         <input id="{{pc}}" class="mx-2 my-auto" type="radio" name="PaperChoice"
+                                               required="required"
                                                value="{{pc}}">
                                         <label for="{{pc}}">{{pc}}</label><br>
                                         {% endfor %}
@@ -130,6 +147,7 @@ border: 20px solid rgb(228, 207, 94);
                                     <div id="AqutousCoatingProductList">
                                         {% for ac in AqutousCoatingProductList %}
                                         <input id="{{ac}}" class="mx-2 my-auto" type="radio" name="AqutousCoating"
+                                               required="required"
                                                value="{{ac}}">
                                         <label for="{{ac}}">{{ac}}</label><br>
                                         {% endfor %}
@@ -147,6 +165,7 @@ border: 20px solid rgb(228, 207, 94);
                                     <div id="ShrinkWrappingProductsList">
                                         {% for sw in ShrinkWrappingProductsList %}
                                         <input id="{{sw}}" class="mx-2 my-auto" type="radio" name="ShrinkWrapping"
+                                               required="required"
                                                value="{{sw}}">
                                         <label for="{{sw}}">{{sw}}</label><br>
                                         {% endfor %}
@@ -164,6 +183,7 @@ border: 20px solid rgb(228, 207, 94);
                                     <div id="FoldingOptionsProductsList">
                                         {% for fo in FoldingOptionsProductsList %}
                                         <input id="{{fo}}" class="mx-2 my-auto" type="radio" name="FoldingOptions"
+                                               required="required"
                                                value="{{fo}}">
                                         <label for="{{fo}}">{{fo}}</label><br>
                                         {% endfor %}
@@ -181,6 +201,7 @@ border: 20px solid rgb(228, 207, 94);
                                     <div id="NoOfMonthsProductsList">
                                         {% for NM in NoOfMonthsProductsList %}
                                         <input id="{{NM}}" class="mx-2 my-auto" type="radio" name="NoOfMonths"
+                                               required="required"
                                                value="{{NM}}">
                                         <label for="{{NM}}">{{NM}}</label><br>
                                         {% endfor %}
@@ -198,6 +219,7 @@ border: 20px solid rgb(228, 207, 94);
                                     <div id="BindingMethodProductsList">
                                         {% for BM in BindingMethodProductsList %}
                                         <input id="{{BM}}" class="mx-2 my-auto" type="radio" name="BindingMethod"
+                                               required="required"
                                                value="{{BM}}">
                                         <label for="{{BM}}">{{BM}}</label><br>
                                         {% endfor %}
@@ -215,6 +237,7 @@ border: 20px solid rgb(228, 207, 94);
                                     <div id="HoleDrillingProductsList">
                                         {% for HD in HoleDrillingProductsList %}
                                         <input id="{{HD}}" class="mx-2 my-auto" type="radio" name="HoleDrilling"
+                                               required="required"
                                                value="{{HD}}">
                                         <label for="{{HD}}">{{HD}}</label><br>
                                         {% endfor %}
@@ -228,10 +251,23 @@ border: 20px solid rgb(228, 207, 94);
                                     <label for="jobTitle"
                                            class="form-control-label font-weight-bold card-header col-4 ml-4 my-auto"
                                            style="background-color:#e3e4e6"><h5>Job Title : </h5></label>
-                                    <input id="jobTitle" class="form-control col-5 mx-2 my-auto" type="text"
+                                    <input id="jobTitle" name="jobTitle" class="form-control col-5 mx-2 my-auto"
+                                           type="text" required
                                            placeholder="Name of the Company or Shop">
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <div class="form-group row mx-2">
+                                    <label for="postalCode"
+                                           class="form-control-label font-weight-bold card-header col-4 ml-4 my-auto"
+                                           style="background-color:#e3e4e6"><h5>Postal Code : </h5></label>
+                                    <input id="postalCode" name="postalCode" class="form-control col-5 mx-2 my-auto"
+                                           type="text" required
+                                           placeholder="Name of the Company or Shop">
+                                </div>
+                            </div>
+
 
                             <div class="form-group">
                                 <div class="form-group row mx-2">
@@ -239,9 +275,42 @@ border: 20px solid rgb(228, 207, 94);
                                            class="form-control-label font-weight-bold card-header col-4 ml-4"
                                            style="background-color:#e3e4e6"><h5>Order Description : </h5></label>
                                     <textarea id="orderDetail" rows="5" cols="45"
-                                              class="form-control col-5 mx-2 my-auto"
-                                              placeholder="Enter all the details about product ...">
+                                              class="form-control col-5 mx-2 my-auto" name="orderDetail"
+                                              placeholder="Enter all the details about product ..." required>
                                             </textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-group row mx-2">
+                                    <label for="address"
+                                           class="form-control-label font-weight-bold card-header col-4 ml-4"
+                                           style="background-color:#e3e4e6"><h5>Address : </h5></label>
+                                    <textarea id="address" rows="3" cols="40"
+                                              class="form-control col-5 mx-2 my-auto" name="address"
+                                              placeholder="Enter all the details about product ..." required>
+                                            </textarea>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="form-group row mx-2">
+                                    <label for="state"
+                                           class="form-control-label font-weight-bold card-header col-4 ml-4 my-auto"
+                                           style="background-color:#e3e4e6"><h5>State : </h5></label>
+                                    <input id="state" class="form-control col-5 mx-2 my-auto" type="text" name="state"
+                                           placeholder="Name of the State" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-group row mx-2">
+                                    <label for="city"
+                                           class="form-control-label font-weight-bold card-header col-4 ml-4 my-auto"
+                                           style="background-color:#e3e4e6"><h5>City : </h5></label>
+                                    <input id="city" class="form-control col-5 mx-2 my-auto" type="text" name="city"
+                                           placeholder="Name of the City" required>
                                 </div>
                             </div>
 
@@ -252,18 +321,21 @@ border: 20px solid rgb(228, 207, 94);
                                            class="form-control-label font-weight-bold card-header col-4 ml-4"
                                            style="background-color:#e3e4e6"><h5>Image Template : </h5></label>
                                     <div id="ImageTemplateProductsList" class="mx-2">
-                                        <input id="Upload" type="radio" name="ImageSelection" value="Upload"/> Upload an
+                                        <input id="Upload" type="radio" name="ImageSelection"
+                                               class="templateSelection"/> Upload an
                                         Image
                                         <div class="type">
-                                            <input type="file" name="image" class='btn btn-outline-secondary my-2'>
+                                            <input type="file" name="image"
+                                                   class='btn btn-outline-secondary my-2 SelectedImage'>
                                         </div>
                                         <br>
-                                        <input type="radio" id="Select" name="ImageSelection" value="Select"/> Select
+                                        <input type="radio" id="Select" name="ImageSelection" class="templateSelection"
+                                        /> Select
                                         From Templates
                                         <div class="type">
                                             {% for IT in ImageTemplateProductsList %}
-                                            <input class="t" type="radio" name="image" id="{{IT}}"
-                                                   value="{{IT}}"/>
+                                            <input type="radio" name="image2" id="{{IT}}"
+                                                   value="{{IT}}" class="SelectedImage t"/>
                                             <label for="{{IT}}">
                                                 <img src="{{IT.url}}" style="width: 20vw;
                                                                              height: 20vw;
@@ -290,11 +362,23 @@ border: 20px solid rgb(228, 207, 94);
 {% endblock %}
 
 {% block js %}
+
 $("document").ready(function(){
 $(".type").hide();
-$("input:radio").change(function() {
+$("input:radio").on('change', function() {
 $(".type").hide();
 $(this).next("div").show();
 });
+$("#templateValue").val('');
+$(".templateSelection").on('change', function(){
+$("#templateValue").val('');
+$("#templateValue").val($(this).attr('id'));
+console.log($("#templateValue").val());
 });
+<!--    $('.SelectedImage').on('click', function(){-->
+<!--        console.log($(this).attr('value'));-->
+<!--    })-->
+});
+
+
 {% endblock %}

@@ -89,7 +89,7 @@ DATABASES = {
             'OPTIONS': {
                 'sql_mode': 'traditional',
             },
-            'NAME': 'galaxy_offset_project',
+            'NAME': 'galaxy_offset',
             'USER': 'root',
             'PASSWORD': '123',
             'HOST': 'localhost',  # 127.0.0.1:8000

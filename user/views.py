@@ -1,5 +1,8 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
+from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
 from django.utils.datastructures import MultiValueDictKeyError
 
@@ -51,6 +54,16 @@ def order(request, id):
     HoleDrillingProductsList = []
     BindingMethodProductsList = []
     ImageTemplateProductsList = []
+    loop_times = range(500, 10000, 500)
+    value = {}
+    State = ''
+    City = ''
+    Postal_Code = 0
+    Job_title = ''
+    Order_Detail = ''
+    User_Address = ''
+    quantity = 0
+    TemplateValue = ''
 
     try:
         sizesMap = SizeProductMapping.objects.filter(prod_id=id)
@@ -118,59 +131,130 @@ def order(request, id):
         pass
 
     if request.method == 'POST':
-        customer_id = request.user.user_id
-        product_id = id
+        customer_id = request.user
+        product = Product.objects.get(prod_ID=id)
+        product_id = product
         try:
             quantity = request.POST['quantity']
+            print(quantity)
         except MultiValueDictKeyError:
             pass
 
         try:
             size = request.POST['size']
+            value.update(size=size)
         except MultiValueDictKeyError:
             pass
 
         try:
             Colour = request.POST['Color']
+            value.update(Colour=Colour)
         except MultiValueDictKeyError:
             pass
 
         try:
             Paper_Choice = request.POST['PaperChoice']
+            value.update(Paper_Choice=Paper_Choice)
         except MultiValueDictKeyError:
             pass
 
         try:
             Aqutous_Coating = request.POST['AqutousCoating']
+            value.update(Aqutous_Coating=Aqutous_Coating)
         except MultiValueDictKeyError:
             pass
 
         try:
             Shrink_Wrapping = request.POST['ShrinkWrapping']
+            value.update(Shrink_Wrapping=Shrink_Wrapping)
         except MultiValueDictKeyError:
             pass
 
         try:
             Folding_Options = request.POST['FoldingOptions']
+            value.update(Folding_Options=Folding_Options)
         except MultiValueDictKeyError:
             pass
 
         try:
             No_Of_Months = request.POST['NoOfMonths']
+            value.update(No_Of_Months=No_Of_Months)
         except MultiValueDictKeyError:
             pass
 
         try:
             Binding_Method = request.POST['BindingMethod']
+            value.update(Binding_Method=Binding_Method)
         except MultiValueDictKeyError:
             pass
 
         try:
             Hole_Drilling = request.POST['HoleDrilling']
+            value.update(Hole_Drilling=Hole_Drilling)
         except MultiValueDictKeyError:
             pass
 
+        try:
+            Job_title = request.POST['jobTitle']
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            Order_Detail = request.POST['orderDetail']
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            User_Address = request.POST['address']
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            State = request.POST['state']
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            City = request.POST['city']
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            Postal_Code = request.POST['postalCode']
+            Postal_Code = int(Postal_Code)
+        except MultiValueDictKeyError:
+            pass
+
+        try:
+            if request.POST['templateValue'] == 'Upload':
+                if 'image' in request.FILES:
+                    Template_Value = request.FILES['image']
+                    fs = FileSystemStorage()
+                    filename = fs.save(Template_Value.name, Template_Value)
+                    uploaded_file_url = fs.url(filename)
+                    print(uploaded_file_url)
+                    print(Template_Value)
+
+                print("Upload")
+            elif request.POST['templateValue'] == 'Select':
+                TemplateValue = request.POST['image2']
+                print(TemplateValue)
+                print("Select")
+            else:
+                pass
+        except MultiValueDictKeyError:
+            pass
+
+        attribute_value = json.dumps(value)
+        print(attribute_value)
+
+        order_store = Order(user_id=customer_id, prod_id=product_id, quantity=quantity, attribute_value=attribute_value,
+                            order_job_title=Job_title, order_desc=Order_Detail, address=User_Address, state=State,
+                            city=City, postal_code=Postal_Code, product_img=TemplateValue)
+        order_store.save()
+
     context = {'products': products,
+               "loop_times": loop_times,
                'sizesList': sizesList,
                "AqutousCoatingProductList": AqutousCoatingProductList,
                "ColorsList": ColorsList,
@@ -198,8 +282,6 @@ def feedback(request):
     return render(request, 'user/feedback.html')
 
 
-# def loginPage(request):
-#     return render(request, 'user/login.html')
 def loginPage(request):
     if request.user.is_authenticated:
         return redirect('admin-home')
@@ -226,8 +308,6 @@ def logoutUser(request):
     return redirect('user-home')
 
 
-# def registerPage(request):
-#     return render(request, 'user/register.html')
 def registerPage(request):
     if request.user.is_authenticated:
         return redirect('admin-home')
