@@ -117,6 +117,8 @@
                                     <th>Order Id</th>
                                     <th>Product</th>
                                     <th>Order Price</th>
+                                    <th>Template</th>
+                                    <th>Detail</th>
                                     <th>Quantity</th>
                                     <th>Address</th>
                                 </tr>
@@ -126,18 +128,18 @@
 
                                 <tr>
                                     <td>{{x.order_id}}</td>
-                                    <td>{{x.prod_id.prod_name}}</td>
+                                    <td>{{x.prod_id.prod_Name}}</td>
                                     <td>{{x.order_price}}</td>
+                                    <td><img src="{{x.product_img.url}}" alt="{{x.temp_id}}" height=100 width=150>
+                                    </td>
+                                    <td>{{x.attribute_value}}</td>
                                     <td>{{x.quantity}}</td>
-                                    <td><a href="{%url 'admin-order' x.order_id%}"
+                                    <td><a href="{%url 'admin-order-edit' x.order_id%}"
                                            class="btn btn-outline-primary mt-2"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                        <a href="{%url 'admin-order-edit' x.order_id%}"
+                                        <a href="{%url 'admin-order-delete' x.order_id%}"
                                            class="btn btn-outline-danger mt-2"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></a>
-                                        <a href="{%url 'admin-order-delete' x.order_id%}"
-                                           class="btn btn-outline-warning mt-2"><i
-                                                class="fa fa-eye" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
 
