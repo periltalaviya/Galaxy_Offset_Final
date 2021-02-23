@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash, logout, authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -165,6 +167,9 @@ def order(request):
         return redirect("/admin1/order/")
     else:
         order_show = Order.objects.get_queryset().order_by('order_id')
+        for item in order_show:
+            attribute_list = json.loads(item.attribute_value)
+
         # start paginator logic
         paginator = Paginator(order_show, 3)
         page = request.GET.get('page')
@@ -175,7 +180,8 @@ def order(request):
         except EmptyPage:
             order_show = paginator.page(paginator.num_pages)
         # end paginator logic
-        return render(request, 'admin1/order.html', {'order_show': order_show, 'form': form})
+        return render(request, 'admin1/order.html',
+                      {'order_show': order_show, 'attribute_list': attribute_list, 'form': form})
 
 
 @login_required(login_url="admin-login")

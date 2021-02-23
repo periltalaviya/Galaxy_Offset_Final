@@ -132,7 +132,15 @@
                                     <td>{{x.order_price}}</td>
                                     <td><img src="{{x.product_img.url}}" alt="{{x.temp_id}}" height=100 width=150>
                                     </td>
-                                    <td>{{x.attribute_value}}</td>
+                                    <td>{% for key,value in attribute_list.items %}
+                                        <table class="table">
+                                            <tr>
+                                                <td>{{key}}</td>
+                                                <td>{{value}}</td>
+                                            </tr>
+                                        </table>
+                                    {% endfor %}
+                                    </td>
                                     <td>{{x.quantity}}</td>
                                     <td><a href="{%url 'admin-order-edit' x.order_id%}"
                                            class="btn btn-outline-primary mt-2"><i

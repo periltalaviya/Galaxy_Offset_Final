@@ -228,12 +228,11 @@ def order(request, id):
         try:
             if request.POST['templateValue'] == 'Upload':
                 if 'image' in request.FILES:
-                    Template_Value = request.FILES['image']
+                    Template_Value1 = request.FILES['image']
+
                     fs = FileSystemStorage()
-                    filename = fs.save(Template_Value.name, Template_Value)
-                    uploaded_file_url = fs.url(filename)
-                    print(uploaded_file_url)
-                    print(Template_Value)
+                    filename = fs.save(Template_Value1.name, Template_Value1)
+                    TemplateValue = Template_Value1.name
 
                 print("Upload")
             elif request.POST['templateValue'] == 'Select':
@@ -246,7 +245,6 @@ def order(request, id):
             pass
 
         attribute_value = json.dumps(value)
-        print(attribute_value)
 
         order_store = Order(user_id=customer_id, prod_id=product_id, quantity=quantity, attribute_value=attribute_value,
                             order_job_title=Job_title, order_desc=Order_Detail, address=User_Address, state=State,
