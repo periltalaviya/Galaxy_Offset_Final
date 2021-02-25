@@ -13,7 +13,7 @@ from .forms import (SizeProductMapForm, ColorProductMapForm, PaperProductMapForm
                     AqutousCoatingProductMapForm, FoldingOptionProductMapForm, NoOfMonthsProductMapForm,
                     HoleDrillingProductMapForm,
                     ImageTempProductMapForm, CreateUserForm, EditUserProfile, OrderForm, BindingMethodProductMapForm,
-                    PackagesForm, EditProfile, HoleDrillingForm)
+                    EditProfile, HoleDrillingForm)
 
 
 # Create your views here.
@@ -160,6 +160,7 @@ def addUser_edit(request, id):
 @login_required(login_url="admin-login")
 @user_passes_test(check_role_admin)
 def order(request):
+    attribute_list = ''
     form = OrderForm(request.POST, request.FILES)
     if request.method == 'POST':
         if form.is_valid():
@@ -182,6 +183,16 @@ def order(request):
         # end paginator logic
         return render(request, 'admin1/order.html',
                       {'order_show': order_show, 'attribute_list': attribute_list, 'form': form})
+
+
+@login_required(login_url="admin-login")
+@user_passes_test(check_role_admin)
+def order_show1(request, id):
+    attribute_list = ''
+    order_show1 = Order.objects.filter(order_id=id)
+    for item in order_show1:
+        attribute_list = json.loads(item.attribute_value)
+    return render(request, 'admin1/order.html', {'order_show1': order_show1, 'attribute_list': attribute_list})
 
 
 @login_required(login_url="admin-login")
@@ -1259,10 +1270,24 @@ def gallary_delete(request, id):
 @login_required(login_url="admin-login")
 @user_passes_test(check_role_admin)
 def packages(request):
-    form = PackagesForm(request.POST, request.FILES)
+
+    PaperChoiceProductsList = []
+    ShrinkWrappingProductsList = []
+    FoldingOptionsProductsList = []
+    NoOfMonthsProductsList = []
+    HoleDrillingProductsList = []
+    BindingMethodProductsList = []
+    ImageTemplateProductsList = []
+
+    sizesList = Size.objects.all()
+    ColorsList = Color.objects.all()
+    AqutousCoatingList = AqutousCoating.objects.all()
+    PaperChoiceList = PaperChoice.objects.all()
+
+    product = Product.objects.all()
+
     if request.method == 'POST':
-        if form.is_valid():
-            form.save()
+        pass
         return redirect("/admin1/Packages/")
     else:
         packages_show = Packages.objects.get_queryset().order_by('package_ID')
@@ -1276,8 +1301,23 @@ def packages(request):
         except EmptyPage:
             packages_show = paginator.page(paginator.num_pages)
         # end paginator logic
+
+        context = {'packages_show': packages_show,
+                   'product': product,
+                   'sizesList': sizesList,
+                   "AqutousCoatingList": AqutousCoatingList,
+                   "ColorsList": ColorsList,
+                   "PaperChoiceList": PaperChoiceList,
+                   "ShrinkWrappingProductsList": ShrinkWrappingProductsList,
+                   "FoldingOptionsProductsList": FoldingOptionsProductsList,
+                   "NoOfMonthsProductsList": NoOfMonthsProductsList,
+                   "HoleDrillingProductsList": HoleDrillingProductsList,
+                   "BindingMethodProductsList": BindingMethodProductsList,
+                   "ImageTemplateProductsList": ImageTemplateProductsList
+                   }
+
         return render(request, 'admin1/packages.html',
-                      {'packages_show': packages_show, 'form': form})
+                   context)
 
 
 @login_required(login_url="admin-login")
@@ -1292,15 +1332,7 @@ def packages_delete(request, id):
 @user_passes_test(check_role_admin)
 def packages_edit(request, id):
     instance = packages.    objects.get(package_ID=id)
-    if request.method == 'POST':
-        form = PackagesForm(request.POST, instance=instance)
-        if form.is_valid():
-            form.save()
-            return redirect('/admin1/packages')
-    else:
-        form = PackagesForm(instance=instance)
-
-    return render(request, 'admin1/packages.html', {'form': form, 'instance': instance})
+    return render(request, 'admin1/packages.html', {'instance': instance})
 
 
 @login_required(login_url="admin-login")

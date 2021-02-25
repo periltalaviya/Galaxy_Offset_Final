@@ -231,14 +231,10 @@ def order(request, id):
                     Template_Value1 = request.FILES['image']
 
                     fs = FileSystemStorage()
-                    filename = fs.save(Template_Value1.name, Template_Value1)
+                    fs.save(Template_Value1.name, Template_Value1)
                     TemplateValue = Template_Value1.name
-
-                print("Upload")
             elif request.POST['templateValue'] == 'Select':
                 TemplateValue = request.POST['image2']
-                print(TemplateValue)
-                print("Select")
             else:
                 pass
         except MultiValueDictKeyError:

@@ -14,6 +14,7 @@
             <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modal-primary">Add
                 Packages
             </button>
+
             <div class="modal fade" id="modal-primary">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -26,31 +27,100 @@
                             <form action="{% url 'admin-packages'%}" method="POST"
                                   enctype="multipart/form-data">
                                 {% csrf_token %}
-                                <table border="1" class="table table-bordered border border-info">
-                                    <tr>
-                                        <th>
-                                            {{form.package_Name.label_tag}}
-                                        </th>
-                                        <td>{{form.package_Name}}</td>
+                                <table border="1" class="table table-border border-secondary">
+                                    <tr class="from-group">
+                                        <th>Package Name:</th>
+                                        <td><input type="text" class="mx-2 my-auto" name="packageName" id="packageName"
+                                                   required></td>
                                     </tr>
-                                    <tr>
-                                        <th>
-                                            {{form.attribute_values.label_tag}}
-                                        </th>
-                                        <td>{{form.attribute_values}}</td>
+                                    <tr class="from-group">
+                                        <th>Product :</th>
+                                        <td>
+                                            <select class="mx-2 my-auto" name="productName" required id="productName">
+                                                <option value="">
+                                                    ----------
+                                                </option>
+                                                {% for productName in product%}
+                                                <option value="{{productName}}">
+                                                    {{productName.prod_Name}}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <th>
-                                            {{form.package_Price.label_tag}}
-                                        </th>
-                                        <td>{{form.package_Price}}</td>
+                                    <tr class="from-group">
+                                        <th>Quantity :</th>
+                                        <td><input type="number" class="mx-2 my-auto" name="packageQuantity"
+                                                   id="productQuantity"
+                                                   required>
+                                        </td>
                                     </tr>
-                                    <tr>
+                                    <tr class="from-group">
                                         <th>
-                                            {{form.prod_ID.label_tag}}
+                                            Size :
                                         </th>
                                         <td>
-                                            {{form.prod_ID}}
+                                            <select class="mx-2 my-auto" name="sizesList" required id="sizesList">
+                                                <option value="">
+                                                    ----------
+                                                </option>
+                                                {% for size in sizesList %}
+                                                <option value="{{size.prod_size}}">
+                                                    {{size.prod_size}}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="from-group">
+                                        <th>
+                                            Color :
+                                        </th>
+                                        <td>
+                                            <select class="mx-2 my-auto" name="ColorList" required id="ColorList">
+                                                <option value="">
+                                                    ----------
+                                                </option>
+                                                {% for color in ColorsList %}
+                                                <option value="{{color.prod_color}}">
+                                                    {{color.prod_color}}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="from-group">
+                                        <th>
+                                            Aqutous Coating :
+                                        </th>
+                                        <td>
+                                            <select class="mx-2 my-auto" name="AqutousCoatingList" required id="AqutousCoatingList">
+                                                <option value="">
+                                                    ----------
+                                                </option>
+                                                {% for AqutousCoating in AqutousCoatingList %}
+                                                <option value="{{AqutousCoating.aqutous_coating_type}}">
+                                                    {{AqutousCoating.aqutous_coating_type}}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="from-group">
+                                        <th>
+                                            Paper Choice :
+                                        </th>
+                                        <td>
+                                            <select class="mx-2 my-auto" name="PaperChoiceList" required id="PaperChoiceList">
+                                                <option value="">
+                                                    ----------
+                                                </option>
+                                                {% for PaperChoice in PaperChoiceList %}
+                                                <option value="{{PaperChoice.paper_choices_name}}">
+                                                    {{PaperChoice.paper_choices_name}}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
                                         </td>
                                     </tr>
                                 </table>
@@ -68,6 +138,7 @@
             </div>
             <!-- /.modal -->
 
+            {% if packages_show %}
             <div class="container-fluid ">
                 <div class="row">
                     <div class="card mt-2 border border-secondary">
@@ -143,7 +214,7 @@
                 </div>
             </div>
 
-
+            {% endif %}
             {% if instance %}
             {% for x in instance %}
             <form action="{% url 'admin-packages-edit' x.packages_id %}" method="POST"
