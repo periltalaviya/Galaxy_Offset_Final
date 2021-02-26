@@ -41,7 +41,7 @@
                                                     ----------
                                                 </option>
                                                 {% for productName in product%}
-                                                <option value="{{productName}}">
+                                                <option value="{{productName.prod_Name}}">
                                                     {{productName.prod_Name}}
                                                 </option>
                                                 {% endfor %}
@@ -94,7 +94,7 @@
                                             Aqutous Coating :
                                         </th>
                                         <td>
-                                            <select class="mx-2 my-auto" name="AqutousCoatingList" required id="AqutousCoatingList">
+                                            <select class="mx-2 my-auto" name="AqutousCoatingList" id="AqutousCoatingList">
                                                 <option value="">
                                                     ----------
                                                 </option>
@@ -111,13 +111,103 @@
                                             Paper Choice :
                                         </th>
                                         <td>
-                                            <select class="mx-2 my-auto" name="PaperChoiceList" required id="PaperChoiceList">
+                                            <select class="mx-2 my-auto" name="PaperChoiceList" id="PaperChoiceList">
                                                 <option value="">
                                                     ----------
                                                 </option>
                                                 {% for PaperChoice in PaperChoiceList %}
                                                 <option value="{{PaperChoice.paper_choices_name}}">
                                                     {{PaperChoice.paper_choices_name}}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="from-group">
+                                        <th>
+                                            Shrink Wrapping :
+                                        </th>
+                                        <td>
+                                            <select class="mx-2 my-auto" name="ShrinkWrappingList"
+                                                    id="ShrinkWrappingList">
+                                                <option value="">
+                                                    ----------
+                                                </option>
+                                                {% for ShrinkWrapping in ShrinkWrappingList %}
+                                                <option value="{{ShrinkWrapping.shrink_options}}">
+                                                    {{ShrinkWrapping.shrink_options}}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="from-group">
+                                        <th>
+                                            Folding Options :
+                                        </th>
+                                        <td>
+                                            <select class="mx-2 my-auto" name="FoldingOptionsList"
+                                                    id="FoldingOptionsList">
+                                                <option value="">
+                                                    ----------
+                                                </option>
+                                                {% for FoldingOptions in FoldingOptionsList %}
+                                                <option value="{{FoldingOptions.folding_options_type}}">
+                                                    {{FoldingOptions.folding_options_type}}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="from-group">
+                                        <th>
+                                            No of Months :
+                                        </th>
+                                        <td>
+                                            <select class="mx-2 my-auto" name="NoOfMonthsList"
+                                                    id="NoOfMonthsList">
+                                                <option value="">
+                                                    ----------
+                                                </option>
+                                                {% for NoOfMonths in NoOfMonthsList %}
+                                                <option value="{{NoOfMonths.months}}">
+                                                    {{NoOfMonths.months}}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="from-group">
+                                        <th>
+                                            Hole Drilling :
+                                        </th>
+                                        <td>
+                                            <select class="mx-2 my-auto" name="HoleDrillingList"
+                                                    id="HoleDrillingList">
+                                                <option value="">
+                                                    ----------
+                                                </option>
+                                                {% for HoleDrilling in HoleDrillingList %}
+                                                <option value="{{HoleDrilling.hole}}">
+                                                    {{HoleDrilling.hole}}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr class="from-group">
+                                        <th>
+                                            Binding Method :
+                                        </th>
+                                        <td>
+                                            <select class="mx-2 my-auto" name="BindingMethodList"
+                                                    id="BindingMethodList">
+                                                <option value="">
+                                                    --------------------
+                                                </option>
+                                                {% for BindingMethod in BindingMethodList %}
+                                                <option value="{{BindingMethod.binding_methods}}">
+                                                    {{BindingMethod.binding_methods}}
                                                 </option>
                                                 {% endfor %}
                                             </select>

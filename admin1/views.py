@@ -1271,24 +1271,26 @@ def gallary_delete(request, id):
 @user_passes_test(check_role_admin)
 def packages(request):
 
-    PaperChoiceProductsList = []
-    ShrinkWrappingProductsList = []
-    FoldingOptionsProductsList = []
-    NoOfMonthsProductsList = []
-    HoleDrillingProductsList = []
-    BindingMethodProductsList = []
-    ImageTemplateProductsList = []
-
     sizesList = Size.objects.all()
     ColorsList = Color.objects.all()
     AqutousCoatingList = AqutousCoating.objects.all()
     PaperChoiceList = PaperChoice.objects.all()
-
+    ShrinkWrappingList = ShrinkWrapping.objects.all()
+    FoldingOptionsList = FoldingOptions.objects.all()
+    NoOfMonthsList = NoOfMonths.objects.all()
+    HoleDrillingList = HoleDrilling.objects.all()
+    BindingMethodList = BindingMethod.objects.all()
     product = Product.objects.all()
 
     if request.method == 'POST':
-        pass
-        return redirect("/admin1/Packages/")
+        package_name = request.POST['packageName']
+        print(package_name)
+        no_of_months = request.POST['NoOfMonthsList']
+        if no_of_months == '':
+            print('blank')
+        else:
+            print(no_of_months)
+        return redirect("/admin1/packages/")
     else:
         packages_show = Packages.objects.get_queryset().order_by('package_ID')
         # start paginator logic
@@ -1308,16 +1310,14 @@ def packages(request):
                    "AqutousCoatingList": AqutousCoatingList,
                    "ColorsList": ColorsList,
                    "PaperChoiceList": PaperChoiceList,
-                   "ShrinkWrappingProductsList": ShrinkWrappingProductsList,
-                   "FoldingOptionsProductsList": FoldingOptionsProductsList,
-                   "NoOfMonthsProductsList": NoOfMonthsProductsList,
-                   "HoleDrillingProductsList": HoleDrillingProductsList,
-                   "BindingMethodProductsList": BindingMethodProductsList,
-                   "ImageTemplateProductsList": ImageTemplateProductsList
+                   "ShrinkWrappingList": ShrinkWrappingList,
+                   "FoldingOptionsList": FoldingOptionsList,
+                   "NoOfMonthsList": NoOfMonthsList,
+                   "HoleDrillingList": HoleDrillingList,
+                   "BindingMethodList": BindingMethodList,
                    }
 
-        return render(request, 'admin1/packages.html',
-                   context)
+        return render(request, 'admin1/packages.html', context)
 
 
 @login_required(login_url="admin-login")
