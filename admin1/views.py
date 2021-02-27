@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.utils.datastructures import MultiValueDictKeyError
 from django.shortcuts import render, redirect
 
 from user.models import *
@@ -1281,15 +1282,101 @@ def packages(request):
     HoleDrillingList = HoleDrilling.objects.all()
     BindingMethodList = BindingMethod.objects.all()
     product = Product.objects.all()
-
+    attribute_values = {}
     if request.method == 'POST':
+
         package_name = request.POST['packageName']
         print(package_name)
-        no_of_months = request.POST['NoOfMonthsList']
-        if no_of_months == '':
-            print('blank')
-        else:
-            print(no_of_months)
+
+        product_name = request.POST['productName']
+        print(product_name)
+
+        quantity = request.POST['packageQuantity']
+        print(quantity)
+
+        try:
+            sizesList = request.POST['sizesList']
+            if sizesList == '':
+                pass
+            else:
+                attribute_values.update(sizesList=sizesList)
+        except AttributeError:
+            pass
+
+        try:
+            ColorsList = request.POST['ColorList']
+            if ColorsList == '':
+                pass
+            else:
+                attribute_values.update(ColorsList=ColorsList)
+        except AttributeError:
+            pass
+
+        try:
+            AqutousCoatingList = request.POST['AqutousCoatingList']
+            if AqutousCoatingList == '':
+                pass
+            else:
+                attribute_values.update(AqutousCoatingList=AqutousCoatingList)
+        except AttributeError:
+            pass
+
+        try:
+            PaperChoiceList = request.POST['PaperChoiceList']
+            if PaperChoiceList == '':
+                pass
+            else:
+                attribute_values.update(PaperChoiceList=PaperChoiceList)
+        except AttributeError:
+            pass
+
+        try:
+            ShrinkWrappingList = request.POST['ShrinkWrappingList']
+            if ShrinkWrappingList == '':
+                pass
+            else:
+                attribute_values.update(ShrinkWrappingList=ShrinkWrappingList)
+        except AttributeError:
+            pass
+
+        try:
+            FoldingOptionsList = request.POST['FoldingOptionsList']
+            if FoldingOptionsList == '':
+                pass
+            else:
+                attribute_values.update(FoldingOptionsList=FoldingOptionsList)
+        except AttributeError:
+            pass
+
+        try:
+            no_of_months = request.POST['NoOfMonthsList']
+            if no_of_months == '':
+                pass
+            else:
+                attribute_values.update(no_of_months=no_of_months)
+        except AttributeError:
+            pass
+
+        try:
+            HoleDrillingList = request.POST['HoleDrillingList']
+            if HoleDrillingList == '':
+                pass
+            else:
+                attribute_values.update(HoleDrillingList=HoleDrillingList)
+        except AttributeError:
+            pass
+
+        try:
+            BindingMethodList = request.POST['BindingMethodList']
+            if BindingMethodList == '':
+                pass
+            else:
+                attribute_values.update(BindingMethodList=BindingMethodList)
+        except AttributeError:
+            pass
+
+        print(attribute_values)
+
         return redirect("/admin1/packages/")
     else:
         packages_show = Packages.objects.get_queryset().order_by('package_ID')
