@@ -272,8 +272,16 @@ def gallary(request):
     return render(request, 'user/Gallary.html')
 
 
-def feedback(request):
-    return render(request, 'user/feedback.html')
+def contactUs(request):
+    if request.method == 'POST':
+        user_id = request.user
+        feedback = request.POST['feedback']
+
+        feedback_store = FeedBack(user_id=user_id, feedback_desc=feedback)
+        feedback_store.save()
+        return redirect('user-contact-us')
+
+    return render(request, 'user/contactUS.html')
 
 
 def loginPage(request):

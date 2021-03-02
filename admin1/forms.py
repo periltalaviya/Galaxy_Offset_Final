@@ -106,3 +106,11 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = '__all__'
+
+
+class PackagesEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Packages
+        fields = '__all__'
+

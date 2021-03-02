@@ -9,6 +9,7 @@
     <div class="row">
         <div class="col-lg-2"></div>
         <div class="col-lg-10">
+            {% if feedback_show %}
             <div class="container-fluid ">
                 <div class="row">
                     <div class="card mt-2 border border-secondary">
@@ -22,24 +23,29 @@
                                 <thead>
                                 <tr>
                                     <th>Feedback Id</th>
-                                    <th>User ID</th>
+                                    <th>User</th>
                                     <th>Feedback</th>
                                     <th>FeedBack Date</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody class="justify-content-center">
-                                {% for x in Feedback_show %}
+                                {% for x in feedback_show %}
 
                                 <tr>
                                     <td>{{x.feedback_id}}</td>
                                     <td>{{x.user_id}}</td>
-                                    <td>{{x.feedback_desc}}</td>
+                                    <td>{{x.feedback_desc | slice:"0:23"}} ...</td>
                                     <td>{{x.feedback_date}}</td>
                                     <td>
+                                        <a href="{% url 'admin-feedback-show1' x.feedback_id%}"
+                                           class="btn btn-outline-warning mt-2"><i
+                                                class="fa fa-eye" aria-hidden="true"></i></a>
+
                                         <a href="{% url 'admin-feedback-delete' x.feedback_id%}"
                                            class="btn btn-outline-danger mt-2"><i
                                                 class="fa fa-trash" aria-hidden="true"></i></a>
+
                                     </td>
                                 </tr>
 
@@ -78,6 +84,32 @@
                     <!-- /.card -->
                 </div>
             </div>
+            {% endif %}
+
+            {% if feedback_show1 %}
+
+            {% for x in feedback_show1 %}
+            <table class="table table-bordered">
+                <tr>
+                    <th>Feedback Id :</th>
+                    <td>{{x.feedback_id}}</td>
+                </tr>
+                <tr>
+                    <th>User Name</th>
+                    <td>{{x.user_id}}</td>
+                </tr>
+                <tr>
+                    <th>Feedback Date</th>
+                    <td>{{x.feedback_date}}</td>
+                </tr>
+
+                <tr>
+                    <th>Feedback :</th>
+                    <td>{{x.feedback_desc}}</td>
+                </tr>
+            </table>
+            {% endfor %}
+            {% endif %}
         </div>
     </div>
 </div>

@@ -1,5 +1,5 @@
-from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.urls import path
 
 from admin1 import views
 
@@ -41,9 +41,11 @@ urlpatterns = [
     path('packages/', views.packages, name="admin-packages"),
     path('packages_delete/<int:id>', views.packages_delete, name="admin-packages-delete"),
     path('packages_edit/<int:id>', views.packages_edit, name="admin-packages-edit"),
+    path('packages_show1/<int:id>', views.packages_show1, name="admin-packages-show1"),
 
     path('feedback/', views.feedback, name="admin-feedback"),
     path('feedback_delete/<int:id>', views.feedback, name="admin-feedback-delete"),
+    path('feedback_show/<int:id>', views.feedback_show1, name="admin-feedback-show1"),
 
     path('viewProfile/', views.viewProfile, name="admin-view-profile"),
     path('editProfile/', views.editProfile, name="admin-edit-profile"),

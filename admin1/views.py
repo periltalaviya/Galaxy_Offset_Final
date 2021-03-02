@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.utils.datastructures import MultiValueDictKeyError
 from django.shortcuts import render, redirect
 
 from user.models import *
@@ -14,7 +13,7 @@ from .forms import (SizeProductMapForm, ColorProductMapForm, PaperProductMapForm
                     AqutousCoatingProductMapForm, FoldingOptionProductMapForm, NoOfMonthsProductMapForm,
                     HoleDrillingProductMapForm,
                     ImageTempProductMapForm, CreateUserForm, EditUserProfile, OrderForm, BindingMethodProductMapForm,
-                    EditProfile, HoleDrillingForm)
+                    EditProfile, HoleDrillingForm, PackagesEditForm)
 
 
 # Create your views here.
@@ -74,7 +73,11 @@ def product_edit(request, id):
         product_name = request.POST['p_name']
         product_price = request.POST['p_price']
         product_desc = request.POST['p_desc']
-        product_image = request.FILES['p_image']
+        if 'p_image' in request.FILES:
+            product_image = request.FILES['p_image']
+        else:
+            i = Product.objects.get(prod_ID=id)
+            product_image = i.prod_img
         product_store = Product(prod_ID=id, prod_Name=product_name,
                                 prod_Price=product_price, prod_Desc=product_desc, prod_img=product_image)
         product_store.save()
@@ -1194,6 +1197,7 @@ def bindingMethodProductMap_edit(request, id):
 @user_passes_test(check_role_admin)
 def feedback(request):
     feedback_show = FeedBack.objects.get_queryset().order_by('feedback_id')
+    print(feedback_show)
     # start paginator logic
     paginator = Paginator(feedback_show, 3)
     page = request.GET.get('page')
@@ -1205,6 +1209,13 @@ def feedback(request):
         feedback_show = paginator.page(paginator.num_pages)
     # end paginator logic
     return render(request, 'admin1/feedback.html', {'feedback_show': feedback_show})
+
+
+@login_required(login_url="admin-login")
+@user_passes_test(check_role_admin_or_designer)
+def feedback_show1(request, id):
+    feedback_show1 = FeedBack.objects.filter(feedback_id=id)
+    return render(request, 'admin1/feedback.html', {'feedback_show1': feedback_show1})
 
 
 @login_required(login_url="admin-login")
@@ -1288,68 +1299,72 @@ def packages(request):
         package_name = request.POST['packageName']
         print(package_name)
 
-        product_name = request.POST['productName']
-        print(product_name)
+        package_price = request.POST['packagePrice']
+        print(package_price)
+
+        product_name = int(request.POST['productName'])
+        Product_id = Product.objects.get(prod_ID=product_name)
+        print(Product_id)
 
         quantity = request.POST['packageQuantity']
         print(quantity)
 
         try:
-            sizesList = request.POST['sizesList']
-            if sizesList == '':
+            sizes = request.POST['size']
+            if sizes == '':
                 pass
             else:
-                attribute_values.update(sizesList=sizesList)
+                attribute_values.update(sizes=sizes)
         except AttributeError:
             pass
 
         try:
-            ColorsList = request.POST['ColorList']
-            if ColorsList == '':
+            Colour = request.POST['Color']
+            if Colour == '':
                 pass
             else:
-                attribute_values.update(ColorsList=ColorsList)
+                attribute_values.update(Colour=Colour)
         except AttributeError:
             pass
 
         try:
-            AqutousCoatingList = request.POST['AqutousCoatingList']
-            if AqutousCoatingList == '':
+            Aqutous_Coating = request.POST['AqutousCoating']
+            if Aqutous_Coating == '':
                 pass
             else:
-                attribute_values.update(AqutousCoatingList=AqutousCoatingList)
+                attribute_values.update(Aqutous_Coating=Aqutous_Coating)
         except AttributeError:
             pass
 
         try:
-            PaperChoiceList = request.POST['PaperChoiceList']
-            if PaperChoiceList == '':
+            Paper_Choice = request.POST['PaperChoice']
+            if Paper_Choice == '':
                 pass
             else:
-                attribute_values.update(PaperChoiceList=PaperChoiceList)
+                attribute_values.update(Paper_Choice=Paper_Choice)
         except AttributeError:
             pass
 
         try:
-            ShrinkWrappingList = request.POST['ShrinkWrappingList']
-            if ShrinkWrappingList == '':
+            Shrink_Wrapping = request.POST['ShrinkWrapping']
+            if Shrink_Wrapping == '':
                 pass
             else:
-                attribute_values.update(ShrinkWrappingList=ShrinkWrappingList)
+                attribute_values.update(Shrink_Wrapping=Shrink_Wrapping)
         except AttributeError:
             pass
 
         try:
-            FoldingOptionsList = request.POST['FoldingOptionsList']
-            if FoldingOptionsList == '':
+            Folding_Options = request.POST['FoldingOptions']
+            if Folding_Options == '':
                 pass
             else:
-                attribute_values.update(FoldingOptionsList=FoldingOptionsList)
+                attribute_values.update(Folding_Options=Folding_Options)
         except AttributeError:
             pass
 
         try:
-            no_of_months = request.POST['NoOfMonthsList']
+            no_of_months = request.POST['NoOfMonths']
             if no_of_months == '':
                 pass
             else:
@@ -1358,25 +1373,28 @@ def packages(request):
             pass
 
         try:
-            HoleDrillingList = request.POST['HoleDrillingList']
-            if HoleDrillingList == '':
+            Hole_Drilling = request.POST['HoleDrilling']
+            if Hole_Drilling == '':
                 pass
             else:
-                attribute_values.update(HoleDrillingList=HoleDrillingList)
+                attribute_values.update(Hole_Drilling=Hole_Drilling)
         except AttributeError:
             pass
 
         try:
-            BindingMethodList = request.POST['BindingMethodList']
-            if BindingMethodList == '':
+            Binding_Method = request.POST['BindingMethod']
+            if Binding_Method == '':
                 pass
             else:
-                attribute_values.update(BindingMethodList=BindingMethodList)
+                attribute_values.update(Binding_Method=Binding_Method)
         except AttributeError:
             pass
 
-        print(attribute_values)
+        Attribute_Values = json.dumps(attribute_values)
 
+        package_store = Packages(package_Name=package_name, attribute_values=Attribute_Values,
+                                 package_Price=package_price, prod_ID=Product_id)
+        package_store.save()
         return redirect("/admin1/packages/")
     else:
         packages_show = Packages.objects.get_queryset().order_by('package_ID')
@@ -1409,6 +1427,16 @@ def packages(request):
 
 @login_required(login_url="admin-login")
 @user_passes_test(check_role_admin)
+def packages_show1(request, id):
+    attribute_list = ''
+    packages_show1 = Packages.objects.filter(package_ID=id)
+    for item in packages_show1:
+        attribute_list = json.loads(item.attribute_values)
+    return render(request, 'admin1/packages.html', {'packages_show1': packages_show1, 'attribute_list': attribute_list})
+
+
+@login_required(login_url="admin-login")
+@user_passes_test(check_role_admin)
 def packages_delete(request, id):
     packages_delete = Packages.objects.filter(package_ID=id)
     packages_delete.delete()
@@ -1418,8 +1446,22 @@ def packages_delete(request, id):
 @login_required(login_url="admin-login")
 @user_passes_test(check_role_admin)
 def packages_edit(request, id):
-    instance = packages.    objects.get(package_ID=id)
-    return render(request, 'admin1/packages.html', {'instance': instance})
+
+    instance = Packages.objects.get(package_ID=id)
+    print(instance.attribute_values)
+    attribute_list = json.loads(instance.attribute_values)
+    print(attribute_list['sizes'])
+    size = attribute_list['sizes']
+    sizesList = Size.objects.all()
+    form = PackagesEditForm(instance=instance)
+    context = {
+        "size": size,
+        "instance": instance,
+        "sizesList": sizesList,
+        "form": form
+    }
+
+    return render(request, 'admin1/packages.html', context)
 
 
 @login_required(login_url="admin-login")

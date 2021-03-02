@@ -1,0 +1,29 @@
+{% extends 'user/layout/userMaster.html' %}
+{% block title %}Feedback{% endblock %}
+{% block css %}
+{% endblock %}
+{% block header %}
+{% endblock %}
+{% block main %}
+<div class="container">
+    <div class="d-flex justify-content-center row">
+        <h1>
+            Enter Your Feedback
+        </h1>
+    </div>
+    <div class="row">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Hello dear User {{request.user}} please tell us About your
+                    experience</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="feedback" rows="5" cols="50"></textarea>
+            </div>
+            <div class="modal-footer justify-content-right">
+                <input type="Submit" name="Submit" value="Submit" class="btn btn-outline-success">
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
