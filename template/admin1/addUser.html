@@ -162,8 +162,69 @@
 
             <form action="{% url 'admin-add-user-edit' instance.user_id %}" method="POST">
                 {% csrf_token %}
-                <table>
-                    {{form.as_p}}
+                <table class="table">
+                    <tr>
+                        <th>
+                            {{form.username.label}}
+                        </th>
+                        <td>
+                            {{form.username}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            {{form.first_name.label}}
+                        </th>
+                        <td>
+                            {{form.first_name}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            {{form.last_name.label}}
+                        </th>
+                        <td>
+                            {{form.last_name}}
+                        </td>
+
+
+                    </tr>
+
+                    <tr>
+                        <th>
+                            {{form.email.label}}
+                        </th>
+                        <td>
+                            {{form.email}}
+                        </td>
+
+
+                    </tr>
+
+                    <tr>
+                        <th>
+                            {{form.gender.label}}
+                        </th>
+                        <td>
+                            {{form.gender}}
+                        </td>
+
+
+                    </tr>
+
+                    <tr>
+                        <th>
+                            {{form.role.label}}
+                        </th>
+                        <td>
+                            {{form.role}}
+                        </td>
+
+
+                    </tr>
+
                 </table>
                 <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
             </form>

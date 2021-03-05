@@ -36,7 +36,8 @@
                                     <tr class="from-group">
                                         <th>Product :</th>
                                         <td>
-                                            <select class="mx-2 my-auto" name="productName" required id="productName">
+                                            <select class="mx-2 my-auto custom-select" name="productName" required
+                                                    id="productName">
                                                 <option value="">
                                                     ----------
                                                 </option>
@@ -50,14 +51,14 @@
                                     </tr>
                                     <tr class="from-group">
                                         <th>Quantity :</th>
-                                        <td><input type="number" class="mx-2 my-auto" name="packageQuantity"
+                                        <td><input type="number" class="mx-2 my-auto form-select" name="packageQuantity"
                                                    id="productQuantity"
                                                    required>
                                         </td>
                                     </tr>
                                     <tr class="from-group">
                                         <th>Package Price:</th>
-                                        <td><input type="number" class="mx-2 my-auto" name="packagePrice"
+                                        <td><input type="number" class="mx-2 my-auto form-select" name="packagePrice"
                                                    id="packagePrice"
                                                    required></td>
                                     </tr>
@@ -67,7 +68,8 @@
                                             Size :
                                         </th>
                                         <td>
-                                            <select class="mx-2 my-auto" name="size" required id="sizesList">
+                                            <select class="mx-2 my-auto custom-select" name="size" required
+                                                    id="sizesList">
                                                 <option value="">
                                                     ----------
                                                 </option>
@@ -84,7 +86,8 @@
                                             Color :
                                         </th>
                                         <td>
-                                            <select class="mx-2 my-auto" name="Color" required id="ColorList">
+                                            <select class="mx-2 my-auto custom-select" name="Color" required
+                                                    id="ColorList">
                                                 <option value="">
                                                     ----------
                                                 </option>
@@ -101,7 +104,8 @@
                                             Aqutous Coating :
                                         </th>
                                         <td>
-                                            <select class="mx-2 my-auto" name="AqutousCoating" id="AqutousCoatingList">
+                                            <select class="mx-2 my-auto custom-select" name="AqutousCoating"
+                                                    id="AqutousCoatingList">
                                                 <option value="">
                                                     ----------
                                                 </option>
@@ -118,7 +122,8 @@
                                             Paper Choice :
                                         </th>
                                         <td>
-                                            <select class="mx-2 my-auto" name="PaperChoice" id="PaperChoiceList">
+                                            <select class="mx-2 my-auto custom-select" name="PaperChoice"
+                                                    id="PaperChoiceList">
                                                 <option value="">
                                                     ----------
                                                 </option>
@@ -135,7 +140,7 @@
                                             Shrink Wrapping :
                                         </th>
                                         <td>
-                                            <select class="mx-2 my-auto" name="ShrinkWrapping"
+                                            <select class="mx-2 my-auto custom-select" name="ShrinkWrapping"
                                                     id="ShrinkWrappingList">
                                                 <option value="">
                                                     ----------
@@ -153,7 +158,7 @@
                                             Folding Options :
                                         </th>
                                         <td>
-                                            <select class="mx-2 my-auto" name="FoldingOptions"
+                                            <select class="mx-2 my-auto custom-select" name="FoldingOptions"
                                                     id="FoldingOptionsList">
                                                 <option value="">
                                                     ----------
@@ -171,7 +176,7 @@
                                             No of Months :
                                         </th>
                                         <td>
-                                            <select class="mx-2 my-auto" name="NoOfMonths"
+                                            <select class="mx-2 my-auto custom-select" name="NoOfMonths"
                                                     id="NoOfMonthsList">
                                                 <option value="">
                                                     ----------
@@ -189,7 +194,7 @@
                                             Hole Drilling :
                                         </th>
                                         <td>
-                                            <select class="mx-2 my-auto" name="HoleDrilling"
+                                            <select class="mx-2 my-auto custom-select" name="HoleDrilling"
                                                     id="HoleDrillingList">
                                                 <option value="">
                                                     ----------
@@ -207,7 +212,7 @@
                                             Binding Method :
                                         </th>
                                         <td>
-                                            <select class="mx-2 my-auto" name="BindingMethod"
+                                            <select class="mx-2 my-auto custom-select" name="BindingMethod"
                                                     id="BindingMethodList">
                                                 <option value="">
                                                     --------------------
@@ -222,9 +227,8 @@
                                     </tr>
                                 </table>
                                 <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
-                                <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
-                                    </button>
+                                <div class="modal-footer justify-content-right">
+                                    <input type="Submit" name="Submit" value="Submit" class="btn btn-outline-success">
                                 </div>
                             </form>
                         </div>
@@ -251,6 +255,7 @@
                                     <th>Package Id</th>
                                     <th>Package Name</th>
                                     <th>Package Price</th>
+                                    <th>Product Quantity</th>
                                     <th>Product ID</th>
                                     <th>Action</th>
                                 </tr>
@@ -261,6 +266,7 @@
                                     <td>{{x.package_ID}}</td>
                                     <td>{{x.package_Name}}</td>
                                     <td>{{x.package_Price}}</td>
+                                    <td>{{x.quantity}}</td>
                                     <td>{{x.prod_ID}}</td>
                                     <td>
                                         <a href="{%url 'admin-packages-edit' x.package_ID%}"
@@ -320,42 +326,71 @@
                 <table border="1" class="table table-bordered border border-info">
                     <tr>
                         <th>
-                            {{form.package_Name.label_tag}}
+                            <label for="id_package_Name">Package Name:</label>
                         </th>
-                        <td>{{form.package_Name}}</td>
+                        <td><input type="text" name="package_Name" class="mx-2 my-auto form-control"
+                                   value="{{instance.package_Name}}" maxlength="30"
+                                   required id="id_package_Name"></td>
                     </tr>
+
                     <tr>
                         <th>
-                            {{form.attribute_values.label_tag}}
+                            <label for="id_attribute_values">Item Details JSON:</label>
                         </th>
-                        <td>{{form.attribute_values}}</td>
+                        <td><input type="text" class="mx-2 my-auto form-control" name="attribute_values"
+                                   value="{{instance.attribute_values}}"
+                                   maxlength="500" required id="id_attribute_values"></td>
                     </tr>
+
                     <tr>
                         <th>
-                            {{form.package_Price.label_tag}}
+                            <label for="id_package_Price">Package Price:</label>
                         </th>
-                        <td>{{form.package_Price}}</td>
+                        <td><input type="number" name="package_Price" class="mx-2 my-auto form-control"
+                                   value="{{instance.package_Price}}" required
+                                   id="id_package_Price"></td>
                     </tr>
+
                     <tr>
                         <th>
-                            {{form.prod_ID.label_tag}}
+                            <label for="id_package_Price">Quantity :</label>
+                        </th>
+                        <td><input type="number" name="quantity" class="mx-2 my-auto form-control"
+                                   value="{{instance.quantity}}" required
+                                   id="id_quantity"></td>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            <label for="id_prod_ID">Product ID (FK):</label>
                         </th>
                         <td>
-                            {{form.prod_ID}}
+                            <select class="mx-2 my-auto custom-select" name="prod_ID" required id="id_prod_ID">
+                                <option value="">---------</option>
+                                <option value="{{instance.prod_ID.prod_Name}}" selected>{{instance.prod_ID.prod_Name}}</option>
+                                {% for product in product_list %}
+                                <option value="{{product.prod_ID.prod_Name}}">{{product.prod_Name}}</option>
+                                {% endfor %}
+
+                            </select>
                         </td>
                     </tr>
+
                     <tr class="from-group">
                         <th>
                             Size :
                         </th>
                         <td>
-                            <select class="mx-2 my-auto" name="size" required id="sizesList2">
-                                <option value="{{size}}" selected>
-                                    {{size}}
-                                </option>
+                            <select class="mx-2 my-auto custom-select" name="size" required
+                                    id="sizesList{{instance.package_ID}}">
                                 <option value="">
                                     ----------
                                 </option>
+                                {% if size %}
+                                <option value="{{size}}" selected>
+                                    {{size}}
+                                </option>
+                                {% endif %}
                                 {% for size in sizesList %}
                                 <option value="{{size.prod_size}}">
                                     {{size.prod_size}}
@@ -364,11 +399,200 @@
                             </select>
                         </td>
                     </tr>
+
+                    <tr class="from-group">
+                        <th>
+                            Color :
+                        </th>
+                        <td>
+                            <select class="mx-2 my-auto custom-select" name="color" required
+                                    id="ColorsList{{instance.package_ID}}">
+                                <option value="">
+                                    ----------
+                                </option>
+                                {% if color %}
+                                <option value="{{color}}" selected>
+                                    {{color}}
+                                </option>
+                                {% endif %}
+                                {% for color in ColorsList %}
+                                <option value="{{color.prod_color}}">
+                                    {{color.prod_color}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr class="from-group">
+                        <th>
+                            Aqutous_Coating :
+                        </th>
+                        <td>
+                            <select class="mx-2 my-auto custom-select" name="aqutousCoating"
+                                    id="AqutousCoating{{instance.package_ID}}">
+                                <option value="">
+                                    ----------
+                                </option>
+                                {% if aqutousCoating %}
+                                <option value="{{aqutousCoating}}" selected>
+                                    {{aqutousCoating}}
+                                </option>
+                                {% endif %}
+                                {% for aqutousCoating in AqutousCoatingList %}
+                                <option value="{{aqutousCoating.aqutous_coating_type}}">
+                                    {{aqutousCoating.aqutous_coating_type}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr class="from-group">
+                        <th>
+                            Paper_Choice :
+                        </th>
+                        <td>
+                            <select class="mx-2 my-auto custom-select" name="paperChoice" required id="PaperChoiceList{{instance.package_ID}}">
+                                <option value="">
+                                    ----------
+                                </option>
+                                {% if paperChoice %}
+                                <option value="{{paperChoice}}" selected>
+                                    {{paperChoice}}
+                                </option>
+                                {% endif %}
+                                {% for paperChoice in PaperChoiceList %}
+                                <option value="{{paperChoice.paper_choices_name}}">
+                                    {{paperChoice.paper_choices_name}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr class="from-group">
+                        <th>
+                            Shrink_Options :
+                        </th>
+                        <td>
+                            <select class="mx-2 my-auto custom-select" name="shrinkWrapping"
+                                    id="shrinkWrapping{{instance.package_ID}}">
+                                {% if shrinkWrapping %}
+                                <option value="{{shrinkWrapping}}" selected>
+                                    {{shrinkWrapping}}
+                                </option>
+                                {% endif %}
+                                <option value="">
+                                    ----------
+                                </option>
+                                {% for shrinkWrapping in ShrinkWrappingList %}
+                                <option value="{{shrinkWrapping.shrink_options}}">
+                                    {{shrinkWrapping.shrink_options}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr class="from-group">
+                        <th>
+                            Folding_Options :
+                        </th>
+                        <td>
+                            <select class="mx-2 my-auto custom-select" name="foldingoptions"
+                                    id="foldingoptions{{instance.package_ID}}">
+                                {% if foldingoptions %}
+                                <option value="{{foldingoptions}}" selected>
+                                    {{foldingoptions}}
+                                </option>
+                                {% endif %}
+                                <option value="">
+                                    ----------
+                                </option>
+                                {% for foldingoptions in foldingoptionsList %}
+                                <option value="{{foldingoptions.folding_options_type}}">
+                                    {{foldingoptions.folding_options_type}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr class="from-group">
+                        <th>
+                            No_Of_Months :
+                        </th>
+                        <td>
+                            <select class="mx-2 my-auto custom-select" name="NoOfMonths"
+                                    id="NoOfMonths{{instance.package_ID}}">
+                                {% if NoOfMonth %}
+                                <option value="{{NoOfMonth}}" selected>
+                                    {{NoOfMonth}}
+                                </option>
+                                {% endif %}
+                                <option value="">
+                                    ----------
+                                </option>
+                                {% for NoOfMonth in NoOfMonthsList %}
+                                <option value="{{NoOfMonth.months}}">
+                                    {{NoOfMonth.months}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr class="from-group">
+                        <th>
+                            Hole_Drilling :
+                        </th>
+                        <td>
+                            <select class="mx-2 my-auto custom-select" name="HoleDrilling"
+                                    id="HoleDrilling{{instance.package_ID}}">
+                                {% if HoleDrilling %}
+                                <option value="{{HoleDrilling}}" selected>
+                                    {{HoleDrilling}}
+                                </option>
+                                {% endif %}
+                                <option value="">
+                                    ----------
+                                </option>
+                                {% for HoleDrilling in HoleDrillingList %}
+                                <option value="{{HoleDrilling.hole}}">
+                                    {{HoleDrilling.hole}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr class="from-group">
+                        <th>
+                            Binding_Method :
+                        </th>
+                        <td>
+                            <select class="mx-2 my-auto custom-select" name="BindingMethod"
+                                    id="BindingMethod{{instance.package_ID}}">
+                                {% if BindingMethods %}
+                                <option value="{{BindingMethod}}" selected>
+                                    {{BindingMethods}}
+                                </option>
+                                {% endif %}
+                                <option value="">
+                                    ----------
+                                </option>
+                                {% for BindingMethods in BindingMethodList %}
+                                <option value="{{BindingMethods.binding_methods}}">
+                                    {{BindingMethods.binding_methods}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
                 </table>
-                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close
-                    </button>
+                <div class="modal-footer justify-content-right">
+                    <input type="Submit" name="Submit" value="Submit" class="btn btn-outline-success">
                 </div>
             </form>
 

@@ -13,7 +13,7 @@ class User(AbstractUser):
         ('Customer', 'Customer'),
     )
     user_id = models.AutoField("User ID", primary_key=True, auto_created=True)
-    avatar = models.ImageField("User Avatar", null=True, blank=True)
+    avatar = models.ImageField("User Avatar", null=True, blank=True, default="default-user-img.png")
     gender = models.BooleanField("Gender", choices=GENDER, default=True)
     role = models.CharField("User Type", max_length=10, choices=USER_TYPE, default='Customer')
 
@@ -26,7 +26,7 @@ class User(AbstractUser):
         return self
 
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        return self.username
 
 
 class Product(models.Model):
@@ -46,6 +46,7 @@ class Packages(models.Model):
     package_Name = models.CharField("Package Name", max_length=30, null=False)
     attribute_values = models.CharField("Item Details JSON", max_length=500, null=False)
     package_Price = models.IntegerField("Package Price", null=False, default=0.00)
+    quantity = models.IntegerField("Quantity", null=False, default=00)
     prod_ID = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="Product ID (FK)")
 
     def __str__(self):

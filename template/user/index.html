@@ -14,9 +14,15 @@
 </header>
 {% endblock %}
 {% block main %}
-<div class="d-flex justify-content-center container">
+<div class="container">
+    <div class="row">
     <h1>
         hello
     </h1>
+        </div>
+    <div>
+        {% load static %}
+        <img src="{% static '/images/default-user-img.png' %}" height="200" width="200" />
+    </div>
 </div>
 {% endblock %}

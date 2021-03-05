@@ -96,10 +96,11 @@ class CreateUserForm(UserCreationForm):
         fields = ['username', 'first_name', 'last_name', 'avatar', 'email', 'password1', 'password2', 'gender', 'role']
 
 
-class EditUserProfile(forms.ModelForm):
+class EditUserProfile(UserChangeForm):
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'avatar', 'gender', 'role')
+        exclude = ('password',)
+        fields = ('username', 'first_name', 'last_name', 'email', 'gender', 'role')
 
 
 class OrderForm(forms.ModelForm):

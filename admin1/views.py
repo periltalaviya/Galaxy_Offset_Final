@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import Http404
 from django.shortcuts import render, redirect
 
 from user.models import *
@@ -149,14 +150,13 @@ def addUser_delete(request, id):
 @user_passes_test(check_role_admin)
 def addUser_edit(request, id):
     instance = User.objects.get(user_id=id)
+    form = EditUserProfile(instance=instance)
     print(instance.username)
     if request.method == 'POST':
-        form = EditUserProfile(request.POST, instance=instance)
+        form = EditUserProfile(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
             return redirect('/admin1/addUser')
-    else:
-        form = EditUserProfile(instance=instance)
 
     return render(request, 'admin1/addUser.html', {'form': form, 'instance': instance})
 
@@ -1368,7 +1368,7 @@ def packages(request):
             if no_of_months == '':
                 pass
             else:
-                attribute_values.update(no_of_months=no_of_months)
+                attribute_values.update(No_Of_Months=no_of_months)
         except AttributeError:
             pass
 
@@ -1393,7 +1393,7 @@ def packages(request):
         Attribute_Values = json.dumps(attribute_values)
 
         package_store = Packages(package_Name=package_name, attribute_values=Attribute_Values,
-                                 package_Price=package_price, prod_ID=Product_id)
+                                 package_Price=package_price, prod_ID=Product_id, quantity=quantity)
         package_store.save()
         return redirect("/admin1/packages/")
     else:
@@ -1446,18 +1446,141 @@ def packages_delete(request, id):
 @login_required(login_url="admin-login")
 @user_passes_test(check_role_admin)
 def packages_edit(request, id):
+    size = ''
+    color = ''
+    aqutousCoating = ''
+    paperChoice = ''
+    shrinkWrapping = ''
+    foldingoptions = ''
+    NoOfMonth = ''
+    HoleDrillings = ''
+    BindingMethods = ''
 
     instance = Packages.objects.get(package_ID=id)
-    print(instance.attribute_values)
+    product_list = Product.objects.all()
+
     attribute_list = json.loads(instance.attribute_values)
-    print(attribute_list['sizes'])
-    size = attribute_list['sizes']
+
+    if 'sizes' in attribute_list:
+        size = attribute_list['sizes']
+
+    if 'Colour' in attribute_list:
+        color = attribute_list['Colour']
+
+    if 'Aqutous_Coating' in attribute_list:
+        aqutousCoating = attribute_list['Aqutous_Coating']
+
+    if 'Paper_Choice' in attribute_list:
+        paperChoice = attribute_list['Paper_Choice']
+
+    if 'Shrink_Wrapping' in attribute_list:
+        shrinkWrapping = attribute_list['Shrink_Wrapping']
+
+    if 'Folding_Options' in attribute_list:
+        foldingoptions = attribute_list['Folding_Options']
+
+    if 'No_Of_Months' in attribute_list:
+        NoOfMonth = attribute_list['No_Of_Months']
+
+    if 'Hole_Drilling' in attribute_list:
+        HoleDrillings = attribute_list['Hole_Drilling']
+
+    if 'Binding_Method' in attribute_list:
+        BindingMethods = attribute_list['Binding_Method']
+
     sizesList = Size.objects.all()
+    AqutousCoatingList = AqutousCoating.objects.all()
+    ColorsList = Color.objects.all()
+    PaperChoiceList = PaperChoice.objects.all()
+    ShrinkWrappingList = ShrinkWrapping.objects.all()
+    foldingoptionsList = FoldingOptions.objects.all()
+    NoOfMonthsList = NoOfMonths.objects.all()
+    HoleDrillingList = HoleDrilling.objects.all()
+    BindingMethodList = BindingMethod.objects.all()
+
     form = PackagesEditForm(instance=instance)
+    if request.method == 'POST':
+        package_name = request.POST['package_Name']
+        package_price = request.POST['package_Price']
+        product_id = request.POST['prod_ID']
+        prod_id = Product.objects.get(prod_Name=product_id)
+
+        quantity = request.POST['quantity']
+
+        try:
+            attribute_list['sizes'] = request.POST['size']
+        except AttributeError:
+            pass
+
+        try:
+            attribute_list['Colour'] = request.POST['color']
+        except AttributeError:
+            pass
+
+        try:
+            attribute_list['Aqutous_Coating'] = request.POST['aqutousCoating']
+        except AttributeError:
+            pass
+
+        try:
+            attribute_list['Paper_Choice'] = request.POST['paperChoice']
+        except AttributeError:
+            pass
+
+        try:
+            attribute_list['Shrink_Wrapping'] = request.POST['shrinkWrapping']
+        except AttributeError:
+            pass
+
+        try:
+            attribute_list['Folding_Options'] = request.POST['foldingoptions']
+        except AttributeError:
+            pass
+
+        try:
+            attribute_list['No_Of_Months'] = request.POST['NoOfMonths']
+        except AttributeError:
+            pass
+
+        try:
+            attribute_list['Hole_Drilling'] = request.POST['HoleDrilling']
+        except AttributeError:
+            pass
+
+        try:
+            attribute_list['Binding_Method'] = request.POST['BindingMethod']
+        except AttributeError:
+            pass
+
+        attribute_value = json.dumps(attribute_list)
+
+        package_store = Packages(package_ID=id, package_Name=package_name, attribute_values=attribute_value,
+                                 package_Price=package_price, quantity=quantity, prod_ID=prod_id)
+        package_store.save()
+
+        return redirect('admin-packages')
+
     context = {
+        "product_list": product_list,
         "size": size,
-        "instance": instance,
         "sizesList": sizesList,
+        "color": color,
+        "ColorsList": ColorsList,
+        "aqutousCoating": aqutousCoating,
+        "AqutousCoatingList": AqutousCoatingList,
+        "paperChoice": paperChoice,
+        "PaperChoiceList": PaperChoiceList,
+        "shrinkWrapping": shrinkWrapping,
+        "ShrinkWrappingList": ShrinkWrappingList,
+        "NoOfMonth": NoOfMonth,
+        "NoOfMonthsList": NoOfMonthsList,
+        "HoleDrillings": HoleDrillings,
+        "HoleDrillingList": HoleDrillingList,
+        "BindingMethods": BindingMethods,
+        "BindingMethodList": BindingMethodList,
+        "foldingoptionsList": foldingoptionsList,
+        "foldingoptions": foldingoptions,
+        "instance": instance,
         "form": form
     }
 
@@ -1510,11 +1633,13 @@ def changePassword(request):
 
 
 def loginPage(request):
-    if request.user.is_authenticated and request.user.role == 'Customer':
-        return redirect('user-home')
-    if request.user.is_authenticated and (
-            request.user.role == 'Admin' or request.user.role == 'Designer' or request.user.is_superuser):
-        return redirect('admin-home')
+    if request.user.is_authenticated:
+        if request.user.is_superuser or request.user.role == 'Admin' or request.user.role == 'Designer':
+            return redirect('admin-home')
+    if request.user.is_authenticated:
+        if request.user.role == 'Customer':
+            return redirect('user-home')
+
     else:
         if request.method == 'POST':
             username = request.POST.get('username')
@@ -1523,9 +1648,13 @@ def loginPage(request):
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
-
                 login(request, user)
-                return redirect('admin-home')
+                if request.user.is_superuser or request.user.role == 'Admin' or request.user.role == 'Designer':
+                    return redirect('admin-home')
+                elif request.user.role == 'Customer':
+                    return redirect('user-home')
+                else:
+                    raise Http404("Poll does not exist")
             else:
                 messages.error(request, 'Username or Password is incorrect')
                 return redirect('admin-login')

@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.core.files.storage import FileSystemStorage
@@ -286,7 +287,7 @@ def contactUs(request):
 
 def loginPage(request):
     if request.user.is_authenticated:
-        return redirect('admin-home')
+        return redirect('user-home')
     else:
         if request.method == 'POST':
             username = request.POST.get('username')
@@ -322,7 +323,12 @@ def registerPage(request):
                 user = form.cleaned_data.get('username')
                 messages.success(request, 'Account was created for ' + user)
 
-                return redirect('admin-login')
+                return redirect('user-login')
 
         context = {'form': form}
         return render(request, 'User/register.html', context)
+
+
+@login_required(login_url="user-login")
+def viewProfile(request):
+    return render(request, "user/viewProfile.html")
