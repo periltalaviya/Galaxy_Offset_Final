@@ -41,10 +41,7 @@
                 <a aria-disabled="true" class="nav-link" href="{% url 'user-product' %}" tabindex="-1">Product
                 </a>
             </li>
-            <li class="nav-item active">
-                <a aria-disabled="true" class="nav-link" href="{% url 'user-packages' %}"
-                   tabindex="-1">Packages</a>
-            </li>
+
             <li class="nav-item active">
                 <a aria-disabled="true" class="nav-link" href="{% url 'user-gallary' %}"
                    tabindex="-1">Gallary</a>
@@ -73,9 +70,9 @@
                      class="dropdown-menu mdb-select md-form colorful-select-secondary">
                     <a class="dropdown-item" href="{% url 'user-view-profile' %}">View Profile</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Edit Profile</a>
+                    <a class="dropdown-item" href="{% url 'user-edit-profile' %}">Edit Profile</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Change Password</a>
+                    <a class="dropdown-item" href="{% url 'user-change-password' %}">Change Password</a>
                 </div>
             </ul>
 

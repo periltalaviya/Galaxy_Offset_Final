@@ -33,13 +33,18 @@ text-align: left;
                     <div class="card-body">
                         <h4 class="alignc">{{ product.prod_Name }}</h4>
                         <h6 class="alignc">{{ product.prod_Price }} Rs. / Piece
+                        </h6><br/>
+                        <div class="row">
                             <a href="{% url 'user-product-show1' product.prod_ID %}"
-                               class="btn btn-outline-primary mt-2"><i
+                               class="btn btn-outline-primary mt-2 mx-auto"><i
                                     aria-hidden="true">See More</i></a>
                             <a href="{% url 'user-order' product.prod_ID %}"
-                               class="btn btn-outline-success mt-2"><i
+                               class="btn btn-outline-success mt-2 mx-auto"><i
                                     aria-hidden="true">Place Order</i></a>
-                        </h6>
+                            <a href="{% url 'user-packages' product.prod_ID %}"
+                               class="btn btn-outline-warning mt-2 mx-auto"><i
+                                    aria-hidden="true">View Packages</i></a>
+                        </div>
                     </div>
                 </td>
                 {% if not forloop.last and forloop.counter == 3 or forloop.counter == 6 %}

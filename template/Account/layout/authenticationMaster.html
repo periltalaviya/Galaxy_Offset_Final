@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <title>
+        {% block title%} {% endblock %} | Galaxy Offset
+    </title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="canonical" href="https://appseed.us/admin-dashboards/django-dashboard-dattaable">
+
+    <meta name="description" content="Datta Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
+    <meta name="keywords" content="admin templates, bootstrap admin templates, bootstrap 4, dashboard, dashboard templets, sass admin templets, html admin templates, responsive, bootstrap admin templates free download,premium bootstrap admin templates, datta able, datta able bootstrap admin template, free admin theme, free dashboard template"/>
+    <meta name="author" content="CodedThemes"/>
+
+
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/x-icon" href="{% static '/images/Logo1.jpg' %}"/>
+
+    <!-- fontawesome icon -->
+    <link rel="stylesheet" href="https://appsrv1-147a1.kxcdn.com/dattaable/fonts/fontawesome/css/fontawesome-all.min.css">
+    <!-- animation css -->
+    <link rel="stylesheet" href="https://appsrv1-147a1.kxcdn.com/dattaable/plugins/animation/css/animate.min.css">
+    <!-- vendor css -->
+    <link rel="stylesheet" href="https://appsrv1-147a1.kxcdn.com/dattaable/css/style.css">
+
+    <!-- Specific CSS goes HERE -->
+
+
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light py-2 navbar-fixed-top" role="navigation">
+    <a class="h5 mt-sm-2 mx-sm-auto" href="{% url 'user-home' %}" id="Home">Galaxy Offset</a>
+    <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            class="navbar-toggler"
+            data-target="#navbarSupportedContent" data-toggle="collapse" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'user-home' %}" data-toggle="#Home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a aria-disabled="true" class="nav-link" href="{% url 'user-product' %}" tabindex="-1">Product
+                </a>
+            </li>
+
+            <li class="nav-item active">
+                <a aria-disabled="true" class="nav-link" href="{% url 'user-gallary' %}"
+                   tabindex="-1">Gallary</a>
+            </li>
+            <li class="nav-item active">
+                <a aria-disabled="true" class="nav-link" href="{% url 'user-about-us' %}" tabindex="-1">About
+                    Us</a>
+            </li>
+                        <li class="nav-item active">
+                <a aria-disabled="true" class="nav-link" href="{% url 'user-contact-us' %}"
+                   tabindex="-1">Contact Us</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+    <div class="auth-wrapper">
+        <div class="auth-content">
+            <div class="auth-bg">
+                <span class="r"></span>
+                <span class="r s"></span>
+                <span class="r s"></span>
+                <span class="r"></span>
+            </div>
+            <div class="card">
+                <div class="card-body text-center">
+                    {% block cardMain %}
+                  {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Required Js -->
+<!--    <script src="https://appsrv1-147a1.kxcdn.com/dattaable/js/vendor-all.min.js"></script>-->
+    <script src="https://appsrv1-147a1.kxcdn.com/dattaable/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://appsrv1-147a1.kxcdn.com/dattaable/js/pcoded.min.js"></script>
+
+
+    <!-- Specific Page JS goes HERE  -->
+
+
+</body>
+</html>
+

@@ -1,13 +1,64 @@
 {% extends 'user/layout/userMaster.html' %}
+
 {% block title %}Packages{% endblock %}
+
 {% block css %}
 {% endblock %}
+
 {% block header %}
 {% endblock %}
+
 {% block main %}
-<div class="d-flex justify-content-center container">
-    <h1>
-        Packages
-    </h1>
+<div class="container">
+    <div class="row d-flex justify-content-center my-2">
+        <h1 class="my-2">
+            Packages
+        </h1>
+    </div>
+    <div class="row my-2">
+        <div class="col-4 my-2 mr-4">
+            <div class="card border border-secondary">
+                <div class="card body mx-2 mt-4 mb-2">
+                    {% for product in products_list %}
+                    <a id="{{ product.prod_ID }}" class="card-header" style="font-size:5vw;color:black;"
+                       href="{% url 'user-packages' product.prod_ID  %}">
+                        <h5 class="h5">{{ product.prod_ID }}. {{product.prod_Name}}</h5></a>
+                    <div class="dropdown-divider"></div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% if packages_list %}
+        {% for package in packages_list %}
+        <div class="card border-dark my-2 mx-2" style="width: 22rem; height: 50%;">
+            <div class="card-header">{{package.package_Name | upper}}</div>
+            <div class="card-body text-dark">
+                <h5 class="card-title">{{package.prod_ID.prod_Name}}</h5>
+                <p class="card-text">{% for key,value in package.attribute_values.items %}
+                <table class="table table-bordered table-sm">
+                    <tr>
+                        <th scope="col">{{key}}</th>
+                        <td>{{value}}</td>
+                    </tr>
+                </table>
+                {% endfor %}
+                </p>
+                <label for="price_{{package}}">Price : </label>
+                <input type="text" readonly id="price_{{package}}" class="card-text form-control"
+                       value="{{package.package_Price}}"/>
+                <label for="quantity_{{package}}">Price : </label>
+                <input type="text" readonly id="quantity_{{package}}" class="card-text form-control"
+                       value="{{package.quantity}}"/>
+            </div>
+
+            <div class="modal-footer justify-content-right">
+                <input type="Submit" name="Submit" value="Place Order" class="btn btn-outline-success">
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h1> Nothing Found</h1>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

@@ -44,7 +44,7 @@ class Product(models.Model):
 class Packages(models.Model):
     package_ID = models.AutoField("Package ID", primary_key=True)
     package_Name = models.CharField("Package Name", max_length=30, null=False)
-    attribute_values = models.CharField("Item Details JSON", max_length=500, null=False)
+    attribute_values = models.JSONField("Item Details JSON", max_length=500, null=False)
     package_Price = models.IntegerField("Package Price", null=False, default=0.00)
     quantity = models.IntegerField("Quantity", null=False, default=00)
     prod_ID = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="Product ID (FK)")

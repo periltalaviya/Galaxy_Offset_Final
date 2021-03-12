@@ -217,7 +217,7 @@ def order_edit(request, id):
             form.save()
             return redirect('/admin1/order')
     else:
-        form = Order(instance=instance)
+        form = OrderForm(instance=instance)
 
     return render(request, 'admin1/order.html', {'form': form, 'instance': instance})
 
@@ -1390,9 +1390,9 @@ def packages(request):
         except AttributeError:
             pass
 
-        Attribute_Values = json.dumps(attribute_values)
+        # Attribute_Values = json.dumps(attribute_values)
 
-        package_store = Packages(package_Name=package_name, attribute_values=Attribute_Values,
+        package_store = Packages(package_Name=package_name, attribute_values=attribute_values,
                                  package_Price=package_price, prod_ID=Product_id, quantity=quantity)
         package_store.save()
         return redirect("/admin1/packages/")
@@ -1428,11 +1428,8 @@ def packages(request):
 @login_required(login_url="admin-login")
 @user_passes_test(check_role_admin)
 def packages_show1(request, id):
-    attribute_list = ''
-    packages_show1 = Packages.objects.filter(package_ID=id)
-    for item in packages_show1:
-        attribute_list = json.loads(item.attribute_values)
-    return render(request, 'admin1/packages.html', {'packages_show1': packages_show1, 'attribute_list': attribute_list})
+    packages_show1 = Packages.objects.get(package_ID=id)
+    return render(request, 'admin1/packages.html', {'packages_show1': packages_show1})
 
 
 @login_required(login_url="admin-login")
@@ -1458,8 +1455,7 @@ def packages_edit(request, id):
 
     instance = Packages.objects.get(package_ID=id)
     product_list = Product.objects.all()
-
-    attribute_list = json.loads(instance.attribute_values)
+    attribute_list = instance.attribute_values
 
     if 'sizes' in attribute_list:
         size = attribute_list['sizes']
@@ -1508,53 +1504,77 @@ def packages_edit(request, id):
         quantity = request.POST['quantity']
 
         try:
-            attribute_list['sizes'] = request.POST['size']
+            if request.POST['size'] != '':
+                attribute_list['sizes'] = request.POST['size']
+            else:
+                pass
         except AttributeError:
             pass
 
         try:
-            attribute_list['Colour'] = request.POST['color']
+            if request.POST['color'] != '':
+                attribute_list['Colour'] = request.POST['color']
+            else:
+                pass
         except AttributeError:
             pass
 
         try:
-            attribute_list['Aqutous_Coating'] = request.POST['aqutousCoating']
+            if request.POST['aqutousCoating'] != '':
+                attribute_list['Aqutous_Coating'] = request.POST['aqutousCoating']
+            else:
+                pass
         except AttributeError:
             pass
 
         try:
-            attribute_list['Paper_Choice'] = request.POST['paperChoice']
+            if request.POST['paperChoice'] != '':
+                attribute_list['Paper_Choice'] = request.POST['paperChoice']
+            else:
+                pass
         except AttributeError:
             pass
 
         try:
-            attribute_list['Shrink_Wrapping'] = request.POST['shrinkWrapping']
+            if request.POST['shrinkWrapping'] != '':
+                attribute_list['Shrink_Wrapping'] = request.POST['shrinkWrapping']
+            else:
+                pass
         except AttributeError:
             pass
 
         try:
-            attribute_list['Folding_Options'] = request.POST['foldingoptions']
+            if request.POST['foldingoptions'] != '':
+                attribute_list['Folding_Options'] = request.POST['foldingoptions']
+            else:
+                pass
         except AttributeError:
             pass
 
         try:
-            attribute_list['No_Of_Months'] = request.POST['NoOfMonths']
+            if request.POST['NoOfMonths'] != '':
+                attribute_list['No_Of_Months'] = request.POST['NoOfMonths']
+            else:
+                pass
+        except AttributeError:
+            pass
+        try:
+            if request.POST['HoleDrilling'] != '':
+                attribute_list['Hole_Drilling'] = request.POST['HoleDrilling']
+            else:
+                pass
         except AttributeError:
             pass
 
         try:
-            attribute_list['Hole_Drilling'] = request.POST['HoleDrilling']
+            if request.POST['BindingMethod'] != '':
+                attribute_list['Binding_Method'] = request.POST['BindingMethod']
+            else:
+                pass
         except AttributeError:
             pass
 
-        try:
-            attribute_list['Binding_Method'] = request.POST['BindingMethod']
-        except AttributeError:
-            pass
-
-        attribute_value = json.dumps(attribute_list)
-
-        package_store = Packages(package_ID=id, package_Name=package_name, attribute_values=attribute_value,
+        package_store = Packages(package_ID=id, package_Name=package_name, attribute_values=attribute_list,
                                  package_Price=package_price, quantity=quantity, prod_ID=prod_id)
         package_store.save()
 

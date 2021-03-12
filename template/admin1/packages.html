@@ -226,7 +226,6 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <input type="Submit" name="Submit" value="Submit" class="btn btn-success w-50"><br>
                                 <div class="modal-footer justify-content-right">
                                     <input type="Submit" name="Submit" value="Submit" class="btn btn-outline-success">
                                 </div>
@@ -317,8 +316,8 @@
                     <!-- /.card -->
                 </div>
             </div>
-
             {% endif %}
+
             {% if instance %}
             <form action="" method="POST"
                   enctype="multipart/form-data">
@@ -331,15 +330,6 @@
                         <td><input type="text" name="package_Name" class="mx-2 my-auto form-control"
                                    value="{{instance.package_Name}}" maxlength="30"
                                    required id="id_package_Name"></td>
-                    </tr>
-
-                    <tr>
-                        <th>
-                            <label for="id_attribute_values">Item Details JSON:</label>
-                        </th>
-                        <td><input type="text" class="mx-2 my-auto form-control" name="attribute_values"
-                                   value="{{instance.attribute_values}}"
-                                   maxlength="500" required id="id_attribute_values"></td>
                     </tr>
 
                     <tr>
@@ -595,28 +585,26 @@
                     <input type="Submit" name="Submit" value="Submit" class="btn btn-outline-success">
                 </div>
             </form>
-
             {% endif %}
-            {% if packages_show1 %}
 
-            {% for x in packages_show1 %}
+            {% if packages_show1 %}
             <div class="table-responsive-sm">
                 <table class="table table-bordered">
                     <tr>
                         <th>Packages Id :</th>
-                        <td>{{x.package_ID}}</td>
+                        <td>{{packages_show1.package_ID}}</td>
                     </tr>
                     <tr>
                         <th>Package Name</th>
-                        <td>{{x.package_Name}}</td>
+                        <td>{{packages_show1.package_Name}}</td>
                     </tr>
                     <tr>
                         <th>Product Name</th>
-                        <td>{{x.prod_ID.prod_Name}}</td>
+                        <td>{{packages_show1.prod_ID.prod_Name}}</td>
                     </tr>
                     <tr>
                         <th>Attribute Values</th>
-                        <td>{% for key,value in attribute_list.items %}
+                        <td>{% for key,value in packages_show1.attribute_values.items %}
                             <div class="table-responsive-sm">
                                 <table class="table">
                                     <tr class="col-12">
@@ -630,11 +618,10 @@
                     </tr>
                     <tr>
                         <th>Packages Price</th>
-                        <td>{{x.package_Price}}/-</td>
+                        <td>{{packages_show1.package_Price}}/-</td>
                     </tr>
                 </table>
             </div>
-            {% endfor %}
             {% endif %}
 
         </div>

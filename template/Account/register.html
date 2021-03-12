@@ -1,0 +1,69 @@
+{% extends 'Account/layout/authenticationMaster.html' %}
+{% block title%}Register {% endblock %}
+{% block cardMain %}
+<div class="mb-4">
+    <i class="feather icon-user-plus auth-icon"></i>
+</div>
+<h3 class="mb-4">
+    Register
+</h3>
+
+<span class="mb-0 text-muted">
+                        Add your credentials
+                    </span>
+
+<br/>
+<br/>
+
+<!-- Hide the form on success -->
+<form role="form" action="" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+    <div class="input-group mb-3">
+        <input type="text" name="username" class="form-control" placeholder="User Name" autofocus required
+               id="id_username">
+    </div>
+
+    <div class="input-group mb-3">
+        <input type="text" name="first_name" class="form-control" placeholder="First Name" required id="id_first_name">
+    </div>
+
+    <div class="input-group mb-3">
+        <input type="text" name="last_name" class="form-control" placeholder="Last Name" required id="id_last_name">
+    </div>
+
+    <div class="input-group mb-3">
+        <input type="text" name="email" class="form-control" placeholder="Email" required id="id_email">
+    </div>
+
+    <div class="input-group mb-3">
+        <input type="file" name="avatar" class="form-control" required id="id_avatar">
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="form-control">
+            {{ form.gender}}
+        </div>
+    </div>
+
+    <div class="input-group mb-4">
+        <input type="password" name="password1" class="form-control" placeholder="Password" required id="id_password1">
+    </div>
+
+    <div class="input-group mb-4">
+        <input type="password" name="password2" class="form-control" placeholder="Re-Enter Password" required
+               id="id_password2">
+    </div>
+
+    <div class="form-group text-left">
+        <div class="checkbox checkbox-fill d-inline">
+            <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
+            <label for="checkbox-fill-a1" class="cr"> Agree with <a href="#">terms</a></label>
+        </div>
+    </div>
+    <button name="register" class="btn btn-primary shadow-2 mb-4">Register</button>
+
+</form>
+{{form.errors}}
+<p class="mb-0 text-muted">Already have an account? <a href="{% url 'user-login' %}">Login</a></p>
+<br/>
+{% endblock %}

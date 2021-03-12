@@ -1,13 +1,14 @@
 import json
 
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import update_session_auth_hash, login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render, redirect
 from django.utils.datastructures import MultiValueDictKeyError
 
-from .forms import CreateUserForm
+from .forms import CreateUserForm, EditProfile
 from .models import *
 
 
@@ -39,12 +40,23 @@ def product_show1(request, id):
                   {'product_detail': product_detail, 'ImageTemplateProductsList': ImageTemplateProductsList})
 
 
-def packages(request):
-    return render(request, 'user/packages.html')
+def packages(request, id):
+    products_list = Product.objects.all()
+    try:
+        packages_list = Packages.objects.filter(prod_ID=id)
+    except AttributeError:
+        pass
+
+    context = {
+        'products_list': products_list,
+        'packages_list': packages_list,
+    }
+    return render(request, 'user/packages.html', context)
 
 
 def order(request, id):
     products = Product.objects.all()
+
     sizesList = []
     AqutousCoatingProductList = []
     ColorsList = []
@@ -55,8 +67,13 @@ def order(request, id):
     HoleDrillingProductsList = []
     BindingMethodProductsList = []
     ImageTemplateProductsList = []
+
+    Packages_list = []
+
     loop_times = range(500, 10000, 500)
+
     value = {}
+
     State = ''
     City = ''
     Postal_Code = 0
@@ -65,6 +82,12 @@ def order(request, id):
     User_Address = ''
     quantity = 0
     TemplateValue = ''
+
+    try:
+        Packages_list = Packages.objects.filter(prod_ID=id)
+        print(Packages_list)
+    except AttributeError:
+        pass
 
     try:
         sizesMap = SizeProductMapping.objects.filter(prod_id=id)
@@ -249,6 +272,7 @@ def order(request, id):
         order_store.save()
 
     context = {'products': products,
+               'Packages_list': Packages_list,
                "loop_times": loop_times,
                'sizesList': sizesList,
                "AqutousCoatingProductList": AqutousCoatingProductList,
@@ -303,7 +327,7 @@ def loginPage(request):
                 return redirect('user-login')
 
         context = {}
-        return render(request, 'user/login.html', context)
+        return render(request, 'Account/login.html', context)
 
 
 def logoutUser(request):
@@ -326,9 +350,46 @@ def registerPage(request):
                 return redirect('user-login')
 
         context = {'form': form}
-        return render(request, 'User/register.html', context)
+        return render(request, 'Account/register.html', context)
 
 
 @login_required(login_url="user-login")
 def viewProfile(request):
     return render(request, "user/viewProfile.html")
+
+
+@login_required(login_url="user-login")
+def editProfile(request):
+    if request.user.is_authenticated:
+        form = EditProfile(request.POST, request.FILES, instance=request.user)
+        if request.method == 'POST':
+            form = EditProfile(request.POST, request.FILES, instance=request.user)
+            if form.is_valid():
+                form.save()
+                return redirect('user-view-profile')
+
+        context = {'form': form}
+        return render(request, 'user/editProfile.html', context)
+
+    else:
+        return redirect('login')
+
+
+@login_required(login_url="user-login")
+def changePassword(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = PasswordChangeForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  # Important!
+                return redirect('user-view-profile')
+            else:
+                messages.error(request, 'Please correct the error below.')
+        else:
+            form = PasswordChangeForm(request.user)
+        return render(request, 'user/changePassword.html', {
+            'form': form
+        })
+    else:
+        return redirect('user-home')
