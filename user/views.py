@@ -289,6 +289,16 @@ def order(request, id):
     return render(request, 'user/order.html', context)
 
 
+def order_package(request, package_Name):
+    products = Product.objects.all()
+    selected_package = Packages.objects.get(package_Name=package_Name)
+    context = {
+        "products": products,
+        "selected_package": selected_package
+    }
+    return render(request, "user/order.html", context)
+
+
 def aboutUs(request):
     return render(request, 'user/aboutUs.html')
 
@@ -330,6 +340,7 @@ def loginPage(request):
         return render(request, 'Account/login.html', context)
 
 
+@login_required(login_url="user-login")
 def logoutUser(request):
     logout(request)
     return redirect('user-home')

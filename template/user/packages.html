@@ -52,7 +52,7 @@
             </div>
 
             <div class="modal-footer justify-content-right">
-                <input type="Submit" name="Submit" value="Place Order" class="btn btn-outline-success">
+                <a href="{% url 'user-order-package' package.package_Name %}" class="btn btn-outline-success" target="_blank">Place Order</a>
             </div>
         </div>
         {% endfor %}

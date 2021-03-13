@@ -15,25 +15,30 @@ label
 vertical-align: top;
 }
 
-.t {
+.t
+{
 display: none;
 }
 
-img:hover {
+img:hover
+{
 opacity:0.8;
 cursor: pointer;
 }
 
-img:active {
+img:active
+{
 opacity:0.5;
 cursor: pointer;
 }
 
-input[type=radio]:checked + label > img {
+input[type=radio]:checked + label > img
+{
 border: 20px solid rgb(228, 207, 94);
 }
 
-#dropdown{
+#dropdown
+{
 height: 50px;
 width: 50%;
 font-size: 20px;
@@ -45,6 +50,7 @@ margin-top: 3px;
 
 {% block header %}
 {% endblock %}
+
 {% block main %}
 <div class="container">
     <div>
@@ -56,7 +62,7 @@ margin-top: 3px;
             </button>
         </div>
 
-        <div class="modal fade" id="modal-packages">
+        <div class="modal fade" id="modal-packages" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -67,29 +73,45 @@ margin-top: 3px;
                     <div class="modal-body mt-2">
                         {% if Packages_list %}
                         {% for package in Packages_list %}
-                        <div class="card border-dark my-2 mx-2" style="width: 22rem; height: 50%;">
+                        <div class="card border-dark my-2 w-100" style="width: 22rem; height: 50%;">
                             <div class="card-header">{{package.package_Name | upper}}</div>
                             <div class="card-body text-dark">
                                 <h5 class="card-title">{{package.prod_ID.prod_Name}}</h5>
-                                <p class="card-text">{% for key,value in package.attribute_values.items %}
+                                <p class="card-text">
                                 <table class="table table-bordered table-sm">
-                                    <tr>
-                                        <th scope="col">{{key}}</th>
-                                        <td>{{value}}</td>
+                                    {% for key,value in package.attribute_values.items %}
+                                    <tr class="row-cols-6 my-2">
+                                        <th class="row-cols-sm-3 py-1 px-1 my-sm-n2">{{key}}</th>
+                                        <td class="py-1 px-1 my-sm-n2">{{value}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                                </p>
+                                <table class="table table-bordered table-sm">
+                                    <tr class="row-cols-6">
+                                        <div class="form-group-sm row">
+                                            <th><label for="quantity_{{package}}">Quantity : </label></th>
+                                            <td><input type="text" readonly id="quantity_{{package}}"
+                                                       class="card-text form-control"
+                                                       value="{{package.quantity}}"/>
+                                            </td>
+                                        </div>
+                                    </tr>
+                                    <tr class="row-cols-6">
+                                        <div class="row">
+                                            <th><label for="price_{{package}}">Price : </label></th>
+                                            <td><input type="text" readonly id="price_{{package}}"
+                                                       class="card-text form-control"
+                                                       value="{{package.package_Price}}"/>
+                                            </td>
+                                        </div>
                                     </tr>
                                 </table>
-                                {% endfor %}
-                                </p>
-                                <label for="price_{{package}}">Price : </label>
-                                <input type="text" readonly id="price_{{package}}" class="card-text form-control"
-                                       value="{{package.package_Price}}"/>
-                                <label for="quantity_{{package}}">Price : </label>
-                                <input type="text" readonly id="quantity_{{package}}" class="card-text form-control"
-                                       value="{{package.quantity}}"/>
                             </div>
 
                             <div class="modal-footer justify-content-right">
-                                <input type="Submit" name="Submit" value="Place Order" class="btn btn-outline-success">
+                                <a href="{% url 'user-order-package' package.package_Name %}"
+                                   class="btn btn-outline-success" target="_blank">Place Order</a>
                             </div>
                         </div>
                         {% endfor %}
